@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 231267096}
   - component: {fileID: 231267095}
   - component: {fileID: 231267094}
+  - component: {fileID: 231267099}
   m_Layer: 0
   m_Name: Player Model
   m_TagString: Untagged
@@ -289,6 +290,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231267092}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &231267099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231267092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb63c8c4ccf6a64abe88d612328221f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrentHealth>k__BackingField: 0
+  <MaxHealth>k__BackingField: 100
+  OnHealthInitializedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamagedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReviveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameInvulnerableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameVulnerableEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_invulnerabilityAfterDamage: 0
+  m_invulnerabilityTime: 1
 --- !u!1 &532629056
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ Shader "Hidden/Custom/Pixel Effect"
         float CalculateQuatization(float incomingColor, float2 uvs)
         {
             // Apply spread to the dither, quantize to 5-bit (0..31), then normalize back to 0..1
-            float v = incomingColor * 255.0 + GetDither(uvs) * _DitherSpread;
+            float v = (incomingColor * 255.0) + (GetDither(uvs) * _DitherSpread);
             float q = floor(v / 8.0);        // 256/32 = 8 -> 0..31
             return saturate(q / 31.0);
         }
