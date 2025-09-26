@@ -4,7 +4,6 @@ Shader "Hidden/Custom/Pixel Effect"
     {
         _SampleAmount("Sample Amount", int) = 100
         _DitherSpread("Dither Spread", float) = .1
-        _QuantizationAmounts("Quantization Amounts", vector) = (255, 255, 255, 255)
     }
 
     HLSLINCLUDE
@@ -15,21 +14,28 @@ Shader "Hidden/Custom/Pixel Effect"
         float4 _QuantizationAmounts;
         float _DitherSpread;
 
-        static const int BayerDitherPattern[2*2] = 
+        static const int PS1Dither[16] = 
         {
-            0,2,
-            3,1
+            -4, 0, -3, 1,
+            2, -2, 3, -1,
+            -3, 1, -4, 0,
+            3, -1, 2, -2
         };
-        static const int BayerPatternSize = 2;
+        static const int DitherPatternSize = 4;
 
 
-        float GetBayer2(int x, int y)
+        float GetDither(float2 uvs)
         {
-            return float(BayerDitherPattern[(x % 2) + (y % 2) *2]) * ((1.0 / 4.0) - 0.5);
+            // Cast to integer pixel coordinates before indexing the matrix
+            int2 p = int2(uvs) % DitherPatternSize;
+            return (float)PS1Dither[p.x + p.y * DitherPatternSize];
         }
-        float CalculateQuatization(float currentAmount, float desiredSamples)
+        float CalculateQuatization(float incomingColor, float2 uvs)
         {
-            return floor(currentAmount * (desiredSamples - 1) + 0.5) / (desiredSamples - 1);
+            // Apply spread to the dither, quantize to 5-bit (0..31), then normalize back to 0..1
+            float v = incomingColor * 255.0 + GetDither(uvs) * _DitherSpread;
+            float q = floor(v / 8.0);        // 256/32 = 8 -> 0..31
+            return saturate(q / 31.0);
         }
         float4 frag (Varyings i) : SV_Target
         {
@@ -38,10 +44,15 @@ Shader "Hidden/Custom/Pixel Effect"
             newTexUVs = floor(newTexUVs);
             newTexUVs /= pixelRatio;
 
-            float2 BayerDitherCoords = newTexUVs * pixelRatio;
+            float2 ps1DitherCoords = newTexUVs * pixelRatio;
             // sample the texture
-            float4 col = _BlitTexture.Sample(sampler_BlitTexture_point_clamp, newTexUVs) + ( _DitherSpread * GetBayer2(BayerDitherCoords.x, BayerDitherCoords.y));
-            col = float4(CalculateQuatization(col.x, _QuantizationAmounts.x), CalculateQuatization(col.y, _QuantizationAmounts.y), CalculateQuatization(col.z, _QuantizationAmounts.z), CalculateQuatization(col.w, _QuantizationAmounts.w));
+            float4 col = _BlitTexture.Sample(sampler_BlitTexture_point_clamp, newTexUVs);
+            col = float4(
+                CalculateQuatization(col.r, ps1DitherCoords),
+                CalculateQuatization(col.g, ps1DitherCoords),
+                CalculateQuatization(col.b, ps1DitherCoords),
+                col.a
+            );
             return col;
         }
 
@@ -49,7 +60,7 @@ Shader "Hidden/Custom/Pixel Effect"
 
     SubShader
     {
-        Tags{ "RenderPipeline" = "UniveralPipeline"}
+        Tags{ "RenderPipeline" = "UniversalPipeline"}
         ZWrite Off ZTest Always Blend Off Cull Off
         Pass
         {

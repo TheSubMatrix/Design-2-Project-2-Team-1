@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pixel
-  m_Shader: {fileID: 4800000, guid: f8d3496294bfdfd4cb2178dc4ab60c0a, type: 3}
+  m_Name: CRTEffect
+  m_Shader: {fileID: 4800000, guid: 58f42b53ae589054494dc20118e36f2e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,10 +25,8 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _DitherSpread: 0.02
-    - _QuantizationAmounts: 15
-    - _SampleAmount: 320
-    m_Colors:
-    - _QuantizationAmounts: {r: 8, g: 8, b: 8, a: 255}
+    - _Curvature: 5.3
+    - _VignetteWidth: 143.1
+    m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
