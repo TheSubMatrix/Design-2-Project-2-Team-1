@@ -3,6 +3,7 @@ Shader "Hidden/Custom/Pixel Effect"
     Properties
     {
         _Curvature("Curvature Width", float) = 0
+        _BandScale("Band Scale", float) = 1
         _VignetteWidth("Vignette Width", float) = 0
     }
 
@@ -12,6 +13,7 @@ Shader "Hidden/Custom/Pixel Effect"
         SamplerState sampler_BlitTexture;
         float _Curvature;
         float _VignetteWidth;
+        float _BandScale;
         
         float4 frag (Varyings i) : SV_Target
         {
@@ -25,8 +27,8 @@ Shader "Hidden/Custom/Pixel Effect"
             float2 vignette = _VignetteWidth / _ScreenParams.xy;
             vignette = smoothstep(0.0f, vignette, 1.0f - abs(uv));
             vignette = saturate(vignette);
-            col.g *= (sin(i.texcoord.y * _ScreenParams.y * 2.0f) + 1.0f) * 0.15f + 1.0f;
-            col.rb *= (cos(i.texcoord.y * _ScreenParams.y * 2.0f) + 1.0f) * 0.135f + 1.0f;
+            col.g *= (sin(i.texcoord.y  * _ScreenParams.y / _BandScale * 2.0f) + 1.0f) * 0.15f + 1.0f;
+            col.rb *= (cos(i.texcoord.y * _ScreenParams.y / _BandScale * 2.0f) + 1.0f) * 0.135f + 1.0f;
             return saturate(col) * vignette.x * vignette.y;
         }
 
