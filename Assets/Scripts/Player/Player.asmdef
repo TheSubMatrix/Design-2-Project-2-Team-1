@@ -1,7 +1,12 @@
 {
     "name": "Player",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:36c23b1dbad3c6e44999fab4b5d94595",
+        "GUID:16c2b54e46dfc844cb0886cb7bbd0f4c",
+        "GUID:1e8b965862d0631489816768b0c8f383",
+        "GUID:88953f9cdab05834f89ad04634d0e2b0"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -26,7 +26,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Curvature: 5.3
-    - _VignetteWidth: 143.1
+    - _VignetteWidth: 65.59
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
