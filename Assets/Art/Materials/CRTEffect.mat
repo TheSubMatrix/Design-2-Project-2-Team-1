@@ -25,7 +25,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _BandScale: 2
+    - _BandScale: 1.5
     - _Curvature: 5.3
     - _VignetteWidth: 65.59
     m_Colors: []
