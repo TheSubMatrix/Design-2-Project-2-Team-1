@@ -51,7 +51,28 @@ public class PlayerMovement : MonoBehaviour
     bool m_isSliding;
     bool IsGrounded => m_groundContactCount > 0;
     bool m_wantsToJump;
+    bool m_shouldReadInput = true;
 
+    public struct UpdatePlayerInputState : IEvent
+    {
+        public UpdatePlayerInputState(bool state)
+        {
+            DesiredInputState = state;
+        }
+        public readonly bool DesiredInputState;
+    }
+
+    EventBinding<UpdatePlayerInputState> m_updateInputStateEvent;
+    void OnEnable()
+    {
+        m_updateInputStateEvent = new EventBinding<UpdatePlayerInputState>(HandleInputReadChange);
+        EventBus<UpdatePlayerInputState>.Register(m_updateInputStateEvent);
+    }
+    
+    void OnDisable()
+    {
+        EventBus<UpdatePlayerInputState>.Deregister(m_updateInputStateEvent);
+    }
     public void Start()
     {
         m_playerHeight = m_playerCollider.height;
@@ -59,7 +80,19 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Update()
     {
+        if (!m_shouldReadInput)
+        {
+            m_playerInput = Vector2.zero;
+            m_desiredVelocity = Vector3.zero;
+            return;
+        }
         HandleInputs();
+    }
+
+    void HandleInputReadChange(UpdatePlayerInputState state)
+    {
+        m_shouldReadInput = state.DesiredInputState;
+        Debug.Log(m_shouldReadInput);
     }
     public void FixedUpdate()
     {

@@ -13,8 +13,23 @@ public class CameraControl : MonoBehaviour
 
     Vector2 m_mousePos;
     Vector2 m_rotation;
+    bool m_shouldReadInput = true;
 
-
+    EventBinding<PlayerMovement.UpdatePlayerInputState> m_updateInputStateEvent;
+    void OnEnable()
+    {
+        m_updateInputStateEvent = new EventBinding<PlayerMovement.UpdatePlayerInputState>(HandleInputReadChange);
+        EventBus<PlayerMovement.UpdatePlayerInputState>.Register(m_updateInputStateEvent);
+    }
+    
+    void OnDisable()
+    {
+        EventBus<PlayerMovement.UpdatePlayerInputState>.Deregister(m_updateInputStateEvent);
+    }
+    void HandleInputReadChange(PlayerMovement.UpdatePlayerInputState state)
+    {
+        m_shouldReadInput = state.DesiredInputState;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +38,9 @@ public class CameraControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
-        if(Time.timeScale <= 0) return;
+        if(Time.timeScale <= 0 || !m_shouldReadInput) return;
         //get the mouse x and y values
         m_mousePos.x = Input.GetAxisRaw("Mouse X");
         m_mousePos.y = Input.GetAxisRaw("Mouse Y");
@@ -40,4 +55,6 @@ public class CameraControl : MonoBehaviour
         m_orientation.transform.localRotation = Quaternion.Euler(0, m_rotation.y, 0);
 
     }
+
+
 }

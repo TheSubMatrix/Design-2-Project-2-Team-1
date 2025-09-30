@@ -1,16 +1,34 @@
+using System;
+using System.Collections;
 using UnityEngine;
-
-public class BaseCombatAction : MonoBehaviour
+[Serializable]
+public abstract class BaseCombatAction
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected bool IsExecuting;
+    protected Coroutine CombatActionCoroutine;
+    [SerializeField] protected float Duration;
+    [SerializeField] protected float Cooldown;
+
+    public abstract void InitializeCombatAction();
+    public void StartCombatAction(MonoBehaviour owner)
     {
-        
+        if (IsExecuting) return;
+        CombatActionCoroutine = owner.StartCoroutine(ExecuteCombatActionAsync());
+    }
+    IEnumerator ExecuteCombatActionAsync()
+    {
+        IsExecuting = true;
+        yield return ExecuteCombatActionAsyncImplementation();
+        yield return new WaitForSeconds(Cooldown);
+        IsExecuting = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected abstract IEnumerator ExecuteCombatActionAsyncImplementation();
+
+    public void CancelCombatAction(MonoBehaviour owner)
     {
-        
+        owner.StopCoroutine(CombatActionCoroutine);
+        CancelCombatActionImplementation();
     }
+    public abstract void CancelCombatActionImplementation();
 }

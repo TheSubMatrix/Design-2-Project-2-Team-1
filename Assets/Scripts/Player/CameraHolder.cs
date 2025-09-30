@@ -1,19 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraHolder : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform cameraPosition;
-    void Start()
-    {
-        
-    }
-
+    [FormerlySerializedAs("cameraPosition")] public Transform m_cameraPosition;
     // Update is called once per frame
     void Update()
     {
-        transform.position = cameraPosition.position;
+        transform.position = m_cameraPosition.position;
     }
 }

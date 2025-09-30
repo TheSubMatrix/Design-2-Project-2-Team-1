@@ -15,7 +15,7 @@ public class SubclassListPropertyDrawer : PropertyDrawer
 {
     //TODO: Improve type caching, I feel like the efficiency of this is not great but it does function
     bool m_isInitialized;
-    const string FilePathForUIBuilderTree = "Assets/1 Scripts/Rex's Namespace/CustomNamespace/Custom Property Drawers/SubclassList.uxml";
+    const string FilePathForUIBuilderTree = "Assets/Scripts/Colin's Namespace/CustomNamespace/Custom Property Drawers/SubclassList.uxml";
     VisualTreeAsset m_uiBuilderTree;
     // ReSharper disable once FieldCanBeMadeReadOnly.Local
     static Dictionary<Type, BuildUIForType> m_uiBuilderTreeCache = new Dictionary<Type, BuildUIForType>();

@@ -1,3 +1,17 @@
 {
-	"name": "CombatActions"
+    "name": "CombatActions",
+    "rootNamespace": "",
+    "references": [
+        "GUID:794aaab98c690194bad6784d1eb9d26b",
+        "GUID:88953f9cdab05834f89ad04634d0e2b0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

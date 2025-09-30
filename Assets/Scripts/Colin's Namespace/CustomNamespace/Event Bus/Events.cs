@@ -2,7 +2,3 @@
 {
     
 }
-public struct Events : IEvent
-{
-    
-}
