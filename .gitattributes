@@ -2,16 +2,12 @@
 # Avoid crlf messing up things like .asset and ProjectSettings (But we'd like to diff so we do not assign binary[-text -diff] tag)
 # You should never do line ending conversion on .asset, .asset could be CRLF(ProjectSettings) LF(Tile set config) or binary even if forced text(Lighting, Terrain and NavMesh Data)
 * -text
-
 # Unity visible meta is LF regardless of created platform
 *.meta text eol=lf
-
 # All extensions are specified in lower cases
 # [git config core.ignorecase true] is assumed.
 # The projects are going to be developed across OSX and Windows, if we allow OSX user to commit file names only differ in capitalization.
 # These files will prevent Windows users to pull
-
-
 # Human authored code
 # Files with auto crlf conversion, auto crlf is painful to get right
 # But we need it to avoid committing files with all line endings changed by text editor
@@ -20,35 +16,27 @@
 # And we'd like source code having the same binary across Windows and macOS so that the souce hash would be calculated the same
 *.cs         text eol=lf
 *.json       text eol=lf
-
 # ShaderLab
 *.cginc      text eol=lf
 *.shader     text eol=lf
-
 # Gradle property
 *.properties text eol=lf
-
 # AndroidManifest and other XML files
 *.xml        text eol=lf
-
 # iOS plugin possible extensions
 *.h          text eol=lf
 *.c          text eol=lf
 *.cpp        text eol=lf
 *.m          text eol=lf
 *.mm         text eol=lf
-
 # NeXTSTEP property list
 *.plist      text eol=lf
-
 # GitLab and other services config
 *.yml        text eol=lf
 *.toml       text eol=lf
-
 # LFS
 # We intentionally NOT LFS tracking .prefab and .unity(Unity scene) in order to diff
 # We also intentionally not assign YAMLMerge as diff and merge to them, it does not work
-
 # Library
 *.dll         filter=lfs diff=lfs merge=lfs
 *.jar         filter=lfs diff=lfs merge=lfs
@@ -61,24 +49,19 @@
 *.swiftmodule filter=lfs diff=lfs merge=lfs
 *.swiftdoc    filter=lfs diff=lfs merge=lfs
 *.bundle      filter=lfs diff=lfs merge=lfs
-
 # Debug information, really should not get committed into repository
 # Program database
 *.pdb filter=lfs diff=lfs merge=lfs
 # Program database for Mono
 *.mdb filter=lfs diff=lfs merge=lfs
-
 # Linking information, really should not get committed into repository
 *.ilk filter=lfs diff=lfs merge=lfs
-
 # Executable
 *.exe filter=lfs diff=lfs merge=lfs
-
 # Unity
 LightingData.asset filter=lfs diff=lfs merge=lfs
 NavMesh.asset      filter=lfs diff=lfs merge=lfs
 *.cubemap          filter=lfs diff=lfs merge=lfs
-
 # Texture
 *.bmp     filter=lfs diff=lfs merge=lfs
 *.gif     filter=lfs diff=lfs merge=lfs
@@ -104,12 +87,9 @@ NavMesh.asset      filter=lfs diff=lfs merge=lfs
 *.sbsar   filter=lfs diff=lfs merge=lfs
 # https://substance3d.adobe.com/documentation/bake/what-are-assbin-files-172824370.html
 *.assbin  filter=lfs diff=lfs merge=lfs
-
-
 # Shader
 # Unity shader graph, almost unreadable text file
 *.shadersubgraph filter=lfs diff=lfs merge=lfs
-
 # Model
 *.fbx   filter=lfs diff=lfs merge=lfs
 # 3ds Max
@@ -124,7 +104,6 @@ NavMesh.asset      filter=lfs diff=lfs merge=lfs
 *.zpr   filter=lfs diff=lfs merge=lfs
 # Blender
 *.blend filter=lfs diff=lfs merge=lfs
-
 # Audio
 *.aif  filter=lfs diff=lfs merge=lfs
 *.aiff filter=lfs diff=lfs merge=lfs
@@ -135,7 +114,6 @@ NavMesh.asset      filter=lfs diff=lfs merge=lfs
 # Wwise sound bank
 *.bnk  filter=lfs diff=lfs merge=lfs
 # Wwise work units .wwu and Wwise project .wproj are readable XML, not LFS for now
-
 # Animation
 # Spine animation binary export
 *.skel.bytes filter=lfs diff=lfs merge=lfs
@@ -143,26 +121,21 @@ NavMesh.asset      filter=lfs diff=lfs merge=lfs
 *.anim       filter=lfs diff=lfs merge=lfs
 # 3ds Max XML Animation File
 *.xaf        filter=lfs diff=lfs merge=lfs
-
 # Movie
 *.mp4 filter=lfs diff=lfs merge=lfs
 *.mov filter=lfs diff=lfs merge=lfs
-
 # Font
 *.ttf filter=lfs diff=lfs merge=lfs
 *.otf filter=lfs diff=lfs merge=lfs
-
 # Document
 *.doc  filter=lfs diff=lfs merge=lfs
 *.docx filter=lfs diff=lfs merge=lfs
 *.pdf  filter=lfs diff=lfs merge=lfs
 *.rtf  filter=lfs diff=lfs merge=lfs
 *.chm  filter=lfs diff=lfs merge=lfs
-
 # Spreadsheet
 *.xls  filter=lfs diff=lfs merge=lfs
 *.xlsx filter=lfs diff=lfs merge=lfs
-
 # Misc, consider remove them from repository
 *.7z           filter=lfs diff=lfs merge=lfs
 *.zip          filter=lfs diff=lfs merge=lfs
@@ -173,3 +146,4 @@ NavMesh.asset      filter=lfs diff=lfs merge=lfs
 *.dlu          filter=lfs diff=lfs merge=lfs
 # SQLite database
 *.db           filter=lfs diff=lfs merge=lfs
+*.unity filter=lfs diff=lfs merge=lfs -text
