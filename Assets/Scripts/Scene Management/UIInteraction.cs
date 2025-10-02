@@ -32,7 +32,7 @@ public class UIInteraction : MonoBehaviour
     // Loads level one upon clicking the "start game" button
     public void StartGame()
     {
-        SceneManager.LoadScene("Level One");
+        SceneTransitionHandler.Instance.TransitionScene("Level One");
     }    
 
     // Quits the game upon clicking the "quit" button
