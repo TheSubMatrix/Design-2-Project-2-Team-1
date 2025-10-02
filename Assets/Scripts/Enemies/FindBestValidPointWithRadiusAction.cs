@@ -33,11 +33,12 @@ public partial class FindBestValidPointWithRadiusAction : Action
         for (uint i = 0; i < MaxIterations; i++)
         {
             m_searchPositions.Add(new Vector3(
-                searchCenter.x + (Radius.Value * MathF.Cos(i * 2 * MathF.PI / MaxIterations)),
+                searchCenter.x + (Radius.Value * MathF.Cos(i * (2 * MathF.PI / MaxIterations))),
                 searchCenter.y,
-                searchCenter.z + (Radius.Value * MathF.Sin(i * 2 * MathF.PI / MaxIterations))));
+                searchCenter.z + (Radius.Value * MathF.Sin(i * (2 * MathF.PI / MaxIterations)))));
         }
-
+        
+        Vector3 closestPoint = Vector3.positiveInfinity;
         foreach (Vector3 position in m_searchPositions.ToList())
         {
             if (NavMesh.Raycast(searchCenter, position, out NavMeshHit meshHit, NavMesh.AllAreas))
