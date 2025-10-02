@@ -9,11 +9,17 @@ public class PlayerAttack : MonoBehaviour
     BaseCombatAction m_attackCombatAction;
     [SerializeReference, SubclassList(typeof(BaseCombatAction))]
     BaseCombatAction m_heavyAttackCombatAction;
+    [SerializeReference, SubclassList(typeof(BaseCombatAction))]
+    BaseCombatAction m_attackCombatActionBerserk;
+    [SerializeReference, SubclassList(typeof(BaseCombatAction))]
+    BaseCombatAction m_heavyAttackCombatActionBerserk;
 
     void Start()
     {
         m_attackCombatAction.InitializeCombatAction();
         m_heavyAttackCombatAction.InitializeCombatAction();
+        m_attackCombatActionBerserk.InitializeCombatAction();
+        m_heavyAttackCombatActionBerserk.InitializeCombatAction();
     }
 
     void Update()
