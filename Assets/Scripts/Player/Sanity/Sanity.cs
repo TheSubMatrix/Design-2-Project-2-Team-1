@@ -4,10 +4,14 @@ public class Sanity : MonoBehaviour
 {
     [SerializeField] uint m_currentSanity;
     [SerializeField] uint m_maxSanity;
-    
-    struct SanityChange: IEvent
+
+    public struct SanityChange: IEvent
     {
-        public int SanityDifference;
+        public SanityChange(int sanityDifference)
+        {
+            SanityDifference = sanityDifference;
+        }
+        public readonly int SanityDifference;
     }
     EventBinding<SanityChange> m_healthEvent;
 

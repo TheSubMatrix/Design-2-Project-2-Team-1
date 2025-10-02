@@ -16,10 +16,10 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-        m_attackCombatAction.InitializeCombatAction();
-        m_heavyAttackCombatAction.InitializeCombatAction();
-        m_attackCombatActionBerserk.InitializeCombatAction();
-        m_heavyAttackCombatActionBerserk.InitializeCombatAction();
+        m_attackCombatAction?.InitializeCombatAction();
+        m_heavyAttackCombatAction?.InitializeCombatAction();
+        m_attackCombatActionBerserk?.InitializeCombatAction();
+        m_heavyAttackCombatActionBerserk?.InitializeCombatAction();
     }
 
     void Update()
