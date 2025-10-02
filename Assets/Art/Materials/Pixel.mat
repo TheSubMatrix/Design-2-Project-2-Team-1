@@ -27,7 +27,7 @@ Material:
     m_Floats:
     - _DitherSpread: 1
     - _QuantizationAmounts: 15
-    - _SampleAmount: 320
+    - _SampleAmount: 480
     m_Colors:
     - _QuantizationAmounts: {r: 8, g: 8, b: 8, a: 255}
   m_BuildTextureStacks: []
