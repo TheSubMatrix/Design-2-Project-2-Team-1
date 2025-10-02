@@ -34,4 +34,11 @@ public class UIInteraction : MonoBehaviour
     {
         SceneManager.LoadScene("Level One");
     }    
+
+    // Quits the game upon clicking the "quit" button
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Game successfully closed");
+    }
 }
