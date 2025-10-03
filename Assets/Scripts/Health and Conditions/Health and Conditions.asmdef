@@ -1,12 +1,7 @@
 {
-    "name": "CombatActions",
+    "name": "Health and Conditions",
     "rootNamespace": "",
-    "references": [
-        "GUID:794aaab98c690194bad6784d1eb9d26b",
-        "GUID:88953f9cdab05834f89ad04634d0e2b0",
-        "GUID:2e07d35e76d608d41a7a13bcb7476334",
-        "GUID:a3aab014a8e3ef4438300f4c5a6e46fd"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

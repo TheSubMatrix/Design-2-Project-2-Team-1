@@ -1,5 +1,5 @@
 {
-    "name": "Player.Sanity",
+    "name": "Health and Conditions.Sanity",
     "rootNamespace": "",
     "references": [
         "GUID:1e8b965862d0631489816768b0c8f383"

@@ -24,12 +24,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (!Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             m_attackCombatAction.StartCombatAction(this);
         }
 
-        if (!Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             m_heavyAttackCombatAction.StartCombatAction(this);
         }
