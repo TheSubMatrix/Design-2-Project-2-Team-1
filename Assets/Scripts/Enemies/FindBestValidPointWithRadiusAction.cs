@@ -9,13 +9,14 @@ using UnityEngine.AI;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "Find Best Valid Point With Radius",
-    story: "Find nearest valid [Point] around [Position] with [Radius]", category: "Action/Navigation",
+    story: "Find nearest valid [Point] around [Position] with [Radius] close to [Agent]", category: "Action/Navigation",
     id: "199d47df04afa89246b381cccdd827d6")]
 public partial class FindBestValidPointWithRadiusAction : Action
 {
     const uint MaxIterations = 16;
     [SerializeReference] public BlackboardVariable<Vector3> Point;
     [SerializeReference] public BlackboardVariable<Vector3> Position;
+    [SerializeReference] public BlackboardVariable<GameObject> Agent;
     [SerializeReference] public BlackboardVariable<float> Radius;
     NavMeshAgent m_navMeshAgent;
     List<Vector3> m_searchPositions = new();
@@ -46,7 +47,7 @@ public partial class FindBestValidPointWithRadiusAction : Action
                 m_searchPositions.Remove(position);
             }
         }
-        Point.Value = m_searchPositions.OrderBy(p => Vector3.Distance(p, Position.Value)).First();
+        Point.Value = m_searchPositions.OrderBy(p => Vector3.Distance(p, Agent.Value.transform.position)).First();
         return Status.Success;
     }
 }

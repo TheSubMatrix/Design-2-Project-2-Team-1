@@ -620,6 +620,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1075676373457423460, guid: 198b056b1a9d785489b7a3e33b0b71f5, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3640872167983227741, guid: 198b056b1a9d785489b7a3e33b0b71f5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.46683025
@@ -659,6 +663,14 @@ PrefabInstance:
     - target: {fileID: 3640872167983227741, guid: 198b056b1a9d785489b7a3e33b0b71f5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828668907040374026, guid: 198b056b1a9d785489b7a3e33b0b71f5, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7286791746096189196, guid: 198b056b1a9d785489b7a3e33b0b71f5, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -763,7 +775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a985740c1ebf2943bf83860383a92cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_previousCamera: {fileID: 0}
   m_interactionCamera: {fileID: 781195670}
 --- !u!65 &1969884736
 BoxCollider:

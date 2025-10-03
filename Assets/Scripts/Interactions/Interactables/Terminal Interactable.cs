@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TerminalInteractable : MonoBehaviour, IInteractable
 {
-    [SerializeField]CinemachineCamera m_previousCamera;
+    CinemachineCamera m_previousCamera;
     [SerializeField] CinemachineCamera m_interactionCamera;
     bool m_isInteracting = false;
     public void OnStartedInteraction(MonoBehaviour interactor)
