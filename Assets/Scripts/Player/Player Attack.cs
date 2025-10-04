@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -18,7 +16,10 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] InputActionReference m_lightAttack;
     [SerializeField] InputActionReference m_heavyAttack;
     bool m_berserk;
-
+    bool IsAttacking => (m_attackCombatAction is not null && m_attackCombatAction.IsExecuting) ||
+                        (m_heavyAttackCombatAction is not null && m_heavyAttackCombatAction.IsExecuting) ||
+                        (m_attackCombatActionBerserk is not null && m_attackCombatActionBerserk.IsExecuting) ||
+                        (m_heavyAttackCombatActionBerserk is not null && m_heavyAttackCombatActionBerserk.IsExecuting);
     void OnEnable()
     {
         m_lightAttack.action.Enable();
@@ -45,10 +46,22 @@ public class PlayerAttack : MonoBehaviour
 
     void LightAttack(InputAction.CallbackContext context)
     {
+        if (IsAttacking) return;
+        if (m_berserk)
+        {
+            m_attackCombatActionBerserk.StartCombatAction(this);
+            return;
+        }
         m_attackCombatAction.StartCombatAction(this);
     }
     void HeavyAttack(InputAction.CallbackContext context)
     {
+        if (IsAttacking) return;
+        if (m_berserk)
+        {
+            m_heavyAttackCombatActionBerserk.StartCombatAction(this);
+            return;
+        }
         m_heavyAttackCombatAction.StartCombatAction(this);
     }
 }

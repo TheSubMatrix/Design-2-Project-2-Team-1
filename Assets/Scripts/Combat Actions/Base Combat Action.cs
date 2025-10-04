@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public abstract class BaseCombatAction
 {
-    protected bool IsExecuting;
+    public bool IsExecuting { get; protected set; }
     protected Coroutine CombatActionCoroutine;
     [SerializeField] protected float Duration;
     [SerializeField] protected float Cooldown;
@@ -30,5 +30,9 @@ public abstract class BaseCombatAction
         owner.StopCoroutine(CombatActionCoroutine);
         CancelCombatActionImplementation();
     }
-    public abstract void CancelCombatActionImplementation();
+
+    public virtual void CancelCombatActionImplementation()
+    {
+        
+    }
 }

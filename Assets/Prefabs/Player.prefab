@@ -254,16 +254,14 @@ MonoBehaviour:
   m_heavyAttackCombatAction:
     rid: 2024132805852660287
   m_attackCombatActionBerserk:
-    rid: -2
+    rid: 2024132831431361273
   m_heavyAttackCombatActionBerserk:
-    rid: -2
+    rid: 2024132831431361274
   m_lightAttack: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_heavyAttack: {fileID: -8169323111223626071, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 2024132805852660287
       type: {class: FireProjectileCombatAction, ns: , asm: CombatActions}
       data:
@@ -307,6 +305,22 @@ MonoBehaviour:
           IgnoreListenerVolume: 0
           IgnoreListenerPause: 0
           RolloffMode: 0
+    - rid: 2024132831431361273
+      type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
+      data:
+        Duration: 0
+        Cooldown: 0
+        m_triggerEventCallbacks: {fileID: 6051117072481618210}
+        m_attackAnimationOverride: {fileID: 0}
+        m_damage: 0
+    - rid: 2024132831431361274
+      type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
+      data:
+        Duration: 0
+        Cooldown: 0
+        m_triggerEventCallbacks: {fileID: 602468544619610626}
+        m_attackAnimationOverride: {fileID: 0}
+        m_damage: 0
     - rid: 7426388081278713994
       type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
       data:

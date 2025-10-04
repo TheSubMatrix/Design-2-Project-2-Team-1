@@ -35,6 +35,7 @@ public class PlayerCameraBlendHandler : MonoBehaviour
     {
         CinemachineVirtualCameraBase virtualCamera = m_brain.ActiveVirtualCamera as CinemachineVirtualCameraBase;
         if (virtualCamera != null) virtualCamera.Priority.Value = 0;
+        if(data.CameraToBlendTo is null) return;
         data.CameraToBlendTo.Priority.Value = 10;
     }
 }

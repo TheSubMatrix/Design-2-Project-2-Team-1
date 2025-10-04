@@ -63,9 +63,4 @@ public class FireProjectileCombatAction : BaseCombatAction
         projectile.Fire(ProjectileShotCompleted, m_projectileSpawnPoint.forward * 15);
         yield return null;
     }
-
-    public override void CancelCombatActionImplementation()
-    {
-
-    }
 }

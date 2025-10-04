@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8383924914692691124}
   - component: {fileID: 5046755789583033746}
   - component: {fileID: 7144083813680029956}
+  - component: {fileID: 2266136594771191104}
   - component: {fileID: 2588388081469124197}
   - component: {fileID: 5485871418071887484}
   - component: {fileID: 4060859016667066858}
@@ -38,6 +39,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8798926138738955788}
+  - {fileID: 7672743307238327496}
   m_Father: {fileID: 796477918484413832}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5046755789583033746
@@ -55,7 +57,6 @@ MonoBehaviour:
   m_Graph: {fileID: -123352978725806517, guid: c8ac4b05f26a2f849948f6897c75d97b, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 6176148191195693130
-  - rid: 6176148191195693131
   - rid: 6176148191195693132
   m_IsInitialised: 0
   m_IsStarted: 0
@@ -70,14 +71,6 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 1359520768420072270}
-    - rid: 6176148191195693131
-      type: {class: 'BlackboardVariable`1[[EnemyVisionSensor, Enemies]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 2992633091243608951
-          m_Value1: 12650516906496576807
-        Name: Vision Sensor
-        m_Value: {fileID: 1948516198756351859}
     - rid: 6176148191195693132
       type: {class: 'BlackboardVariable`1[[System.Collections.Generic.List`1[[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -137,6 +130,70 @@ MonoBehaviour:
       m_Calls: []
   m_invulnerabilityAfterDamage: 0
   m_invulnerabilityTime: 1
+--- !u!114 &2266136594771191104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359520768420072270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95f035ef6f5bbc4997e0b9ea54cb3ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackCombatAction:
+    rid: 2024132831431361290
+  m_secondaryAttackCombatAction:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2024132831431361290
+      type: {class: FireProjectileCombatAction, ns: , asm: CombatActions}
+      data:
+        Duration: 0
+        Cooldown: 0.25
+        m_projectilePrefab: {fileID: 8119409992204549394, guid: 71da88ea216ab2f47abe07a2270bdea4, type: 3}
+        m_projectileSpawnPoint: {fileID: 7672743307238327496}
+        m_projectileShotSound:
+          Clip: {fileID: 0}
+          MixerGroup: {fileID: 0}
+          Loop: 0
+          PlayOnAwake: 0
+          PlayedFrequently: 0
+          Volume: 1
+          Pitch: 1
+          PanStereo: 0
+          SpatialBlend: 0
+          ReverbZoneMix: 1
+          DopplerLevel: 1
+          Spread: 0
+          MinDistance: 1
+          MaxDistance: 500
+          IgnoreListenerVolume: 0
+          IgnoreListenerPause: 0
+          RolloffMode: 0
+        m_projectileHitSound:
+          Clip: {fileID: 0}
+          MixerGroup: {fileID: 0}
+          Loop: 0
+          PlayOnAwake: 0
+          PlayedFrequently: 0
+          Volume: 1
+          Pitch: 1
+          PanStereo: 0
+          SpatialBlend: 0
+          ReverbZoneMix: 1
+          DopplerLevel: 1
+          Spread: 0
+          MinDistance: 1
+          MaxDistance: 500
+          IgnoreListenerVolume: 0
+          IgnoreListenerPause: 0
+          RolloffMode: 0
 --- !u!195 &2588388081469124197
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -470,4 +527,35 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7473614802543798898}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9219568817048928051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7672743307238327496}
+  m_Layer: 0
+  m_Name: Fire Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7672743307238327496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219568817048928051}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8383924914692691124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
