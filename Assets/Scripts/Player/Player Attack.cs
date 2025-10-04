@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -14,7 +15,27 @@ public class PlayerAttack : MonoBehaviour
     [SerializeReference, SubclassList(typeof(BaseCombatAction))]
     BaseCombatAction m_heavyAttackCombatActionBerserk;
 
-    void Start()
+    [SerializeField] InputActionReference m_lightAttack;
+    [SerializeField] InputActionReference m_heavyAttack;
+    bool m_berserk;
+
+    void OnEnable()
+    {
+        m_lightAttack.action.Enable();
+        m_heavyAttack.action.Enable();
+        m_lightAttack.action.performed += LightAttack;
+        m_heavyAttack.action.performed += HeavyAttack;
+    }
+
+    void OnDisable()
+    {
+        m_lightAttack.action.Disable();
+        m_heavyAttack.action.Disable();
+        m_lightAttack.action.performed -= LightAttack;
+        m_heavyAttack.action.performed -= HeavyAttack;
+    }
+
+    void Awake()
     {
         m_attackCombatAction?.InitializeCombatAction();
         m_heavyAttackCombatAction?.InitializeCombatAction();
@@ -22,16 +43,12 @@ public class PlayerAttack : MonoBehaviour
         m_heavyAttackCombatActionBerserk?.InitializeCombatAction();
     }
 
-    void Update()
+    void LightAttack(InputAction.CallbackContext context)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            m_attackCombatAction.StartCombatAction(this);
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            m_heavyAttackCombatAction.StartCombatAction(this);
-        }
+        m_attackCombatAction.StartCombatAction(this);
+    }
+    void HeavyAttack(InputAction.CallbackContext context)
+    {
+        m_heavyAttackCombatAction.StartCombatAction(this);
     }
 }

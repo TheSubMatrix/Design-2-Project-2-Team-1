@@ -1,14 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [FormerlySerializedAs("playerCollider")] [Header("Assign in Editor")]
-    public CapsuleCollider m_playerCollider;
+    [FormerlySerializedAs("playerCollider")] [Header("Assign in Editor")] public CapsuleCollider m_playerCollider;
     [FormerlySerializedAs("orientation")] public Transform m_orientation;
     [FormerlySerializedAs("rb")] public Rigidbody m_rb;
-    [FormerlySerializedAs("walkMoveSpeed")] [Header("Movement Options")]
-    public float m_walkMoveSpeed;
+    [FormerlySerializedAs("walkMoveSpeed")] [Header("Movement Options")] public float m_walkMoveSpeed;
     [FormerlySerializedAs("sprintMoveSpeed")] public float m_sprintMoveSpeed;
     [FormerlySerializedAs("crouchMoveSpeed")] public float m_crouchMoveSpeed;
     [FormerlySerializedAs("maxGroundAcceleration")] public float m_maxGroundAcceleration;
@@ -19,12 +18,19 @@ public class PlayerMovement : MonoBehaviour
     [FormerlySerializedAs("jumpHeight")] public float m_jumpHeight;
     [FormerlySerializedAs("crouchDistance")] public float m_crouchDistance;
     [FormerlySerializedAs("crouchSpeed")] public float m_crouchSpeed;
-    [FormerlySerializedAs("maxGroundAngle")] [Header("Controller Options")]
-    public float m_maxGroundAngle;
+    [FormerlySerializedAs("maxGroundAngle")] [Header("Controller Options")] public float m_maxGroundAngle;
     [FormerlySerializedAs("steepDetectionTolerance")] public float m_steepDetectionTolerance;
     [FormerlySerializedAs("enableGroundSnapping")] public bool m_enableGroundSnapping;
     [FormerlySerializedAs("snapProbeDistance")] public float m_snapProbeDistance;
     
+    [Header("Input Actions")]
+    public InputActionReference m_moveAction;
+    public InputActionReference m_jumpAction;
+    public InputActionReference m_sprintAction;
+    public InputActionReference m_crouchAction;
+    
+    
+    [SerializeField]MovementState m_movementState;
     Rigidbody m_currentConnectedBody;
     Rigidbody m_lastConnectedBody;
     Vector2 m_playerInput;
@@ -40,19 +46,27 @@ public class PlayerMovement : MonoBehaviour
     float m_desiredSpeed;
     float m_currentAcceleration;
     float m_currentDeceleration;
-    float m_playerHeight;
+    [SerializeField]float m_playerHeight;
     float m_crouchedHeight;
     double m_stepsSinceGrounded;
     double m_stepsSinceJump;
     int m_groundContactCount;
     int m_steepContactCount;
-    bool m_desiredCrouchState;
-    bool m_currentCrouchState;
-    bool m_isSliding;
+    int m_ceilingContactCount;
+
+
     bool IsGrounded => m_groundContactCount > 0;
     bool m_wantsToJump;
     bool m_shouldReadInput = true;
-
+    
+    enum MovementState
+    {
+        Walk,
+        Sprint,
+        Crouch,
+        Slide
+    }
+    
     public struct UpdatePlayerInputState : IEvent
     {
         public UpdatePlayerInputState(bool state)
@@ -67,126 +81,189 @@ public class PlayerMovement : MonoBehaviour
     {
         m_updateInputStateEvent = new EventBinding<UpdatePlayerInputState>(HandleInputReadChange);
         EventBus<UpdatePlayerInputState>.Register(m_updateInputStateEvent);
+        // Enable input actions
+        if (m_moveAction != null)
+        {
+            m_moveAction.action.Enable();
+            m_moveAction.action.canceled += OnMove;
+            m_moveAction.action.performed += OnMove;
+        }
+        if (m_jumpAction != null)
+        {
+            m_jumpAction.action.Enable();
+            m_jumpAction.action.performed += OnJumpPerformed;
+        }
+        if (m_sprintAction != null)
+        {
+            m_sprintAction.action.performed += ProcessStartSprint;
+            m_sprintAction.action.canceled += ProcessStopSprint;
+            m_sprintAction.action.Enable();
+        }
+        if (m_crouchAction != null)
+        {
+            m_crouchAction.action.Enable();
+            m_crouchAction.action.performed += OnCrouchPerformed;
+        }
+    
     }
     
     void OnDisable()
     {
         EventBus<UpdatePlayerInputState>.Deregister(m_updateInputStateEvent);
+        // Disable input actions and unsubscribe from events
+        if (m_moveAction != null)
+        {
+            m_moveAction.action.Disable();
+            m_moveAction.action.performed -= OnMove;       
+            m_moveAction.action.canceled -= OnMove;       
+        }
+        if (m_jumpAction != null)
+        {
+            m_jumpAction.action.performed -= OnJumpPerformed;
+            m_jumpAction.action.Disable();
+        }
+        if (m_sprintAction != null)
+        {
+            m_sprintAction.action.Disable();
+            m_sprintAction.action.performed -= ProcessStartSprint;
+            m_sprintAction.action.canceled -= ProcessStopSprint;
+        }
+        if (m_crouchAction != null)
+        {
+            m_crouchAction.action.performed -= OnCrouchPerformed;
+            m_crouchAction.action.Disable();
+        }
     }
     public void Start()
     {
         m_playerHeight = m_playerCollider.height;
         m_crouchedHeight = m_playerHeight - m_crouchDistance;
     }
-    public void Update()
+
+    public void OnMove(InputAction.CallbackContext context)
     {
         if (!m_shouldReadInput)
         {
             m_playerInput = Vector2.zero;
-            m_desiredVelocity = Vector3.zero;
             return;
         }
-        HandleInputs();
+        m_playerInput = context.ReadValue<Vector2>();
     }
-
+    void OnJumpPerformed(InputAction.CallbackContext context)
+    {
+        if (!m_shouldReadInput) return;
+        m_wantsToJump = true;
+    }
+    void OnCrouchPerformed(InputAction.CallbackContext context)
+    {
+        if (!m_shouldReadInput) return;
+        m_movementState = m_movementState switch
+        {
+            MovementState.Walk => MovementState.Crouch,
+            MovementState.Crouch or MovementState.Slide => m_modifiedVelocity.magnitude > m_walkMoveSpeed ? MovementState.Sprint : MovementState.Walk,
+            MovementState.Sprint => IsGrounded && m_modifiedVelocity.magnitude > m_walkMoveSpeed ? MovementState.Slide : MovementState.Crouch,
+            _ => m_movementState
+        };
+    }
+    
+    void ProcessStartSprint(InputAction.CallbackContext context)
+    {
+        if (!m_shouldReadInput) return;
+        if (m_movementState == MovementState.Walk)
+        {
+            m_movementState = MovementState.Sprint;
+        }
+    }
+    void ProcessStopSprint(InputAction.CallbackContext context)
+    {
+        if (!m_shouldReadInput) return;
+        if (m_movementState == MovementState.Sprint)
+        {
+            m_movementState = MovementState.Walk;
+        }
+    }
+    void ProcessSpeed()
+    {
+        m_desiredSpeed = m_movementState switch
+        {
+            MovementState.Walk => m_walkMoveSpeed,
+            MovementState.Sprint => m_walkMoveSpeed + Mathf.Clamp(Vector3.Dot(new Vector3(m_rb.linearVelocity.x, 0, m_rb.linearVelocity.z).normalized, m_orientation.forward), 0, 1) * (m_sprintMoveSpeed - m_walkMoveSpeed),
+            MovementState.Crouch or MovementState.Slide => m_crouchMoveSpeed,
+            _ => m_desiredSpeed
+        };
+    }
     void HandleInputReadChange(UpdatePlayerInputState state)
     {
         m_shouldReadInput = state.DesiredInputState;
-        Debug.Log(m_shouldReadInput);
+        
+        // Cancel any current desired movement or state changes when input is disabled
+        if (m_shouldReadInput) return;
+        m_playerInput = Vector2.zero;
+        m_wantsToJump = false;
+            
+        // Reset to walk state if we're sprinting or sliding
+        if (m_movementState is MovementState.Sprint or MovementState.Slide)
+        {
+            m_movementState = MovementState.Walk;
+        }
     }
+    
+
     public void FixedUpdate()
     {
         UpdateStates();
+        
+        // If we're trying to stand up but there are ceiling contacts, revert to crouch
+        if (m_movementState is MovementState.Walk or MovementState.Sprint && m_playerCollider.height < m_playerHeight && m_ceilingContactCount > 0)
+        {
+            m_movementState = MovementState.Crouch;
+        }
+        
+        AdjustCapsuleHeight();
         MovePlayer();
         //if the player is grounded and wants to jump, then jump
         if (m_wantsToJump)
         {
             m_wantsToJump = false;
-            if (IsGrounded) Jump();
+            if (IsGrounded)
+            {
+                Jump();
+                // Cancel slide or crouch when jumping
+                if (m_movementState is MovementState.Slide or MovementState.Crouch)
+                {
+                    m_movementState = m_modifiedVelocity.magnitude > m_walkMoveSpeed ? MovementState.Sprint : MovementState.Walk;
+                }
+            }
         }
-        //if we want to crouch, and we aren't currently crouched, then crouch
-        if(m_desiredCrouchState && !m_currentCrouchState)
+
+        //if we want to stop sliding, transition back to crouch when velocity drops below crouch speed
+
+        if (m_movementState == MovementState.Slide && m_modifiedVelocity.magnitude <= m_crouchMoveSpeed)
         {
-            Crouch();
+            m_movementState = MovementState.Crouch;
         }
-        //if we no longer want to be crouched, and we are currently crouched, then uncrouched
-        if(!m_desiredCrouchState && m_currentCrouchState)
-        {
-            Uncrouch();
-        }
-        //if we have a certain amount of speed, and we desire to crouch, then slide
-        if(m_desiredCrouchState && m_modifiedVelocity.magnitude > m_walkMoveSpeed)
-        {
-            m_isSliding = true;
-            
-        }
-        //if we want to stop sliding, the player can do so by uncrouching. Automatically stop their slide if their desired move speed is less than or equal to that of the velocity in their desired move direction for smooth transitions between the sliding and crouched state
-        if (!m_desiredCrouchState && m_isSliding || Mathf.Clamp(Vector3.Dot(m_modifiedVelocity, m_desiredVelocity), 0, m_desiredSpeed) >= m_modifiedVelocity.magnitude && m_isSliding || m_modifiedVelocity.magnitude <= 0.01 && m_isSliding)
-        {
-            m_isSliding = false;
-        }
+
         //take the calculated modified velocity and apply it to the rigid body
         m_rb.linearVelocity = m_modifiedVelocity;
         ClearState();
     }
-    void Crouch()
-    {
-        //move the player height towards the height of the desire crouch state
-        m_playerCollider.height = Mathf.MoveTowards(m_playerCollider.height, m_crouchedHeight, Time.deltaTime * m_crouchSpeed);
-        //change the crouch state if we've reached the desired height
-        if (Mathf.Approximately(m_playerCollider.height, m_crouchedHeight))
-        {
-            m_currentCrouchState = true;
-        }
-    }
-    void Uncrouch()
-    {
-        //move the player height towards the height of the desire crouch state
-        m_playerCollider.height = Mathf.MoveTowards(m_playerCollider.height, m_playerHeight, Time.deltaTime * m_crouchSpeed);
-        //change the crouch state if we've reached the desired height
-        if (Mathf.Approximately(m_playerCollider.height, m_playerHeight))
-        {
-            m_currentCrouchState = false;
-        }
-    }
-    void HandleInputs()
-    {
-        //get the horizontal and vertical movement axis and use them to create a clamped vector 2 to represent the direction we want the player to move
-        m_playerInput.x = Input.GetAxis("Horizontal");
-        m_playerInput.y = Input.GetAxis("Vertical");
-        m_playerInput = Vector2.ClampMagnitude(m_playerInput, 1f);
 
-        //if the sprint key is pressed, and we aren't crouched or sliding, set our desired spreed to the sprint speed
-        if (Input.GetButton("Sprint") && !m_desiredCrouchState && !m_isSliding)
+    void AdjustCapsuleHeight()
+    {
+        float targetHeight = m_movementState is MovementState.Crouch or MovementState.Slide ? m_crouchedHeight : m_playerHeight;
+
+        // Don't grow the capsule if there are ceiling contacts
+        if (targetHeight > m_playerCollider.height && m_ceilingContactCount > 0)
         {
-            m_desiredSpeed = m_walkMoveSpeed + Mathf.Clamp(Vector3.Dot(new Vector3(m_rb.linearVelocity.x, 0, m_rb.linearVelocity.z).normalized, m_orientation.forward), 0, 1) * (m_sprintMoveSpeed - m_walkMoveSpeed);
+            return;
         }
-        //if we are crouching or sliding, change the desired move speed to crouch move speed so we can smoothly transition between the sliding and crouched state
-        else if (m_currentCrouchState || m_isSliding)
-        {
-            m_desiredSpeed = m_crouchMoveSpeed;
-        }
-        //otherwise, set our move speed to our walking speed
-        else
-        {
-            m_desiredSpeed = m_walkMoveSpeed;
-        }
-        if (Input.GetButtonDown("Crouch"))
-        {
-            m_desiredCrouchState = !m_desiredCrouchState;
-        }
-        //jump when the jump key is pressed
-        m_wantsToJump |= Input.GetButtonDown("Jump");
-        //use our inputs to create a velocity representing our desired velocity on the horizontal and vertical axis using the player's orientation
-        Vector3 forward = m_orientation.forward;
-        forward.y = 0f;
-        forward.Normalize();
-        Vector3 right = m_orientation.right;
-        right.y = 0f;
-        right.Normalize();
-        //Debug.Log(desiredSpeed);
-        m_desiredVelocity = (forward * m_playerInput.y + right * m_playerInput.x) * m_desiredSpeed;
+
+        if (!(Mathf.Abs(m_playerCollider.height - targetHeight) > 0.01f)) return;
+        float newHeight = Mathf.MoveTowards(m_playerCollider.height, targetHeight, m_crouchSpeed * Time.deltaTime);
+        m_playerCollider.height = newHeight;
     }
+
+
     void MovePlayer()
     {
         //change the acceleration and deceleration rate based on whether the character is in the air or grounded
@@ -215,17 +292,16 @@ public class PlayerMovement : MonoBehaviour
         float maxAccelerationChange = m_currentAcceleration * Time.deltaTime;
         float maxDecelerationChange = m_currentDeceleration * Time.deltaTime;
 
-        if (!m_isSliding)
+        if (m_movementState is not MovementState.Slide)
         {
-            //if the speed along the calculated normal X value is lower than the desired speed along the calculated x normal, interpolate using the acceleration value. Otherwise, use the deceleration value
-            m_newX = Mathf.MoveTowards(currentX, m_desiredVelocity.x, Mathf.Abs(currentX) < Mathf.Abs(desiredX) ? maxAccelerationChange : maxDecelerationChange);
-            //if the speed along the calculated normal Z value is lower than the desired speed along the calculated Z normal, interpolate using the acceleration value. Otherwise, use the deceleration value
-            m_newZ = Mathf.MoveTowards(currentZ, m_desiredVelocity.z, Mathf.Abs(currentZ) < Mathf.Abs(desiredZ) ? maxAccelerationChange : maxDecelerationChange);
-            //take the modified velocity and add values to it based on calculated surface normal 
+            // Move towards the desired X/Z (contact-plane aligned), not raw world x/z
+            m_newX = Mathf.MoveTowards(currentX, desiredX, Mathf.Abs(currentX) < Mathf.Abs(desiredX) ? maxAccelerationChange : maxDecelerationChange);
+            m_newZ = Mathf.MoveTowards(currentZ, desiredZ, Mathf.Abs(currentZ) < Mathf.Abs(desiredZ) ? maxAccelerationChange : maxDecelerationChange);
         }
         else
         {
-            //When sliding, our velocity always moves towards 0 but can still be effected by outside sources like slopes
+            //When sliding, our velocity always moves towards 0 but can still be affected by outside sources like slopes
+            //Player cannot control movement while sliding
             m_newX = Mathf.MoveTowards(currentX, 0, m_maxSlideDeceleration);
             m_newZ = Mathf.MoveTowards(currentZ, 0, m_maxSlideDeceleration);
         }
@@ -237,6 +313,7 @@ public class PlayerMovement : MonoBehaviour
         //reset the states of all variables after they are used so they can be re-acquired
         m_groundContactCount = 0;
         m_steepContactCount = 0;
+        m_ceilingContactCount = 0;
         m_steepNormal = Vector3.zero;
         m_currentContactNormal = Vector3.zero;
         m_connectionVelocity = Vector3.zero;
@@ -271,6 +348,14 @@ public class PlayerMovement : MonoBehaviour
             //if the player is not grounded, set the contact normal to an upward vector
             m_currentContactNormal = Vector3.up;
         }
+        ProcessSpeed();
+        Vector3 forward = m_orientation.forward;
+        forward.y = 0f;
+        forward.Normalize();
+        Vector3 right = m_orientation.right;
+        right.y = 0f;
+        right.Normalize();
+        m_desiredVelocity = (forward * m_playerInput.y + right * m_playerInput.x) * m_desiredSpeed;
     }
     void Jump()
     {
@@ -370,7 +455,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 normal = collision.GetContact(i).normal;
             //if they do, then set isGrounded to true and add the normals of the collision to calculate the average.
-            //Also keep track of the rigidbody of the object collided with so we can move the player if the surface is moving
+            //Also keep track of the rigidbody from the object collided with so we can move the player if the surface is moving
             if(normal.y >= Mathf.Cos(m_maxGroundAngle * Mathf.Deg2Rad))
             {
                 m_groundContactCount++;
@@ -388,7 +473,11 @@ public class PlayerMovement : MonoBehaviour
                     m_currentConnectedBody = collision.rigidbody;
                 }
             }
-            
+            //if the normal is pointing downward (ceiling contact), increment ceiling contact count
+            else if (normal.y < -m_steepDetectionTolerance)
+            {
+                m_ceilingContactCount++;
+            }
         }
     }
 }
