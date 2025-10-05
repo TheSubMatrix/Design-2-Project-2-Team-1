@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public partial class Sanity : MonoBehaviour
+public class Sanity : MonoBehaviour
 {
     [SerializeField] uint m_currentSanity;
     [SerializeField] uint m_maxSanity;
 
     EventBinding<SanityChange> m_healthEvent;
-
     void OnEnable()
     {
         m_healthEvent = new EventBinding<SanityChange>(UpdateSanity);
@@ -25,11 +24,11 @@ public partial class Sanity : MonoBehaviour
         if (change.SanityDifference > 0)
         {
             m_currentSanity = m_currentSanity + change.SanityDifference > m_maxSanity ? m_currentSanity = m_maxSanity : m_currentSanity + (uint)change.SanityDifference;
-            
         }
         else
         {
             m_currentSanity = (int)m_currentSanity - change.SanityDifference < 0 ? m_currentSanity = 0 : m_currentSanity - (uint)(-change.SanityDifference);
         }
+        EventBus<BarUpdateEvent>.Raise(new BarUpdateEvent("Sanity", m_currentSanity / (float)m_maxSanity));
     }
 }

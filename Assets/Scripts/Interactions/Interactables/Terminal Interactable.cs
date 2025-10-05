@@ -33,12 +33,14 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
         if(m_interactionCamera is null) return;
         EventBus<CameraBlendData>.Raise(new CameraBlendData(m_interactionCamera));
         EventBus<UpdatePlayerInputState>.Raise(new UpdatePlayerInputState(false));
+        EventBus<FadeCanvasGroup>.Raise(new FadeCanvasGroup("Hands", 0.5f,0));
         m_inputModule.enabled = true;
     }
     public void OnExitedInteraction()
     {
         EventBus<CameraBlendData>.Raise(new CameraBlendData(m_previousCamera));
         EventBus<UpdatePlayerInputState>.Raise(new UpdatePlayerInputState(true));
+        EventBus<FadeCanvasGroup>.Raise(new FadeCanvasGroup("Hands", 0.5f,1));
         m_inputModule.enabled = false;
     }
     
