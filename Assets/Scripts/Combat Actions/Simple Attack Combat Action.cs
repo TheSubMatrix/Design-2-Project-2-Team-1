@@ -5,6 +5,8 @@ using UnityEngine;
 public class SimpleAttackCombatAction : BaseCombatAction
 {
     [SerializeField] TriggerEventCallbacks m_triggerEventCallbacks;
+    [SerializeField] Animator m_animator;
+    [SerializeField] string m_attackTriggerName = "Attack";
     [SerializeField] AnimatorOverrideController m_attackAnimationOverride;
     [SerializeField] uint m_damage;
     public override void InitializeCombatAction()
@@ -20,6 +22,7 @@ public class SimpleAttackCombatAction : BaseCombatAction
 
     protected override IEnumerator ExecuteCombatActionAsyncImplementation()
     {
+         m_animator?.SetTrigger(m_attackTriggerName);
          m_triggerEventCallbacks.ReferencedCollider.enabled = true;
          yield return new WaitForSeconds(Duration);
          m_triggerEventCallbacks.ReferencedCollider.enabled = false;

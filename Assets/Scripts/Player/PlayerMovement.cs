@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public partial class PlayerMovement : MonoBehaviour
+public partial class PlayerMovement : MonoBehaviour, ISlowable
 {
     [FormerlySerializedAs("playerCollider")] [Header("Assign in Editor")] public CapsuleCollider m_playerCollider;
     [FormerlySerializedAs("orientation")] public Transform m_orientation;
@@ -30,7 +31,7 @@ public partial class PlayerMovement : MonoBehaviour
     public InputActionReference m_crouchAction;
     
     
-    [SerializeField]MovementState m_movementState;
+    MovementState m_movementState;
     Rigidbody m_currentConnectedBody;
     Rigidbody m_lastConnectedBody;
     Vector2 m_playerInput;
@@ -53,7 +54,9 @@ public partial class PlayerMovement : MonoBehaviour
     int m_groundContactCount;
     int m_steepContactCount;
     int m_ceilingContactCount;
-
+    
+    float m_currentSpeedPercent = 1.0f;
+    Coroutine m_currentSlowRoutine;
 
     bool IsGrounded => m_groundContactCount > 0;
     bool m_wantsToJump;
@@ -177,9 +180,9 @@ public partial class PlayerMovement : MonoBehaviour
     {
         m_desiredSpeed = m_movementState switch
         {
-            MovementState.Walk => m_walkMoveSpeed,
-            MovementState.Sprint => m_walkMoveSpeed + Mathf.Clamp(Vector3.Dot(new Vector3(m_rb.linearVelocity.x, 0, m_rb.linearVelocity.z).normalized, m_orientation.forward), 0, 1) * (m_sprintMoveSpeed - m_walkMoveSpeed),
-            MovementState.Crouch or MovementState.Slide => m_crouchMoveSpeed,
+            MovementState.Walk => m_walkMoveSpeed * m_currentSpeedPercent,
+            MovementState.Sprint => (m_walkMoveSpeed + Mathf.Clamp(Vector3.Dot(new Vector3(m_rb.linearVelocity.x, 0, m_rb.linearVelocity.z).normalized, m_orientation.forward), 0, 1) * (m_sprintMoveSpeed - m_walkMoveSpeed)) * m_currentSpeedPercent,
+            MovementState.Crouch or MovementState.Slide => m_crouchMoveSpeed * m_currentSpeedPercent,
             _ => m_desiredSpeed
         };
     }
@@ -339,7 +342,9 @@ public partial class PlayerMovement : MonoBehaviour
             //if the player is not grounded, set the contact normal to an upward vector
             m_currentContactNormal = Vector3.up;
         }
+        //Set up our current speed based on our state and the current speed percent
         ProcessSpeed();
+        //Calculate the desired velocity based on the orientation and the player input
         Vector3 forward = m_orientation.forward;
         forward.y = 0f;
         forward.Normalize();
@@ -351,7 +356,7 @@ public partial class PlayerMovement : MonoBehaviour
     void Jump()
     {
         m_stepsSinceJump = 0;
-        //if the player's velocity has some similarity, do the direction of the contact normal 
+        //if the player's velocity has some similarity, use the direction of the contact normal 
         if(Vector3.Dot(m_modifiedVelocity, m_currentContactNormal) > 0f)
         {
             m_modifiedVelocity += m_currentContactNormal * Mathf.Max(Mathf.Sqrt(-2f * Physics.gravity.y * m_jumpHeight) - Vector3.Dot(m_modifiedVelocity, m_currentContactNormal));
@@ -470,5 +475,22 @@ public partial class PlayerMovement : MonoBehaviour
                 m_ceilingContactCount++;
             }
         }
+    }
+
+    public void Slow(float slowAmount, float slowDuration)
+    {
+        if (m_currentSlowRoutine is not null)
+        {
+            StopCoroutine(m_currentSlowRoutine);
+            m_currentSpeedPercent = 1.0f;
+        }
+        StartCoroutine(SlowForTimeAsync(slowAmount, slowDuration));
+    }
+
+    IEnumerator SlowForTimeAsync(float slowAmount, float slowDuration)
+    {
+        m_currentSpeedPercent -= slowAmount;
+        yield return new WaitForSeconds(slowDuration);
+        m_currentSpeedPercent += slowAmount;
     }
 }

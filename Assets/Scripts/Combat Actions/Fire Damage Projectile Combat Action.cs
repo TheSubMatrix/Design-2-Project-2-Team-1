@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 
-public class FireProjectileCombatAction : BaseCombatAction
+public class FireDamageProjectileCombatAction : BaseCombatAction
 {
     IObjectPool<Projectile> m_projectilePool;
     [SerializeField] Projectile m_projectilePrefab;
@@ -50,10 +50,13 @@ public class FireProjectileCombatAction : BaseCombatAction
             //No-Op
             //Catches any problems releasing the projectile from the pool
         }
-        if (other != null)
+
+        if (other == null) return;
+        if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            SoundManager.Instance.CreateSound().WithSoundData(m_projectileHitSound).WithPosition(other.contacts[0].point).WithRandomPitch().Play();
+            damageable.Damage(10);
         }
+        SoundManager.Instance.CreateSound().WithSoundData(m_projectileHitSound).WithPosition(other.contacts[0].point).WithRandomPitch().Play();
     }
     
     protected override IEnumerator ExecuteCombatActionAsyncImplementation()
