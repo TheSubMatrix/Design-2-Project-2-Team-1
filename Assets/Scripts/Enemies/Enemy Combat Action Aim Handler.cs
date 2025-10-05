@@ -8,6 +8,7 @@ public class EnemyCombatActionAimHandler : MonoBehaviour
     void LateUpdate()
     {
         Transform target = m_enemyVisionSensor.GetClosestTarget("Player");
+        if (target is null) return;
         Vector3 lookDirection = target.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(lookDirection);
         rotation.x = 0;
