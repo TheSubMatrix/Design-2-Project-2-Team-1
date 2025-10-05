@@ -31,13 +31,13 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
     {
         m_previousCamera = CinemachineBrain.GetActiveBrain(0).ActiveVirtualCamera as CinemachineCamera;
         if(m_interactionCamera is null) return;
-        EventBus<PlayerCameraBlendHandler.CameraBlendData>.Raise(new PlayerCameraBlendHandler.CameraBlendData(m_interactionCamera));
+        EventBus<CameraBlendData>.Raise(new CameraBlendData(m_interactionCamera));
         EventBus<UpdatePlayerInputState>.Raise(new UpdatePlayerInputState(false));
         m_inputModule.enabled = true;
     }
     public void OnExitedInteraction()
     {
-        EventBus<PlayerCameraBlendHandler.CameraBlendData>.Raise(new PlayerCameraBlendHandler.CameraBlendData(m_previousCamera));
+        EventBus<CameraBlendData>.Raise(new CameraBlendData(m_previousCamera));
         EventBus<UpdatePlayerInputState>.Raise(new UpdatePlayerInputState(true));
         m_inputModule.enabled = false;
     }

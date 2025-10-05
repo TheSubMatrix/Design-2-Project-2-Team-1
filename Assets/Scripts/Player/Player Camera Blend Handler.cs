@@ -2,17 +2,9 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class PlayerCameraBlendHandler : MonoBehaviour
+public partial class PlayerCameraBlendHandler : MonoBehaviour
 {
     [SerializeField] CinemachineBrain m_brain;
-    public struct CameraBlendData : IEvent
-    {
-        public CameraBlendData(CinemachineCamera cameraToBlendTo)
-        {
-            CameraToBlendTo = cameraToBlendTo;
-        }
-        public CinemachineCamera CameraToBlendTo { get; private set; }
-    }
 
     EventBinding<CameraBlendData> m_blendToTargetEvent;
     void OnEnable()
