@@ -24,16 +24,16 @@ public class PlayerAttack : MonoBehaviour
     {
         m_lightAttack.action.Enable();
         m_heavyAttack.action.Enable();
-        m_lightAttack.action.performed += LightAttack;
-        m_heavyAttack.action.performed += HeavyAttack;
+        m_lightAttack.action.started += LightAttack;
+        m_heavyAttack.action.started += HeavyAttack;
     }
 
     void OnDisable()
     {
         m_lightAttack.action.Disable();
         m_heavyAttack.action.Disable();
-        m_lightAttack.action.performed -= LightAttack;
-        m_heavyAttack.action.performed -= HeavyAttack;
+        m_lightAttack.action.started -= LightAttack;
+        m_heavyAttack.action.started -= HeavyAttack;
     }
 
     void Awake()
@@ -47,21 +47,13 @@ public class PlayerAttack : MonoBehaviour
     void LightAttack(InputAction.CallbackContext context)
     {
         if (IsAttacking) return;
-        if (m_berserk)
-        {
-            m_attackCombatActionBerserk.StartCombatAction(this);
-            return;
-        }
+
         m_attackCombatAction.StartCombatAction(this);
     }
     void HeavyAttack(InputAction.CallbackContext context)
     {
         if (IsAttacking) return;
-        if (m_berserk)
-        {
-            m_heavyAttackCombatActionBerserk.StartCombatAction(this);
-            return;
-        }
+
         m_heavyAttackCombatAction.StartCombatAction(this);
     }
 }
