@@ -2,7 +2,8 @@
     "name": "Health and Conditions.Sanity",
     "rootNamespace": "",
     "references": [
-        "GUID:1e8b965862d0631489816768b0c8f383"
+        "GUID:1e8b965862d0631489816768b0c8f383",
+        "GUID:b00589312063ae44db96bb15bc7c24ba"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

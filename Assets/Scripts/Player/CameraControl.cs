@@ -15,18 +15,18 @@ public class CameraControl : MonoBehaviour
     Vector2 m_rotation;
     bool m_shouldReadInput = true;
 
-    EventBinding<PlayerMovement.UpdatePlayerInputState> m_updateInputStateEvent;
+    EventBinding<UpdatePlayerInputState> m_updateInputStateEvent;
     void OnEnable()
     {
-        m_updateInputStateEvent = new EventBinding<PlayerMovement.UpdatePlayerInputState>(HandleInputReadChange);
-        EventBus<PlayerMovement.UpdatePlayerInputState>.Register(m_updateInputStateEvent);
+        m_updateInputStateEvent = new EventBinding<UpdatePlayerInputState>(HandleInputReadChange);
+        EventBus<UpdatePlayerInputState>.Register(m_updateInputStateEvent);
     }
     
     void OnDisable()
     {
-        EventBus<PlayerMovement.UpdatePlayerInputState>.Deregister(m_updateInputStateEvent);
+        EventBus<UpdatePlayerInputState>.Deregister(m_updateInputStateEvent);
     }
-    void HandleInputReadChange(PlayerMovement.UpdatePlayerInputState state)
+    void HandleInputReadChange(UpdatePlayerInputState state)
     {
         m_shouldReadInput = state.DesiredInputState;
     }

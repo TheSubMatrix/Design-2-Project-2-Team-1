@@ -1,8 +1,8 @@
 {
-    "name": "Health and Conditions",
+    "name": "EventData",
     "rootNamespace": "",
     "references": [
-        "GUID:b00589312063ae44db96bb15bc7c24ba"
+        "GUID:1e8b965862d0631489816768b0c8f383"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

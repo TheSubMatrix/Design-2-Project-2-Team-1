@@ -1,18 +1,10 @@
 using UnityEngine;
 
-public class Sanity : MonoBehaviour
+public partial class Sanity : MonoBehaviour
 {
     [SerializeField] uint m_currentSanity;
     [SerializeField] uint m_maxSanity;
 
-    public struct SanityChange: IEvent
-    {
-        public SanityChange(int sanityDifference)
-        {
-            SanityDifference = sanityDifference;
-        }
-        public readonly int SanityDifference;
-    }
     EventBinding<SanityChange> m_healthEvent;
 
     void OnEnable()

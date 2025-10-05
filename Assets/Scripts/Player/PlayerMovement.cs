@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class PlayerMovement : MonoBehaviour
+public partial class PlayerMovement : MonoBehaviour
 {
     [FormerlySerializedAs("playerCollider")] [Header("Assign in Editor")] public CapsuleCollider m_playerCollider;
     [FormerlySerializedAs("orientation")] public Transform m_orientation;
@@ -65,15 +65,6 @@ public class PlayerMovement : MonoBehaviour
         Sprint,
         Crouch,
         Slide
-    }
-    
-    public struct UpdatePlayerInputState : IEvent
-    {
-        public UpdatePlayerInputState(bool state)
-        {
-            DesiredInputState = state;
-        }
-        public readonly bool DesiredInputState;
     }
 
     EventBinding<UpdatePlayerInputState> m_updateInputStateEvent;
