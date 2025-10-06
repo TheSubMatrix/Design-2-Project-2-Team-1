@@ -47,7 +47,7 @@ public partial class PlayerMovement : MonoBehaviour, ISlowable
     float m_desiredSpeed;
     float m_currentAcceleration;
     float m_currentDeceleration;
-    [SerializeField]float m_playerHeight;
+    float m_playerHeight;
     float m_crouchedHeight;
     double m_stepsSinceGrounded;
     double m_stepsSinceJump;

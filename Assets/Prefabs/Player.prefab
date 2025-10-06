@@ -32,6 +32,7 @@ RectTransform:
   m_Children:
   - {fileID: 8555851098480078859}
   - {fileID: 3957525150080050044}
+  - {fileID: 6181139446525058642}
   m_Father: {fileID: 4242846332801170038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -287,7 +288,7 @@ MonoBehaviour:
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
-    NearClipPlane: 0.3
+    NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -818,7 +819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 430, y: 165}
+  m_AnchoredPosition: {x: 430, y: -20}
   m_SizeDelta: {x: 850, y: 850}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2471179995657033753
@@ -849,7 +850,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fdde070386477824d81800e16a467fa8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d1e49ebb9cc7b9c4da0207f4bc130a88, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -870,6 +871,104 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3c86818409492fb4b95a6a657b999904, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &4116145950661384406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6181139446525058642}
+  - component: {fileID: 1980802708861485312}
+  - component: {fileID: 5544519518184863138}
+  - component: {fileID: 6477285632435433675}
+  m_Layer: 3
+  m_Name: Heart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6181139446525058642
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116145950661384406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4362483870209479860}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -420, y: -330}
+  m_SizeDelta: {x: 256, y: 256}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1980802708861485312
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116145950661384406}
+  m_CullTransparentMesh: 1
+--- !u!114 &5544519518184863138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116145950661384406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 8bb6fc6ecf76fc747b8e2c3fa33c1bdb, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 6e1c22db012c6f649b704981907a99ea, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!95 &6477285632435433675
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4116145950661384406}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6112c345ea9a76a48bb7192e23ee56fe, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1162,7 +1261,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5716844055075525475}
@@ -1203,7 +1302,6 @@ MonoBehaviour:
   m_jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_sprintAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_crouchAction: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_playerHeight: 0
 --- !u!114 &8619488622920634950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1324,6 +1422,24 @@ MonoBehaviour:
         m_attackTriggerName: Attack
         m_attackAnimationOverride: {fileID: 0}
         m_damage: 0
+        m_attackSound:
+          Clip: {fileID: 0}
+          MixerGroup: {fileID: 0}
+          Loop: 0
+          PlayOnAwake: 0
+          PlayedFrequently: 0
+          Volume: 1
+          Pitch: 1
+          PanStereo: 0
+          SpatialBlend: 0
+          ReverbZoneMix: 1
+          DopplerLevel: 1
+          Spread: 0
+          MinDistance: 1
+          MaxDistance: 500
+          IgnoreListenerVolume: 0
+          IgnoreListenerPause: 0
+          RolloffMode: 0
     - rid: 2024132831431361274
       type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
       data:
@@ -1334,6 +1450,24 @@ MonoBehaviour:
         m_attackTriggerName: Attack
         m_attackAnimationOverride: {fileID: 0}
         m_damage: 0
+        m_attackSound:
+          Clip: {fileID: 0}
+          MixerGroup: {fileID: 0}
+          Loop: 0
+          PlayOnAwake: 0
+          PlayedFrequently: 0
+          Volume: 1
+          Pitch: 1
+          PanStereo: 0
+          SpatialBlend: 0
+          ReverbZoneMix: 1
+          DopplerLevel: 1
+          Spread: 0
+          MinDistance: 1
+          MaxDistance: 500
+          IgnoreListenerVolume: 0
+          IgnoreListenerPause: 0
+          RolloffMode: 0
     - rid: 2024132866991456339
       type: {class: FireDamageProjectileCombatAction, ns: , asm: CombatActions}
       data:
@@ -1387,6 +1521,24 @@ MonoBehaviour:
         m_attackTriggerName: Attack
         m_attackAnimationOverride: {fileID: 0}
         m_damage: 25
+        m_attackSound:
+          Clip: {fileID: 0}
+          MixerGroup: {fileID: 0}
+          Loop: 0
+          PlayOnAwake: 0
+          PlayedFrequently: 0
+          Volume: 1
+          Pitch: 1
+          PanStereo: 0
+          SpatialBlend: 0
+          ReverbZoneMix: 1
+          DopplerLevel: 1
+          Spread: 0
+          MinDistance: 1
+          MaxDistance: 500
+          IgnoreListenerVolume: 0
+          IgnoreListenerPause: 0
+          RolloffMode: 0
 --- !u!114 &4321824293797406679
 MonoBehaviour:
   m_ObjectHideFlags: 0
