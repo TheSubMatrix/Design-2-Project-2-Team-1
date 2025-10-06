@@ -315,130 +315,129 @@ Shader "Custom/URP PS1 Lit Billboard" {
 		// However this breaks SRP Batcher compatibility. Instead, we should define them :
 
 		// ShadowCaster, for casting shadows
-// ShadowCaster Pass - Complete Custom Implementation
-Pass {
-	Name "ShadowCaster"
-	Tags { "LightMode"="ShadowCaster" }
+		Pass {
+			Name "ShadowCaster"
+			Tags { "LightMode"="ShadowCaster" }
 
-	ZWrite On
-	ZTest LEqual
-	ColorMask 0
-	Cull Back
+			ZWrite On
+			ZTest LEqual
+			ColorMask 0
+			Cull Back
 
-	HLSLPROGRAM
-	#pragma target 2.0
-	#pragma vertex ShadowPassVertex 
-	#pragma fragment ShadowPassFragment
+			HLSLPROGRAM
+			#pragma target 2.0
+			#pragma vertex ShadowPassVertex 
+			#pragma fragment ShadowPassFragment
 
-	// Material Keywords
-	#pragma shader_feature_local_fragment _ALPHATEST_ON
+			// Material Keywords
+			#pragma shader_feature_local_fragment _ALPHATEST_ON
 
-	// GPU Instancing
-	#pragma multi_compile_instancing
+			// GPU Instancing
+			#pragma multi_compile_instancing
 
-	// Universal Pipeline Keywords
-	#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+			// Universal Pipeline Keywords
+			#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
-	#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-	#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 
-	// Shadow-related globals that URP provides during shadow pass
-	float3 _LightDirection;
-	float3 _LightPosition;
-	float4 _ShadowBias; // x: depth bias, y: normal bias
+			// Shadow-related globals that URP provides during shadow pass
+			float3 _LightDirection;
+			float3 _LightPosition;
+			float4 _ShadowBias; // x: depth bias, y: normal bias
 
-	struct Attributes
-	{
-		float4 positionOS   : POSITION;
-		float3 normalOS     : NORMAL;
-		float2 texcoord     : TEXCOORD0;
-		UNITY_VERTEX_INPUT_INSTANCE_ID
-	};
+			struct Attributes
+			{
+				float4 positionOS   : POSITION;
+				float3 normalOS     : NORMAL;
+				float2 texcoord     : TEXCOORD0;
+				UNITY_VERTEX_INPUT_INSTANCE_ID
+			};
 
-	struct Varyings
-	{
-		float4 positionCS   : SV_POSITION;
-		float2 uv       : TEXCOORD0;  // ALWAYS include UV, not conditional
-	};
+			struct Varyings
+			{
+				float4 positionCS   : SV_POSITION;
+				float2 uv       : TEXCOORD0;  // ALWAYS include UV, not conditional
+			};
 
-	// Declare texture and sampler
-	TEXTURE2D(_BaseMap);
-	SAMPLER(sampler_BaseMap);
+			// Declare texture and sampler
+			TEXTURE2D(_BaseMap);
+			SAMPLER(sampler_BaseMap);
 
-	float3 ApplyShadowBias(float3 positionWS, float3 normalWS, float3 lightDirection)
-	{
-		float invNdotL = 1.0 - saturate(dot(lightDirection, normalWS));
-		float scale = invNdotL * _ShadowBias.y;
+			float3 ApplyShadowBias(float3 positionWS, float3 normalWS, float3 lightDirection)
+			{
+				float invNdotL = 1.0 - saturate(dot(lightDirection, normalWS));
+				float scale = invNdotL * _ShadowBias.y;
 
-		// normal bias is negative since we want to apply an inset normal offset
-		positionWS = lightDirection * _ShadowBias.xxx + positionWS;
-		positionWS = normalWS * scale.xxx + positionWS;
-		return positionWS;
-	}
+				// normal bias is negative since we want to apply an inset normal offset
+				positionWS = lightDirection * _ShadowBias.xxx + positionWS;
+				positionWS = normalWS * scale.xxx + positionWS;
+				return positionWS;
+			}
 
-	float4 GetShadowPositionHClip(Attributes input)
-	{
-		float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
-		float3 normalWS = TransformObjectToWorldNormal(input.normalOS);
+			float4 GetShadowPositionHClip(Attributes input)
+			{
+				float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
+				float3 normalWS = TransformObjectToWorldNormal(input.normalOS);
 
-		#if _CASTING_PUNCTUAL_LIGHT_SHADOW
-			float3 lightDirectionWS = normalize(_LightPosition - positionWS);
-		#else
-			float3 lightDirectionWS = _LightDirection;
-		#endif
+				#if _CASTING_PUNCTUAL_LIGHT_SHADOW
+					float3 lightDirectionWS = normalize(_LightPosition - positionWS);
+				#else
+					float3 lightDirectionWS = _LightDirection;
+				#endif
 
-		float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
+				float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
 
-		#if UNITY_REVERSED_Z
-			positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
-		#else
-			positionCS.z = max(positionCS.z, UNITY_NEAR_CLIP_VALUE);
-		#endif
+				#if UNITY_REVERSED_Z
+					positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+				#else
+					positionCS.z = max(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+				#endif
 
-		return positionCS;
-	}
-	
-	Varyings ShadowPassVertex(Attributes input)
-	{
-		Varyings output;
-		UNITY_SETUP_INSTANCE_ID(input);
+				return positionCS;
+			}
+			
+			Varyings ShadowPassVertex(Attributes input)
+			{
+				Varyings output;
+				UNITY_SETUP_INSTANCE_ID(input);
 
-		// Apply billboard transformation
-		float3 originWS = TransformObjectToWorld(float3(0,0,0));
-		originWS -= _WorldSpaceCameraPos;
-		originWS.y = 0;
-		float3 direction = normalize(TransformWorldToObjectDir(originWS));
-		float3 topRow = normalize(cross(direction, float3(0,1,0)));
-		float3 middleRow = normalize(cross(direction, topRow));
-		float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
-		
-		input.positionOS.xyz = mul(billboardMatrix, input.positionOS.xyz);
-		input.normalOS = mul(billboardMatrix, input.normalOS);
-		
-		// ALWAYS set UV for testing
-		output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
-		output.uv = 1 - output.uv; // Try with inversion
-		
-		output.positionCS = GetShadowPositionHClip(input);
-		return output;
-	}
+				// Apply billboard transformation
+				float3 originWS = TransformObjectToWorld(float3(0,0,0));
+				originWS -= _WorldSpaceCameraPos;
+				originWS.y = 0;
+				float3 direction = normalize(TransformWorldToObjectDir(originWS));
+				float3 topRow = normalize(cross(direction, float3(0,1,0)));
+				float3 middleRow = normalize(cross(direction, topRow));
+				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
+				
+				input.positionOS.xyz = mul(billboardMatrix, input.positionOS.xyz);
+				input.normalOS = mul(billboardMatrix, input.normalOS);
+				
+				// ALWAYS set UV for testing
+				output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
+				output.uv = 1 - output.uv; // Try with inversion
+				
+				output.positionCS = GetShadowPositionHClip(input);
+				return output;
+			}
 
-	half4 ShadowPassFragment(Varyings input) : SV_TARGET
-	{
-		// ALWAYS sample and clip, ignoring keywords for testing
-		half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
-		half alpha = baseMap.a * _BaseColor.a;
-		
-		// For debugging: return the alpha value to see what we're getting
-		// return half4(alpha, alpha, alpha, 1);
-		
-		clip(alpha - _Cutoff);
-		
-		return 0;
-	}
-	
-	ENDHLSL
-}
+			half4 ShadowPassFragment(Varyings input) : SV_TARGET
+			{
+				// ALWAYS sample and clip, ignoring keywords for testing
+				half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
+				half alpha = baseMap.a * _BaseColor.a;
+				
+				// For debugging: return the alpha value to see what we're getting
+				// return half4(alpha, alpha, alpha, 1);
+				
+				clip(alpha - _Cutoff);
+				
+				return 0;
+			}
+			
+			ENDHLSL
+		}
 
 		// DepthOnly, used for Camera Depth Texture (if cannot copy depth buffer instead, and the DepthNormals below isn't used)
 		Pass {
