@@ -1,4 +1,4 @@
-Shader "Custom/URP PS1 Lit" {
+Shader "Custom/URP PS1 Lit Billboard" {
 	Properties {
 		[MainTexture] _BaseMap("Base Map (RGB) Smoothness / Alpha (A)", 2D) = "white" {}
 		[MainColor]   _BaseColor("Base Color", Color) = (1, 1, 1, 1)
@@ -224,26 +224,40 @@ Shader "Custom/URP PS1 Lit" {
 			}
 
 			// Vertex Shader
-			Varyings LitPassVertex(Attributes IN) {
+			Varyings LitPassVertex(Attributes IN)
+			{
 				Varyings OUT;
 
-				VertexPositionInputs positionInputs = GetVertexPositionInputs(IN.positionOS.xyz);
+				// Apply billboard transformation
+				float3 originWS = TransformObjectToWorld(float3(0,0,0));
+				originWS -= _WorldSpaceCameraPos;
+				originWS.y = 0;
+				float3 direction = normalize(TransformWorldToObjectDir(originWS));
+				float3 topRow = normalize(cross(direction, float3(0,1,0)));
+				float3 middleRow = normalize(cross(direction, topRow));
+				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
+				float3 positionOS = mul(billboardMatrix, IN.positionOS.xyz);
+				
 				#ifdef _NORMALMAP
-					VertexNormalInputs normalInputs = GetVertexNormalInputs(IN.normalOS.xyz, IN.tangentOS);
+					VertexNormalInputs normalInputs = GetVertexNormalInputs(mul(billboardMatrix, IN.normalOS.xyz), IN.tangentOS);
 				#else
-					VertexNormalInputs normalInputs = GetVertexNormalInputs(IN.normalOS.xyz);
+					VertexNormalInputs normalInputs = GetVertexNormalInputs(mul(billboardMatrix, IN.normalOS.xyz));
 				#endif
+				VertexPositionInputs positionInputs = GetVertexPositionInputs(positionOS);
 				
-
-				OUT.positionCS = positionInputs.positionCS;
-				OUT.positionCS = float4((round(positionInputs.positionCS.xy / positionInputs.positionCS.w * float2(480, 640))/float2(480, 640) * positionInputs.positionCS.w), positionInputs.positionCS.z, positionInputs.positionCS.w);
+				// Store the correct world position BEFORE quantization
+				OUT.positionWS = positionInputs.positionWS;
 				
-				OUT.positionWS = ClipToWorldPos(OUT.positionCS);
+				// Apply PS1-style vertex quantization to clip space position
+				OUT.positionCS = float4(
+					(round(positionInputs.positionCS.xy / positionInputs.positionCS.w * float2(480, 640)) / float2(480, 640) * positionInputs.positionCS.w),
+					positionInputs.positionCS.z,
+					positionInputs.positionCS.w
+				);
 				
-
-				half3 viewDirWS = GetWorldSpaceViewDir(positionInputs.positionWS);
-				half3 vertexLight = VertexLighting(positionInputs.positionWS, normalInputs.normalWS);
-				half fogFactor = ComputeFogFactor(positionInputs.positionCS.z);
+				half3 viewDirWS = GetWorldSpaceViewDir(OUT.positionWS);
+				half3 vertexLight = VertexLighting(OUT.positionWS, normalInputs.normalWS);
+				half fogFactor = ComputeFogFactor(OUT.positionCS.z);
 				
 				#ifdef _NORMALMAP
 					OUT.normalWS = half4(normalInputs.normalWS, viewDirWS.x);
@@ -251,7 +265,6 @@ Shader "Custom/URP PS1 Lit" {
 					OUT.bitangentWS = half4(normalInputs.bitangentWS, viewDirWS.z);
 				#else
 					OUT.normalWS = NormalizeNormalPerVertex(normalInputs.normalWS);
-					//OUT.viewDirWS = viewDirWS;
 				#endif
 
 				OUTPUT_LIGHTMAP_UV(IN.lightmapUV, unity_LightmapST, OUT.lightmapUV);
@@ -268,6 +281,7 @@ Shader "Custom/URP PS1 Lit" {
 				#endif
 
 				OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
+				OUT.uv = 1 - OUT.uv;
 				OUT.color = IN.color;
 				return OUT;
 			}
@@ -301,51 +315,130 @@ Shader "Custom/URP PS1 Lit" {
 		// However this breaks SRP Batcher compatibility. Instead, we should define them :
 
 		// ShadowCaster, for casting shadows
-		Pass {
-			Name "ShadowCaster"
-			Tags { "LightMode"="ShadowCaster" }
+// ShadowCaster Pass - Complete Custom Implementation
+Pass {
+	Name "ShadowCaster"
+	Tags { "LightMode"="ShadowCaster" }
 
-			ZWrite On
-			ZTest LEqual
+	ZWrite On
+	ZTest LEqual
+	ColorMask 0
+	Cull Back
 
-			HLSLPROGRAM
-			#pragma vertex ShadowPassVertex
-			#pragma fragment ShadowPassFragment
+	HLSLPROGRAM
+	#pragma target 2.0
+	#pragma vertex ShadowPassVertex 
+	#pragma fragment ShadowPassFragment
 
-			// Material Keywords
-			#pragma shader_feature_local_fragment _ALPHATEST_ON
-			#pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+	// Material Keywords
+	#pragma shader_feature_local_fragment _ALPHATEST_ON
 
-			// GPU Instancing
-			#pragma multi_compile_instancing
-			//#pragma multi_compile _ DOTS_INSTANCING_ON
+	// GPU Instancing
+	#pragma multi_compile_instancing
 
-			// Universal Pipeline Keywords
-			// (v11+) This is used during shadow map generation to differentiate between directional and punctual (point/spot) light shadows, as they use different formulas to apply Normal Bias
-			#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+	// Universal Pipeline Keywords
+	#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
-			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
-			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
-			#include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+	#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+	#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 
-			// Note if we do any vertex displacement, we'll need to change the vertex function. e.g. :
-			/*
-			#pragma vertex DisplacedShadowPassVertex (instead of ShadowPassVertex above)
-			
-			Varyings DisplacedShadowPassVertex(Attributes input) {
-				Varyings output = (Varyings)0;
-				UNITY_SETUP_INSTANCE_ID(input);
-				
-				// Example Displacement
-				input.positionOS += float4(0, _SinTime.y, 0, 0);
-				
-				output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
-				output.positionCS = GetShadowPositionHClip(input);
-				return output;
-			}
-			*/
-			ENDHLSL
-		}
+	// Shadow-related globals that URP provides during shadow pass
+	float3 _LightDirection;
+	float3 _LightPosition;
+	float4 _ShadowBias; // x: depth bias, y: normal bias
+
+	struct Attributes
+	{
+		float4 positionOS   : POSITION;
+		float3 normalOS     : NORMAL;
+		float2 texcoord     : TEXCOORD0;
+		UNITY_VERTEX_INPUT_INSTANCE_ID
+	};
+
+	struct Varyings
+	{
+		float4 positionCS   : SV_POSITION;
+		float2 uv       : TEXCOORD0;  // ALWAYS include UV, not conditional
+	};
+
+	// Declare texture and sampler
+	TEXTURE2D(_BaseMap);
+	SAMPLER(sampler_BaseMap);
+
+	float3 ApplyShadowBias(float3 positionWS, float3 normalWS, float3 lightDirection)
+	{
+		float invNdotL = 1.0 - saturate(dot(lightDirection, normalWS));
+		float scale = invNdotL * _ShadowBias.y;
+
+		// normal bias is negative since we want to apply an inset normal offset
+		positionWS = lightDirection * _ShadowBias.xxx + positionWS;
+		positionWS = normalWS * scale.xxx + positionWS;
+		return positionWS;
+	}
+
+	float4 GetShadowPositionHClip(Attributes input)
+	{
+		float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
+		float3 normalWS = TransformObjectToWorldNormal(input.normalOS);
+
+		#if _CASTING_PUNCTUAL_LIGHT_SHADOW
+			float3 lightDirectionWS = normalize(_LightPosition - positionWS);
+		#else
+			float3 lightDirectionWS = _LightDirection;
+		#endif
+
+		float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
+
+		#if UNITY_REVERSED_Z
+			positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+		#else
+			positionCS.z = max(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+		#endif
+
+		return positionCS;
+	}
+	
+	Varyings ShadowPassVertex(Attributes input)
+	{
+		Varyings output;
+		UNITY_SETUP_INSTANCE_ID(input);
+
+		// Apply billboard transformation
+		float3 originWS = TransformObjectToWorld(float3(0,0,0));
+		originWS -= _WorldSpaceCameraPos;
+		originWS.y = 0;
+		float3 direction = normalize(TransformWorldToObjectDir(originWS));
+		float3 topRow = normalize(cross(direction, float3(0,1,0)));
+		float3 middleRow = normalize(cross(direction, topRow));
+		float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
+		
+		input.positionOS.xyz = mul(billboardMatrix, input.positionOS.xyz);
+		input.normalOS = mul(billboardMatrix, input.normalOS);
+		
+		// ALWAYS set UV for testing
+		output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
+		output.uv = 1 - output.uv; // Try with inversion
+		
+		output.positionCS = GetShadowPositionHClip(input);
+		return output;
+	}
+
+	half4 ShadowPassFragment(Varyings input) : SV_TARGET
+	{
+		// ALWAYS sample and clip, ignoring keywords for testing
+		half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
+		half alpha = baseMap.a * _BaseColor.a;
+		
+		// For debugging: return the alpha value to see what we're getting
+		// return half4(alpha, alpha, alpha, 1);
+		
+		clip(alpha - _Cutoff);
+		
+		return 0;
+	}
+	
+	ENDHLSL
+}
 
 		// DepthOnly, used for Camera Depth Texture (if cannot copy depth buffer instead, and the DepthNormals below isn't used)
 		Pass {
@@ -357,7 +450,7 @@ Shader "Custom/URP PS1 Lit" {
 			ZTest LEqual
 
 			HLSLPROGRAM
-			#pragma vertex DepthOnlyVertex
+			#pragma vertex DisplacedDepthOnlyVertex
 			#pragma fragment DepthOnlyFragment
 
 			// Material Keywords
@@ -371,22 +464,28 @@ Shader "Custom/URP PS1 Lit" {
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
-
-			// Note if we do any vertex displacement, we'll need to change the vertex function. e.g. :
-			/*
-			#pragma vertex DisplacedDepthOnlyVertex (instead of DepthOnlyVertex above)
+			
 			
 			Varyings DisplacedDepthOnlyVertex(Attributes input) {
-				Varyings output = (Varyings)0;
+				Varyings OUT;
+
+				float3 originWS = TransformObjectToWorld(float3(0,0,0));
+				originWS -= _WorldSpaceCameraPos;
+				originWS.y = 0;
+				float3 direction = normalize(TransformWorldToObjectDir(originWS));
+				float3 topRow = normalize(cross(direction, float3(0,1,0)));
+				float3 middleRow = normalize(cross(direction, topRow));
+				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
+				float3 positionOS = mul(billboardMatrix, input.position.xyz);
+
+				#if defined(_ALPHATEST_ON)
+				OUT.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
+				OUT.uv = 1 - OUT.uv;
+				#endif
 				
-				// Example Displacement
-				input.positionOS += float4(0, _SinTime.y, 0, 0);
-				
-				output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
-				output.positionCS = TransformObjectToHClip(input.position.xyz);
-				return output;
+				OUT.positionCS = TransformObjectToHClip(positionOS.xyz);
+				return OUT;
 			}
-			*/
 			
 			ENDHLSL
 		}
@@ -400,7 +499,7 @@ Shader "Custom/URP PS1 Lit" {
 			ZTest LEqual
 
 			HLSLPROGRAM
-			#pragma vertex DepthNormalsVertex
+			#pragma vertex DisplacedDepthNormalsVertex
 			#pragma fragment DepthNormalsFragment
 
 			// Material Keywords
@@ -417,22 +516,29 @@ Shader "Custom/URP PS1 Lit" {
 			#include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
 
 			// Note if we do any vertex displacement, we'll need to change the vertex function. e.g. :
-			/*
-			#pragma vertex DisplacedDepthNormalsVertex (instead of DepthNormalsVertex above)
 
 			Varyings DisplacedDepthNormalsVertex(Attributes input) {
-				Varyings output = (Varyings)0;
+				Varyings OUT;
+
+				float3 originWS = TransformObjectToWorld(float3(0,0,0));
+				originWS -= _WorldSpaceCameraPos;
+				originWS.y = 0;
+				float3 direction = normalize(TransformWorldToObjectDir(originWS));
+				float3 topRow = normalize(cross(direction, float3(0,1,0)));
+				float3 middleRow = normalize(cross(direction, topRow));
+				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
+				float3 positionOS = mul(billboardMatrix, input.positionOS.xyz);
+
+				#if defined(_ALPHATEST_ON)
+				OUT.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
+				OUT.uv = 1 - OUT.uv;
+				#endif
 				
-				// Example Displacement
-				input.positionOS += float4(0, _SinTime.y, 0, 0);
-				
-				output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
-				output.positionCS = TransformObjectToHClip(input.position.xyz);
-				VertexNormalInputs normalInput = GetVertexNormalInputs(input.normal, input.tangentOS);
-				output.normalWS = NormalizeNormalPerVertex(normalInput.normalWS);
-				return output;
+				OUT.positionCS = TransformObjectToHClip(positionOS.xyz);
+				OUT.normalWS = TransformObjectToWorldNormal(mul(billboardMatrix, input.normal));
+				return OUT;
 			}
-			*/
+			
 			
 			ENDHLSL
 		}

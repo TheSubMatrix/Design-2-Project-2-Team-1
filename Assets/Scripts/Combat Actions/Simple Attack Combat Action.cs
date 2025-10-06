@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using AudioSystem;
 using UnityEngine;
 [Serializable]
 public class SimpleAttackCombatAction : BaseCombatAction
@@ -9,6 +10,7 @@ public class SimpleAttackCombatAction : BaseCombatAction
     [SerializeField] string m_attackTriggerName = "Attack";
     [SerializeField] AnimatorOverrideController m_attackAnimationOverride;
     [SerializeField] uint m_damage;
+    [SerializeField] SoundData m_attackSound;
     public override void InitializeCombatAction()
     {
         if (m_triggerEventCallbacks is null)
@@ -23,6 +25,7 @@ public class SimpleAttackCombatAction : BaseCombatAction
     protected override IEnumerator ExecuteCombatActionAsyncImplementation()
     {
          m_animator?.SetTrigger(m_attackTriggerName);
+         SoundManager.Instance.CreateSound().WithSoundData(m_attackSound).WithPosition(m_triggerEventCallbacks.ReferencedCollider.transform.position).WithRandomPitch().Play();
          m_triggerEventCallbacks.ReferencedCollider.enabled = true;
          yield return new WaitForSeconds(Duration);
          m_triggerEventCallbacks.ReferencedCollider.enabled = false;
