@@ -317,11 +317,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639a65188b20fa648b4f274d87bcc0b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_xMouseSensitivity: 10
-  m_yMouseSensitivity: 10
+  m_xMouseSensitivity: 0.05
+  m_yMouseSensitivity: 0.05
   m_cam: {fileID: 2176622534070265441}
   m_orientation: {fileID: 5716844055075525475}
-  m_moveAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_mouseMovementAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!114 &7354144489478468009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1403,12 +1403,50 @@ MonoBehaviour:
     rid: 2024132866991456398
   m_heavyAttackCombatAction:
     rid: 2024132866991456339
+  m_lightAttack: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_heavyAttack: {fileID: -8169323111223626071, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_attackCombatActionBerserk:
     rid: 2024132831431361273
   m_heavyAttackCombatActionBerserk:
     rid: 2024132831431361274
-  m_lightAttack: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_heavyAttack: {fileID: -8169323111223626071, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_berserkSound:
+    Clip: {fileID: 0}
+    MixerGroup: {fileID: 0}
+    Loop: 0
+    PlayOnAwake: 0
+    PlayedFrequently: 0
+    Volume: 1
+    Pitch: 1
+    PanStereo: 0
+    SpatialBlend: 0
+    ReverbZoneMix: 1
+    DopplerLevel: 1
+    Spread: 0
+    MinDistance: 1
+    MaxDistance: 500
+    IgnoreListenerVolume: 0
+    IgnoreListenerPause: 0
+    RolloffMode: 0
+  m_berserkStopSound:
+    Clip: {fileID: 0}
+    MixerGroup: {fileID: 0}
+    Loop: 0
+    PlayOnAwake: 0
+    PlayedFrequently: 0
+    Volume: 1
+    Pitch: 1
+    PanStereo: 0
+    SpatialBlend: 0
+    ReverbZoneMix: 1
+    DopplerLevel: 1
+    Spread: 0
+    MinDistance: 1
+    MaxDistance: 500
+    IgnoreListenerVolume: 0
+    IgnoreListenerPause: 0
+    RolloffMode: 0
+  m_sanityLostPerSecond: 5
+  m_toggleBerserkAction: {fileID: 2746175205276839210, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   references:
     version: 2
     RefIds:

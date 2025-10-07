@@ -1,4 +1,5 @@
 using System;
+using AudioSystem;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,6 +14,9 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
     [SerializeField] InputActionReference m_exitAction;
     [SerializeField] InputActionReference m_moveAction;
     [SerializeField] InputActionReference m_selectAction;
+    [SerializeField] SoundData m_interactSound;
+    [SerializeField] SoundData m_exitSound;
+    
     bool m_isInteracting;
     void OnEnable()
     {
@@ -70,6 +74,7 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
         EventBus<CameraBlendData>.Raise(new CameraBlendData(m_interactionCamera));
         EventBus<UpdatePlayerInputState>.Raise(new UpdatePlayerInputState(false));
         EventBus<FadeCanvasGroup>.Raise(new FadeCanvasGroup("Hands", 0.5f,0));
+        SoundManager.Instance.CreateSound().WithSoundData(m_interactSound).WithPosition(transform.position).WithRandomPitch().Play();
         EventSystem.current.SetSelectedGameObject(m_startingSelectable.gameObject);
         m_isInteracting = true;
     }
@@ -79,6 +84,7 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
         EventBus<CameraBlendData>.Raise(new CameraBlendData(m_previousCamera));
         EventBus<UpdatePlayerInputState>.Raise(new UpdatePlayerInputState(true));
         EventBus<FadeCanvasGroup>.Raise(new FadeCanvasGroup("Hands", 0.5f, 1));
+        SoundManager.Instance.CreateSound().WithSoundData(m_exitSound).WithPosition(transform.position).WithRandomPitch().Play();
         EventSystem.current.SetSelectedGameObject(null);
         m_isInteracting = false;
     }
