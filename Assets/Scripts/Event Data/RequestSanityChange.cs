@@ -1,7 +1,7 @@
 ﻿
-public struct SanityChange: IEvent
+public struct RequestSanityChange: IEvent
 {
-    public SanityChange(int sanityDifference)
+    public RequestSanityChange(int sanityDifference)
     {
         SanityDifference = sanityDifference;
     }
