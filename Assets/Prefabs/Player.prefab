@@ -1302,6 +1302,21 @@ MonoBehaviour:
   m_jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_sprintAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_crouchAction: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  OnSlow:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3973966113173846608}
+        m_TargetAssemblyTypeName: SanityEventDriver, Health and Conditions.Sanity
+        m_MethodName: ChangeSanity
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8619488622920634950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,7 +1471,7 @@ MonoBehaviour:
         Duration: 0
         Cooldown: 0
         m_triggerEventCallbacks: {fileID: 1613351055885309448}
-        m_animator: {fileID: 0}
+        m_animator: {fileID: 2407848204845515147}
         m_attackTriggerName: Attack
         m_attackAnimationOverride: {fileID: 0}
         m_damage: 0

@@ -487,6 +487,7 @@ public class PlayerMovement : MonoBehaviour, ISlowable
         if (m_currentSlowRoutine is not null)
         {
             StopCoroutine(m_currentSlowRoutine);
+            m_currentSlowRoutine = null;
             m_currentSpeedPercent = 1.0f;
         }
         m_currentSlowRoutine = StartCoroutine(SlowForTimeAsync(slowAmount, slowDuration));

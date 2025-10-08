@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
     {
         m_onProjectileShotCompleted = onProjectileShotCompleted;
         Rigidbody.AddForce(velocity, ForceMode.VelocityChange);
-        StartCoroutine(CleanupAfterTime());
+       m_cleanupAfterTime = StartCoroutine(CleanupAfterTime());
     }
 
     void OnCollisionEnter(Collision other)
@@ -25,6 +25,7 @@ public class Projectile : MonoBehaviour
         if (m_cleanupAfterTime is not null)
         {
             StopCoroutine(m_cleanupAfterTime);
+            m_cleanupAfterTime = null;
         }
         m_onProjectileShotCompleted.Invoke(this, other);
     }
@@ -32,7 +33,6 @@ public class Projectile : MonoBehaviour
     IEnumerator CleanupAfterTime()
     {
         yield return new WaitForSeconds(m_lifetime);
-        
         m_onProjectileShotCompleted.Invoke(this, null);
     }
 }

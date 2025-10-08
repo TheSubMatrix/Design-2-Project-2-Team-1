@@ -28,6 +28,7 @@ public abstract class BaseCombatAction
     public void CancelCombatAction(MonoBehaviour owner)
     {
         owner.StopCoroutine(CombatActionCoroutine);
+        CombatActionCoroutine = null;
         CancelCombatActionImplementation();
     }
 
