@@ -25,11 +25,12 @@ public class Sanity : MonoBehaviour
     {
         if (change.SanityDifference > 0)
         {
-            m_currentSanity = m_currentSanity + change.SanityDifference > m_maxSanity ? m_currentSanity = m_maxSanity : m_currentSanity + (uint)change.SanityDifference;
+            m_currentSanity = m_currentSanity + change.SanityDifference > m_maxSanity ? m_maxSanity : m_currentSanity + (uint)change.SanityDifference;
         }
         else
         {
-            m_currentSanity = (int)m_currentSanity - change.SanityDifference < 0 ? m_currentSanity = 0 : m_currentSanity - (uint)(-change.SanityDifference);
+            uint sanityDecrease = (uint)(-change.SanityDifference);
+            m_currentSanity = sanityDecrease > m_currentSanity ? 0 : m_currentSanity - sanityDecrease;
         }
         EventBus<BarUpdateEvent>.Raise(new BarUpdateEvent("Sanity", m_currentSanity / (float)m_maxSanity));
         EventBus<SanityUpdateEvent>.Raise(new SanityUpdateEvent(m_currentSanity, m_maxSanity));

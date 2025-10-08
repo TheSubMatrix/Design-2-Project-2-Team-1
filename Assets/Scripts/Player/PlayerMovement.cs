@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public partial class PlayerMovement : MonoBehaviour, ISlowable
+public class PlayerMovement : MonoBehaviour, ISlowable
 {
     [FormerlySerializedAs("playerCollider")] [Header("Assign in Editor")] public CapsuleCollider m_playerCollider;
     [FormerlySerializedAs("orientation")] public Transform m_orientation;
@@ -24,11 +25,14 @@ public partial class PlayerMovement : MonoBehaviour, ISlowable
     [FormerlySerializedAs("enableGroundSnapping")] public bool m_enableGroundSnapping;
     [FormerlySerializedAs("snapProbeDistance")] public float m_snapProbeDistance;
     
-    [Header("Input Actions")]
+    [Header("Input Actions"), SerializeField]
     public InputActionReference m_moveAction;
     public InputActionReference m_jumpAction;
     public InputActionReference m_sprintAction;
     public InputActionReference m_crouchAction;
+
+    [SerializeField, Header("Unity Events")]
+    public UnityEvent OnSlow = new UnityEvent();
     
     
     MovementState m_movementState;
@@ -479,18 +483,19 @@ public partial class PlayerMovement : MonoBehaviour, ISlowable
 
     public void Slow(float slowAmount, float slowDuration)
     {
+        OnSlow?.Invoke();
         if (m_currentSlowRoutine is not null)
         {
             StopCoroutine(m_currentSlowRoutine);
             m_currentSpeedPercent = 1.0f;
         }
-        StartCoroutine(SlowForTimeAsync(slowAmount, slowDuration));
+        m_currentSlowRoutine = StartCoroutine(SlowForTimeAsync(slowAmount, slowDuration));
     }
 
     IEnumerator SlowForTimeAsync(float slowAmount, float slowDuration)
     {
         m_currentSpeedPercent -= slowAmount;
         yield return new WaitForSeconds(slowDuration);
-        m_currentSpeedPercent += slowAmount;
+        m_currentSpeedPercent = 1;
     }
 }
