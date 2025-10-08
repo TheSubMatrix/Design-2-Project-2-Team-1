@@ -117,7 +117,19 @@ MonoBehaviour:
       m_Calls: []
   OnDeathEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5745825404898605668}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnReviveEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -142,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_attackCombatAction:
-    rid: 2024132866991456340
+    rid: 2024132916371259470
   m_secondaryAttackCombatAction:
     rid: -2
   references:
@@ -150,11 +162,11 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2024132866991456340
-      type: {class: FireDamageProjectileCombatAction, ns: , asm: CombatActions}
+    - rid: 2024132916371259470
+      type: {class: FireSlowProjectileCombatAction, ns: , asm: CombatActions}
       data:
-        Duration: 0.1
-        Cooldown: 0.25
+        Duration: 0
+        Cooldown: 0
         m_projectilePrefab: {fileID: 8119409992204549394, guid: 71da88ea216ab2f47abe07a2270bdea4, type: 3}
         m_projectileSpawnPoint: {fileID: 3147571195469807210}
         m_projectileShotSound:
@@ -193,6 +205,8 @@ MonoBehaviour:
           IgnoreListenerVolume: 0
           IgnoreListenerPause: 0
           RolloffMode: 0
+        m_slowPercentage: 0.5
+        m_slowDuration: 5
 --- !u!195 &3404486847860128488
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -468,6 +482,7 @@ GameObject:
   - component: {fileID: 5745679543128728910}
   - component: {fileID: 6942478149952807946}
   - component: {fileID: 2108959621162996137}
+  - component: {fileID: 96760910770951044}
   m_Layer: 0
   m_Name: Enemy Visuals
   m_TagString: Untagged
@@ -485,7 +500,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2828, y: 2.5656, z: 1.2828}
+  m_LocalScale: {x: 1, y: 2.32, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5122228433276061471}
@@ -543,6 +558,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &96760910770951044
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4971039295552059095}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 683aaefe6eca6d8409aadabfb4507430, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5745825404898605668
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5093167540280847980}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Doctor Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -568,7 +605,7 @@ Transform:
   m_GameObject: {fileID: 5745825404898605668}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 1, z: -16.07}
+  m_LocalPosition: {x: -5, y: 0.911, z: -16.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

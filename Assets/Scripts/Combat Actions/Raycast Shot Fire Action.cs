@@ -1,0 +1,25 @@
+using System.Collections;
+using AudioSystem;
+using UnityEngine;
+
+public class RaycastShotFireAction : BaseCombatAction
+{
+    [SerializeField] Transform m_raycastOrigin;
+    [SerializeField] float m_raycastDistance = 10f;
+    [SerializeField] LayerMask m_raycastLayerMask;
+    [SerializeField] SoundData m_shotSound;
+    [SerializeField] Vector2 m_spread = new Vector2(0f, 0f);
+    public override void InitializeCombatAction()
+    {
+        
+    }
+
+    protected override IEnumerator ExecuteCombatActionAsyncImplementation()
+    {
+        SoundManager.Instance.CreateSound().WithSoundData(m_shotSound).WithPosition(m_raycastOrigin.position).WithRandomPitch().Play();
+        if (!Physics.Raycast(m_raycastOrigin.position, Quaternion.AngleAxis(Random.Range(-m_spread.x, m_spread.x), m_raycastOrigin.up) * Quaternion.AngleAxis(Random.Range(-m_spread.y, m_spread.y), m_raycastOrigin.right) * m_raycastOrigin.forward, out RaycastHit hit, m_raycastDistance, m_raycastLayerMask)) yield break;
+        if (!hit.collider.TryGetComponent(out IDamageable damageable)) yield break;
+        damageable.Damage(10);
+        yield return null;
+    }
+}

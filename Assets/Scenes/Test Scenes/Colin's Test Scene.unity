@@ -1860,6 +1860,700 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4555133}
   m_LocalEulerAnglesHint: {x: 16, y: -90, z: 0}
+--- !u!1 &1774997343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5745825404898605668, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+  m_PrefabInstance: {fileID: 1789130615}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1789130615
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2108959621162996137, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ffc642374e1da244fa5f8c6235f4ed2b, type: 2}
+    - target: {fileID: 4228157152072772978, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: OnDeathEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4228157152072772978, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: OnDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4228157152072772978, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: OnDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1774997343}
+    - target: {fileID: 4228157152072772978, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: OnDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4228157152072772978, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: OnDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 4228157152072772978, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: OnDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4228157152072772978, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: OnDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_attackCombatAction
+      value: 2024132916371259473
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: 'managedReferences[2024132866991456349]'
+      value: CombatActions FireSlowProjectileCombatAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: 'managedReferences[2024132866991456385]'
+      value: CombatActions FireDamageProjectileCombatAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: 'managedReferences[2024132916371259470]'
+      value: CombatActions FireSlowProjectileCombatAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: 'managedReferences[2024132916371259473]'
+      value: CombatActions RaycastShotFireAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].Cooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].Duration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].Cooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].Duration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].Cooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].Duration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].Cooldown
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].Duration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_spread.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_spread.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_slowDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_slowDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_raycastOrigin
+      value: 
+      objectReference: {fileID: 1939196978}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_slowPercentage
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_slowPercentage
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.Clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_raycastDistance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectilePrefab
+      value: 
+      objectReference: {fileID: 8119409992204549394, guid: 71da88ea216ab2f47abe07a2270bdea4, type: 3}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectilePrefab
+      value: 
+      objectReference: {fileID: 8119409992204549394, guid: 71da88ea216ab2f47abe07a2270bdea4, type: 3}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectilePrefab
+      value: 
+      objectReference: {fileID: 8119409992204549394, guid: 71da88ea216ab2f47abe07a2270bdea4, type: 3}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.Spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.PanStereo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileSpawnPoint
+      value: 
+      objectReference: {fileID: 1939196978}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileSpawnPoint
+      value: 
+      objectReference: {fileID: 1939196978}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileSpawnPoint
+      value: 
+      objectReference: {fileID: 1939196978}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.MixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.MinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.RolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.SpatialBlend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.Clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.Clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_raycastLayerMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.ReverbZoneMix
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.Clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.Clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.Spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.Spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.Spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.Spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.PlayedFrequently
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.PanStereo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.PanStereo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.PanStereo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.MixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.PanStereo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.MixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.PanStereo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.MixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.PanStereo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.IgnoreListenerPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.MinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.RolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.MixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.MinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.RolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.MixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.MinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.RolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.MixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259473].m_shotSound.IgnoreListenerVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.SpatialBlend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.MinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.RolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.SpatialBlend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.MinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.RolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.SpatialBlend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.MinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.RolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.ReverbZoneMix
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.SpatialBlend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.ReverbZoneMix
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.SpatialBlend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.ReverbZoneMix
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.SpatialBlend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.ReverbZoneMix
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.ReverbZoneMix
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.ReverbZoneMix
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.PlayedFrequently
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.PlayedFrequently
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.PlayedFrequently
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.PlayedFrequently
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.PlayedFrequently
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.PlayedFrequently
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.IgnoreListenerPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.IgnoreListenerPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.IgnoreListenerPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.IgnoreListenerVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.IgnoreListenerPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.IgnoreListenerVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.IgnoreListenerPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.IgnoreListenerVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.IgnoreListenerPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.IgnoreListenerVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.IgnoreListenerVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.IgnoreListenerVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.273
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.911
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -16.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745679543128728910, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745679543128728910, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745679543128728910, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745825404898605668, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: m_Name
+      value: Soldier Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
 --- !u!1 &1802571406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,6 +2698,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &1939196978 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3147571195469807210, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+  m_PrefabInstance: {fileID: 1789130615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1950209658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,7 +2806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: m_attackCombatAction
-      value: 2024132866991456385
+      value: 2024132916371259470
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: 'managedReferences[2024132866991456349]'
@@ -2116,6 +2815,10 @@ PrefabInstance:
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: 'managedReferences[2024132866991456385]'
       value: CombatActions FireDamageProjectileCombatAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: 'managedReferences[2024132916371259470]'
+      value: CombatActions FireSlowProjectileCombatAction
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].Cooldown
@@ -2134,11 +2837,27 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].Cooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].Duration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_slowDuration
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_slowDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_slowPercentage
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_slowPercentage
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
@@ -2150,11 +2869,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8119409992204549394, guid: 71da88ea216ab2f47abe07a2270bdea4, type: 3}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectilePrefab
+      value: 
+      objectReference: {fileID: 8119409992204549394, guid: 71da88ea216ab2f47abe07a2270bdea4, type: 3}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_projectileSpawnPoint
       value: 
       objectReference: {fileID: 8465246607813128351}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456385].m_projectileSpawnPoint
+      value: 
+      objectReference: {fileID: 8465246607813128351}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileSpawnPoint
       value: 
       objectReference: {fileID: 8465246607813128351}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
@@ -2171,6 +2898,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Loop
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
@@ -2198,6 +2933,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.Spread
       value: 0
       objectReference: {fileID: 0}
@@ -2222,6 +2969,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.Spread
       value: 0
       objectReference: {fileID: 0}
@@ -2238,11 +2997,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.PanStereo
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.PanStereo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.PanStereo
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
@@ -2259,6 +3030,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.PanStereo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.MixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.PanStereo
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
@@ -2299,6 +3078,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.MixerGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.MinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.RolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.MixerGroup
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
@@ -2350,6 +3149,30 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.SpatialBlend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.MinDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.RolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.ReverbZoneMix
       value: 1
       objectReference: {fileID: 0}
@@ -2374,11 +3197,27 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.ReverbZoneMix
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.DopplerLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.SpatialBlend
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.ReverbZoneMix
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.ReverbZoneMix
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.ReverbZoneMix
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
@@ -2390,6 +3229,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.PlayedFrequently
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.PlayedFrequently
       value: 0
       objectReference: {fileID: 0}
@@ -2398,11 +3241,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.PlayedFrequently
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_projectileHitSound.IgnoreListenerPause
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456385].m_projectileHitSound.IgnoreListenerPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.IgnoreListenerPause
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
@@ -2422,11 +3273,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileHitSound.IgnoreListenerVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.IgnoreListenerPause
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456349].m_projectileShotSound.IgnoreListenerVolume
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: managedReferences[2024132866991456385].m_projectileShotSound.IgnoreListenerVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968094265171749591, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
+      propertyPath: managedReferences[2024132916371259470].m_projectileShotSound.IgnoreListenerVolume
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5093167540280847980, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
@@ -2483,7 +3346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5745825404898605668, guid: 23359b29cd078d740b3ac461915d5df5, type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Doctor Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2624,6 +3487,7 @@ SceneRoots:
   - {fileID: 1239899405}
   - {fileID: 5650855161733318294}
   - {fileID: 1833234120809293853}
+  - {fileID: 1789130615}
   - {fileID: 1950209660}
   - {fileID: 5790326307375371188}
   - {fileID: 73607914}
