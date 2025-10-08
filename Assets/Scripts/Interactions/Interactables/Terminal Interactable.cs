@@ -9,7 +9,10 @@ using UnityEngine.UI;
 public class TerminalInteractable : MonoBehaviour, IInteractable
 {
     CinemachineCamera m_previousCamera;
+    [SerializeField] CanvasGroup m_mainMenuCanvasGroup;
     [SerializeField] Selectable m_startingSelectable;
+    [SerializeField] CanvasGroup m_mailMenuCanvasGroup;
+    [SerializeField] Selectable m_mailMenuStartingSelectable;
     [SerializeField] CinemachineCamera m_interactionCamera;
     [SerializeField] InputActionReference m_exitAction;
     [SerializeField] InputActionReference m_moveAction;
@@ -66,6 +69,24 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
         if(!m_isInteracting) return;
         ExecuteEvents.Execute(EventSystem.current.currentSelectedGameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
     }
+
+    public void OnMailButtonPressed()
+    {
+        m_mainMenuCanvasGroup.interactable = false;
+        m_mainMenuCanvasGroup.alpha = 0;
+        m_mailMenuCanvasGroup.alpha = 1;
+        m_mailMenuCanvasGroup.interactable = true;
+        EventSystem.current.SetSelectedGameObject(m_mailMenuStartingSelectable.gameObject);
+    }
+    public void OnBackButtonPressed()
+    {
+        m_mailMenuCanvasGroup.interactable = false;
+        m_mailMenuCanvasGroup.alpha = 0;
+        m_mainMenuCanvasGroup.alpha = 1;
+        m_mainMenuCanvasGroup.interactable = true;
+        EventSystem.current.SetSelectedGameObject(m_startingSelectable.gameObject);
+    }
+    
     
     public void OnStartedInteraction(MonoBehaviour interactor)
     {
