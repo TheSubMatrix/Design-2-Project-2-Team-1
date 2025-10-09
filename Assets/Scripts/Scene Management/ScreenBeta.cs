@@ -7,7 +7,7 @@ public class ScreenBeta : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Level Two");
+            SceneTransitionHandler.Instance.TransitionScene("Level Two");
         }
     }
 }
