@@ -274,7 +274,7 @@ Shader "Custom/URP PS1 Lit" {
 
 			// Fragment Shader
 			half4 LitPassFragment(Varyings IN) : SV_Target {
-
+				
 				// Setup SurfaceData
 				SurfaceData surfaceData;
 				InitalizeSurfaceData(IN, surfaceData);
@@ -283,6 +283,8 @@ Shader "Custom/URP PS1 Lit" {
 				InputData inputData;
 				InitializeInputData(IN, surfaceData.normalTS, inputData);
 
+				ApplyDecalToSurfaceData(IN.positionCS, surfaceData, inputData);
+				
 				// Simple Lighting (Lambert & BlinnPhong)
 				half4 color = UniversalFragmentBlinnPhong(inputData, surfaceData.albedo, half4(surfaceData.specular, 1), surfaceData.smoothness, surfaceData.emission, surfaceData.alpha, surfaceData.normalTS);
 				// See Lighting.hlsl to see how this is implemented.
