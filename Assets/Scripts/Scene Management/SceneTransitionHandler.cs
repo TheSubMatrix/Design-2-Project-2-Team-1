@@ -10,12 +10,17 @@ public class SceneTransitionHandler : PersistentSingleton<SceneTransitionHandler
     public bool IsTransitioning { get; private set; } 
     [SerializeField] Material m_crtMaterial;
 
-    public void TransitionScene(string sceneName, float transitionTime = 0.5f)
+    public void TransitionScene(string sceneName, float transitionTime)
     {
         if(IsTransitioning) return;
         StartCoroutine(TransitionSceneWithEffectAsync(sceneName, transitionTime));
     }
-
+    public void TransitionScene(string sceneName)
+    {
+        // ReSharper disable once IntroduceOptionalParameters.Global
+        //Need to do it this way so that it can be called via an event
+        TransitionScene(sceneName, 0.5f);
+    }
     public void ReloadScene(float transitionTime = 0.5f)
     {
         TransitionScene(SceneManager.GetActiveScene().name, transitionTime);

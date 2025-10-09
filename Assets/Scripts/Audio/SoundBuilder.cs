@@ -33,6 +33,11 @@ namespace AudioSystem
             m_randomPitch = true;
             return this;
         }
+        public SoundBuilder UseRandomPitchMode(bool randomPitch)
+        {
+            m_randomPitch = randomPitch;
+            return this;
+        }
 
         public SoundBuilder AttachedTo(Transform attachmentTransform)
         {
