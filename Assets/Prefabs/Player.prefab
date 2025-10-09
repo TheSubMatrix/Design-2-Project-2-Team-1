@@ -1569,11 +1569,13 @@ MonoBehaviour:
       data:
         Duration: 0
         Cooldown: 0
-        m_triggerEventCallbacks: {fileID: 1613351055885309448}
-        m_animatorRight: {fileID: 2407848204845515147}
         m_useRightHand: 0
-        m_animatorLeft: {fileID: 0}
+        m_animatorRight: {fileID: 2407848204845515147}
+        m_rightHandOverrides: {fileID: 0}
         m_useLeftHand: 0
+        m_animatorLeft: {fileID: 0}
+        m_leftHandOverrides: {fileID: 0}
+        m_triggerEventCallbacks: {fileID: 1613351055885309448}
         m_attackTriggerName: Attack
         m_damage: 0
         m_attackSound:
@@ -1599,11 +1601,13 @@ MonoBehaviour:
       data:
         Duration: 0
         Cooldown: 0
-        m_triggerEventCallbacks: {fileID: 1336916937410936708}
-        m_animatorRight: {fileID: 0}
         m_useRightHand: 0
-        m_animatorLeft: {fileID: 0}
+        m_animatorRight: {fileID: 0}
+        m_rightHandOverrides: {fileID: 0}
         m_useLeftHand: 0
+        m_animatorLeft: {fileID: 0}
+        m_leftHandOverrides: {fileID: 0}
+        m_triggerEventCallbacks: {fileID: 1336916937410936708}
         m_attackTriggerName: Attack
         m_damage: 0
         m_attackSound:
@@ -1629,11 +1633,13 @@ MonoBehaviour:
       data:
         Duration: 0.25
         Cooldown: 0.2
-        m_triggerEventCallbacks: {fileID: 1613351055885309448}
+        m_useRightHand: 1
         m_animatorRight: {fileID: 2407848204845515147}
-        m_useRightHand: 0
-        m_animatorLeft: {fileID: 5048816280728721192}
+        m_rightHandOverrides: {fileID: 22100000, guid: 05c98c9c87154bb41a74fed45e91404f, type: 2}
         m_useLeftHand: 1
+        m_animatorLeft: {fileID: 5048816280728721192}
+        m_leftHandOverrides: {fileID: 22100000, guid: 47959394a14f742499842dc635a668cd, type: 2}
+        m_triggerEventCallbacks: {fileID: 1613351055885309448}
         m_attackTriggerName: Attack
         m_damage: 25
         m_attackSound:
@@ -1657,13 +1663,15 @@ MonoBehaviour:
     - rid: 6176148345603489885
       type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
       data:
-        Duration: 0
-        Cooldown: 0
-        m_triggerEventCallbacks: {fileID: 1336916937410936708}
-        m_animatorRight: {fileID: 2407848204845515147}
+        Duration: 0.2
+        Cooldown: 0.25
         m_useRightHand: 1
-        m_animatorLeft: {fileID: 5048816280728721192}
+        m_animatorRight: {fileID: 2407848204845515147}
+        m_rightHandOverrides: {fileID: 22100000, guid: 55c297694cda2244c9d5f3212ffb6cdb, type: 2}
         m_useLeftHand: 0
+        m_animatorLeft: {fileID: 5048816280728721192}
+        m_leftHandOverrides: {fileID: 0}
+        m_triggerEventCallbacks: {fileID: 1336916937410936708}
         m_attackTriggerName: Attack
         m_damage: 0
         m_attackSound:

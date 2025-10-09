@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Left Hand Light Attack
+  m_Controller: {fileID: 9100000, guid: 90058e3e10fee2b48a076b126914028f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 1cbac01a82ac6534982f6e76b4154630, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1cbac01a82ac6534982f6e76b4154630, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c3a3e9121f204164e882ad0a6310d676, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c3a3e9121f204164e882ad0a6310d676, type: 2}
