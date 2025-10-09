@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 8346448375860447945}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -661,6 +661,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7824094139283393772}
+  - {fileID: 4924790760830304339}
   m_Father: {fileID: 4242846332801170038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1225,6 +1226,104 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_cameraPosition: {fileID: 646451344389349170}
+--- !u!1 &6106399230258957561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4924790760830304339}
+  - component: {fileID: 1351032406488639610}
+  - component: {fileID: 5399216129533388640}
+  - component: {fileID: 5048816280728721192}
+  m_Layer: 3
+  m_Name: Left Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4924790760830304339
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6106399230258957561}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6637370254137000916}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -440, y: -20}
+  m_SizeDelta: {x: 850, y: 850}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1351032406488639610
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6106399230258957561}
+  m_CullTransparentMesh: 1
+--- !u!114 &5399216129533388640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6106399230258957561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 8bb6fc6ecf76fc747b8e2c3fa33c1bdb, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 96553c2aa4758f740b5dd4f3b24de39a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!95 &5048816280728721192
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6106399230258957561}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 90058e3e10fee2b48a076b126914028f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6715515071044866273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,7 +1516,7 @@ MonoBehaviour:
   m_attackCombatAction:
     rid: 2024132866991456398
   m_heavyAttackCombatAction:
-    rid: 2024132866991456339
+    rid: 6176148345603489885
   m_lightAttack: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_heavyAttack: {fileID: -8169323111223626071, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_attackCombatActionBerserk:
@@ -1471,9 +1570,11 @@ MonoBehaviour:
         Duration: 0
         Cooldown: 0
         m_triggerEventCallbacks: {fileID: 1613351055885309448}
-        m_animator: {fileID: 2407848204845515147}
+        m_animatorRight: {fileID: 2407848204845515147}
+        m_useRightHand: 0
+        m_animatorLeft: {fileID: 0}
+        m_useLeftHand: 0
         m_attackTriggerName: Attack
-        m_attackAnimationOverride: {fileID: 0}
         m_damage: 0
         m_attackSound:
           Clip: {fileID: 0}
@@ -1499,54 +1600,13 @@ MonoBehaviour:
         Duration: 0
         Cooldown: 0
         m_triggerEventCallbacks: {fileID: 1336916937410936708}
-        m_animator: {fileID: 0}
+        m_animatorRight: {fileID: 0}
+        m_useRightHand: 0
+        m_animatorLeft: {fileID: 0}
+        m_useLeftHand: 0
         m_attackTriggerName: Attack
-        m_attackAnimationOverride: {fileID: 0}
         m_damage: 0
         m_attackSound:
-          Clip: {fileID: 0}
-          MixerGroup: {fileID: 0}
-          Loop: 0
-          PlayOnAwake: 0
-          PlayedFrequently: 0
-          Volume: 1
-          Pitch: 1
-          PanStereo: 0
-          SpatialBlend: 0
-          ReverbZoneMix: 1
-          DopplerLevel: 1
-          Spread: 0
-          MinDistance: 1
-          MaxDistance: 500
-          IgnoreListenerVolume: 0
-          IgnoreListenerPause: 0
-          RolloffMode: 0
-    - rid: 2024132866991456339
-      type: {class: FireDamageProjectileCombatAction, ns: , asm: CombatActions}
-      data:
-        Duration: 0
-        Cooldown: 0
-        m_projectilePrefab: {fileID: 8119409992204549394, guid: 71da88ea216ab2f47abe07a2270bdea4, type: 3}
-        m_projectileSpawnPoint: {fileID: 5297252468719978008}
-        m_projectileShotSound:
-          Clip: {fileID: 0}
-          MixerGroup: {fileID: 0}
-          Loop: 0
-          PlayOnAwake: 0
-          PlayedFrequently: 0
-          Volume: 1
-          Pitch: 1
-          PanStereo: 0
-          SpatialBlend: 0
-          ReverbZoneMix: 1
-          DopplerLevel: 1
-          Spread: 0
-          MinDistance: 1
-          MaxDistance: 500
-          IgnoreListenerVolume: 0
-          IgnoreListenerPause: 0
-          RolloffMode: 0
-        m_projectileHitSound:
           Clip: {fileID: 0}
           MixerGroup: {fileID: 0}
           Loop: 0
@@ -1570,10 +1630,42 @@ MonoBehaviour:
         Duration: 0.25
         Cooldown: 0.2
         m_triggerEventCallbacks: {fileID: 1613351055885309448}
-        m_animator: {fileID: 2407848204845515147}
+        m_animatorRight: {fileID: 2407848204845515147}
+        m_useRightHand: 0
+        m_animatorLeft: {fileID: 5048816280728721192}
+        m_useLeftHand: 1
         m_attackTriggerName: Attack
-        m_attackAnimationOverride: {fileID: 0}
         m_damage: 25
+        m_attackSound:
+          Clip: {fileID: 0}
+          MixerGroup: {fileID: 0}
+          Loop: 0
+          PlayOnAwake: 0
+          PlayedFrequently: 0
+          Volume: 1
+          Pitch: 1
+          PanStereo: 0
+          SpatialBlend: 0
+          ReverbZoneMix: 1
+          DopplerLevel: 1
+          Spread: 0
+          MinDistance: 1
+          MaxDistance: 500
+          IgnoreListenerVolume: 0
+          IgnoreListenerPause: 0
+          RolloffMode: 0
+    - rid: 6176148345603489885
+      type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
+      data:
+        Duration: 0
+        Cooldown: 0
+        m_triggerEventCallbacks: {fileID: 1336916937410936708}
+        m_animatorRight: {fileID: 2407848204845515147}
+        m_useRightHand: 1
+        m_animatorLeft: {fileID: 5048816280728721192}
+        m_useLeftHand: 0
+        m_attackTriggerName: Attack
+        m_damage: 0
         m_attackSound:
           Clip: {fileID: 0}
           MixerGroup: {fileID: 0}

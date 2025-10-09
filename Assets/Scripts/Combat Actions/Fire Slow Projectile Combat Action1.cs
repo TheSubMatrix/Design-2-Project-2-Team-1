@@ -44,7 +44,7 @@ public class FireSlowProjectileCombatAction : BaseCombatAction
         projectile.Rigidbody.linearVelocity = Vector3.zero;
         m_projectilePool.Release(projectile);
         
-        if (other == null) return;
+        if (other?.contacts[0] is null) return;
         if (other.gameObject.TryGetComponent<ISlowable>(out ISlowable slowable))
         {
             slowable.Slow(m_slowPercentage, m_slowDuration);

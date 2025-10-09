@@ -85,42 +85,42 @@ Shader "Custom/URP PS1 Lit" {
 
 			// Structs
 			struct Attributes {
-				float4 positionOS	: POSITION;
-				float4 normalOS		: NORMAL;
+				float4 PositionOS	: POSITION;
+				float4 NormalOS		: NORMAL;
 				#ifdef _NORMALMAP
 					float4 tangentOS 	: TANGENT;
 				#endif
-				float2 uv		    : TEXCOORD0;
-				float2 lightmapUV	: TEXCOORD1;
-				float4 color		: COLOR;
+				float2 UV		    : TEXCOORD0;
+				float2 LightmapUV	: TEXCOORD1;
+				float4 Color		: COLOR;
 				//UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct Varyings {
-				float4 positionCS 					: SV_POSITION;
-				float2 uv		    	: TEXCOORD0;
+				float4 PositionCS 					: SV_POSITION;
+				float2 UV		    	: TEXCOORD0;
 				DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 1);
-				float3 positionWS					: TEXCOORD2;
+				float3 PositionWS					: TEXCOORD2;
 
 				#ifdef _NORMALMAP
 					half4 normalWS					: TEXCOORD3;    // xyz: normal, w: viewDir.x
 					half4 tangentWS					: TEXCOORD4;    // xyz: tangent, w: viewDir.y
 					half4 bitangentWS				: TEXCOORD5;    // xyz: bitangent, w: viewDir.z
 				#else
-					half3 normalWS					: TEXCOORD3;
+					half3 NormalWS					: TEXCOORD3;
 				#endif
 				
 				#ifdef _ADDITIONAL_LIGHTS_VERTEX
 					half4 fogFactorAndVertexLight	: TEXCOORD6; // x: fogFactor, yzw: vertex light
 				#else
-					half  fogFactor					: TEXCOORD6;
+					half  FogFactor					: TEXCOORD6;
 				#endif
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
 					float4 shadowCoord 				: TEXCOORD7;
 				#endif
 
-				float4 color						: COLOR;
+				float4 Color						: COLOR;
 				//UNITY_VERTEX_INPUT_INSTANCE_ID
 				//UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -166,20 +166,20 @@ Shader "Custom/URP PS1 Lit" {
 			void InitalizeSurfaceData(Varyings IN, out SurfaceData surfaceData){
 				surfaceData = (SurfaceData)0; // avoids "not completely initalized" errors
 
-				half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv);
+				half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.UV);
 
 				#ifdef _ALPHATEST_ON
 					// Alpha Clipping
 					clip(baseMap.a - _Cutoff);
 				#endif
 
-				half4 diffuse = baseMap * _BaseColor * IN.color;
+				half4 diffuse = baseMap * _BaseColor * IN.Color;
 				surfaceData.albedo = diffuse.rgb;
-				surfaceData.normalTS = SampleNormal(IN.uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap));
-				surfaceData.emission = SampleEmission(IN.uv, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
+				surfaceData.normalTS = SampleNormal(IN.UV, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap));
+				surfaceData.emission = SampleEmission(IN.UV, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
 				surfaceData.occlusion = 1.0; // unused
 
-				half4 specular = SampleSpecularSmoothness(IN.uv, diffuse.a, _SpecColor, TEXTURE2D_ARGS(_SpecGlossMap, sampler_SpecGlossMap));
+				half4 specular = SampleSpecularSmoothness(IN.UV, diffuse.a, _SpecColor, TEXTURE2D_ARGS(_SpecGlossMap, sampler_SpecGlossMap));
 				surfaceData.specular = specular.rgb;
 				surfaceData.smoothness = specular.a * _Smoothness;
 			}
@@ -187,14 +187,14 @@ Shader "Custom/URP PS1 Lit" {
 			void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData) {
 				inputData = (InputData)0; // avoids "not completely initalized" errors
 
-				inputData.positionWS = input.positionWS;
+				inputData.positionWS = input.PositionWS;
 
 				#ifdef _NORMALMAP
-					half3 viewDirWS = half3(input.normalWS.w, input.tangentWS.w, input.bitangentWS.w);
-					inputData.normalWS = TransformTangentToWorld(normalTS,half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
+					half3 viewDirWS = half3(input.NormalWS.w, input.tangentWS.w, input.bitangentWS.w);
+					inputData.normalWS = TransformTangentToWorld(normalTS,half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.NormalWS.xyz));
 				#else
 					half3 viewDirWS = GetWorldSpaceNormalizeViewDir(inputData.positionWS);
-					inputData.normalWS = input.normalWS;
+					inputData.normalWS = input.NormalWS;
 				#endif
 
 				inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
@@ -214,12 +214,12 @@ Shader "Custom/URP PS1 Lit" {
 					inputData.fogCoord = InitializeInputDataFog(float4(inputData.positionWS, 1.0), input.fogFactorAndVertexLight.x);
 					inputData.vertexLighting = input.fogFactorAndVertexLight.yzw;
 				#else
-					inputData.fogCoord = InitializeInputDataFog(float4(inputData.positionWS, 1.0), input.fogFactor);
+					inputData.fogCoord = InitializeInputDataFog(float4(inputData.positionWS, 1.0), input.FogFactor);
 					inputData.vertexLighting = half3(0, 0, 0);
 				#endif
 
 				inputData.bakedGI = SAMPLE_GI(input.lightmapUV, input.vertexSH, inputData.normalWS);
-				inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionCS);
+				inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.PositionCS);
 				inputData.shadowMask = SAMPLE_SHADOWMASK(input.lightmapUV);
 			}
 
@@ -227,18 +227,18 @@ Shader "Custom/URP PS1 Lit" {
 			Varyings LitPassVertex(Attributes IN) {
 				Varyings OUT;
 
-				VertexPositionInputs positionInputs = GetVertexPositionInputs(IN.positionOS.xyz);
+				VertexPositionInputs positionInputs = GetVertexPositionInputs(IN.PositionOS.xyz);
 				#ifdef _NORMALMAP
-					VertexNormalInputs normalInputs = GetVertexNormalInputs(IN.normalOS.xyz, IN.tangentOS);
+					VertexNormalInputs normalInputs = GetVertexNormalInputs(IN.NormalOS.xyz, IN.tangentOS);
 				#else
-					VertexNormalInputs normalInputs = GetVertexNormalInputs(IN.normalOS.xyz);
+					VertexNormalInputs normalInputs = GetVertexNormalInputs(IN.NormalOS.xyz);
 				#endif
 				
 
-				OUT.positionCS = positionInputs.positionCS;
-				OUT.positionCS = float4((round(positionInputs.positionCS.xy / positionInputs.positionCS.w * float2(480, 640))/float2(480, 640) * positionInputs.positionCS.w), positionInputs.positionCS.z, positionInputs.positionCS.w);
+				OUT.PositionCS = positionInputs.positionCS;
+				OUT.PositionCS = float4((round(positionInputs.positionCS.xy / positionInputs.positionCS.w * float2(480, 640))/float2(480, 640) * positionInputs.positionCS.w), positionInputs.positionCS.z, positionInputs.positionCS.w);
 				
-				OUT.positionWS = ClipToWorldPos(OUT.positionCS);
+				OUT.PositionWS = ClipToWorldPos(OUT.PositionCS);
 				
 
 				half3 viewDirWS = GetWorldSpaceViewDir(positionInputs.positionWS);
@@ -246,29 +246,29 @@ Shader "Custom/URP PS1 Lit" {
 				half fogFactor = ComputeFogFactor(positionInputs.positionCS.z);
 				
 				#ifdef _NORMALMAP
-					OUT.normalWS = half4(normalInputs.normalWS, viewDirWS.x);
+					OUT.NormalWS = half4(normalInputs.normalWS, viewDirWS.x);
 					OUT.tangentWS = half4(normalInputs.tangentWS, viewDirWS.y);
 					OUT.bitangentWS = half4(normalInputs.bitangentWS, viewDirWS.z);
 				#else
-					OUT.normalWS = NormalizeNormalPerVertex(normalInputs.normalWS);
+					OUT.NormalWS = NormalizeNormalPerVertex(normalInputs.normalWS);
 					//OUT.viewDirWS = viewDirWS;
 				#endif
 
 				OUTPUT_LIGHTMAP_UV(IN.lightmapUV, unity_LightmapST, OUT.lightmapUV);
-				OUTPUT_SH(OUT.normalWS.xyz, OUT.vertexSH);
+				OUTPUT_SH(OUT.NormalWS.xyz, OUT.vertexSH);
 
 				#ifdef _ADDITIONAL_LIGHTS_VERTEX
 					OUT.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
 				#else
-					OUT.fogFactor = fogFactor;
+					OUT.FogFactor = fogFactor;
 				#endif
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
 					OUT.shadowCoord = GetShadowCoord(positionInputs);
 				#endif
 
-				OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
-				OUT.color = IN.color;
+				OUT.UV = TRANSFORM_TEX(IN.UV, _BaseMap);
+				OUT.Color = IN.Color;
 				return OUT;
 			}
 
@@ -283,7 +283,7 @@ Shader "Custom/URP PS1 Lit" {
 				InputData inputData;
 				InitializeInputData(IN, surfaceData.normalTS, inputData);
 
-				ApplyDecalToSurfaceData(IN.positionCS, surfaceData, inputData);
+				ApplyDecalToSurfaceData(IN.PositionCS, surfaceData, inputData);
 				
 				// Simple Lighting (Lambert & BlinnPhong)
 				half4 color = UniversalFragmentBlinnPhong(inputData, surfaceData.albedo, half4(surfaceData.specular, 1), surfaceData.smoothness, surfaceData.emission, surfaceData.alpha, surfaceData.normalTS);
