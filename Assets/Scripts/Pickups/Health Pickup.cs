@@ -7,6 +7,7 @@ public class HealthPickup : MonoBehaviour, IInteractable
     {
         IHealable healable = interactor.transform.root.GetComponentInChildren<IHealable>();
         healable?.Heal(m_healAmount);
+        Destroy(gameObject);
     }
     public void OnExitedInteraction()
     {
