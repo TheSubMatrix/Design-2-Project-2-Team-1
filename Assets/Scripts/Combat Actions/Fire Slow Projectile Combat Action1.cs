@@ -41,8 +41,15 @@ public class FireSlowProjectileCombatAction : BaseCombatAction
 
     void ProjectileShotCompleted(Projectile projectile, Collision other)
     {
-        projectile.Rigidbody.linearVelocity = Vector3.zero;
-        m_projectilePool.Release(projectile);
+        try
+        {
+            projectile.Rigidbody.linearVelocity = Vector3.zero;
+            m_projectilePool.Release(projectile);
+        }
+        catch
+        {
+            //do nothing
+        }
         
         if (other?.contacts[0] is null) return;
         if (other.gameObject.TryGetComponent<ISlowable>(out ISlowable slowable))
