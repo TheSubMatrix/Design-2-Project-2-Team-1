@@ -170,8 +170,8 @@ MonoBehaviour:
         m_projectilePrefab: {fileID: 8119409992204549394, guid: 71da88ea216ab2f47abe07a2270bdea4, type: 3}
         m_projectileSpawnPoint: {fileID: 3147571195469807210}
         m_projectileShotSound:
-          Clip: {fileID: 0}
-          MixerGroup: {fileID: 0}
+          Clip: {fileID: 8300000, guid: 8dc8f98e5e3637d43b124dc73f506003, type: 3}
+          MixerGroup: {fileID: -7245304972095319532, guid: 778da360bf7beae40b5a03c0e088a921, type: 2}
           Loop: 0
           PlayOnAwake: 0
           PlayedFrequently: 0
