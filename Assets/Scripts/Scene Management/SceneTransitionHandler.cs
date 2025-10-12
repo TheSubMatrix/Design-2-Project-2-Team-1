@@ -16,7 +16,18 @@ public class SceneTransitionHandler : PersistentSingleton<SceneTransitionHandler
     [SerializeField] SoundData m_transitionEndSound;
     [SerializeField] AudioMixerSnapshot m_transitionStartSnapshot;
     [SerializeField] AudioMixerSnapshot m_transitionEndSnapshot;
+    float m_startingCurvature;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        m_startingCurvature = m_crtMaterial.GetFloat(Curvature);
+    }
+
+    void OnDestroy()
+    {
+        m_crtMaterial.SetFloat(Curvature, m_startingCurvature);
+    }
     public void TransitionScene(string sceneName, float transitionTime)
     {
         if(IsTransitioning) return;
@@ -33,18 +44,29 @@ public class SceneTransitionHandler : PersistentSingleton<SceneTransitionHandler
         TransitionScene(SceneManager.GetActiveScene().name, transitionTime);
     }
 
+    public void QuitGame(float transitionTime = 0.5f)
+    {
+        StartCoroutine(QuitGameAsync(transitionTime));
+    }
+    
+    IEnumerator QuitGameAsync(float transitionTime = 0.5f)
+    {
+        SoundManager.Instance.CreateSound().WithSoundData(m_transitionStartSound).WithPosition(transform.position).WithRandomPitch().Play();
+        m_transitionStartSnapshot.TransitionTo(transitionTime);
+        yield return FadeCRTTransitionAndSoundAsync(transitionTime, 0.0f);
+        Application.Quit();   
+    }
+    
     IEnumerator TransitionSceneWithEffectAsync(string sceneName, float transitionTime = 0.5f)
     {
         IsTransitioning = true;
-        float startingCurvature = m_crtMaterial.GetFloat(Curvature);
-
         SoundManager.Instance.CreateSound().WithSoundData(m_transitionStartSound).WithPosition(transform.position).WithRandomPitch().Play();
         m_transitionStartSnapshot.TransitionTo(transitionTime);
         yield return FadeCRTTransitionAndSoundAsync(transitionTime, 0.0f);
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         SoundManager.Instance.CreateSound().WithSoundData(m_transitionEndSound).WithPosition(transform.position).WithRandomPitch().Play();
         m_transitionEndSnapshot.TransitionTo(transitionTime);
-        yield return FadeCRTTransitionAndSoundAsync(transitionTime, startingCurvature);
+        yield return FadeCRTTransitionAndSoundAsync(transitionTime, m_startingCurvature);
         IsTransitioning = false;
     }
 

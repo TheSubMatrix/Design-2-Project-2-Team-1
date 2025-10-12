@@ -44,6 +44,11 @@ public class Inventory : MonoBehaviour
     {
         return m_slots.Where(slot => slot.Item == item || slot.Item is null).Aggregate<InventorySlot, uint>(0, (current, slot) => current + slot.Amount);
     }
+
+    public bool HasItem(ItemSO item)
+    {
+        return GetItemCount(item) > 0;
+    }
     
     static InventoryData.SlotData ToSlotData(InventorySlot slot)
     {

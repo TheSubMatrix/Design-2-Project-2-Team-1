@@ -107,7 +107,7 @@ Shader "Custom/URP PS1 Lit" {
 					half4 tangentWS					: TEXCOORD4;    // xyz: tangent, w: viewDir.y
 					half4 bitangentWS				: TEXCOORD5;    // xyz: bitangent, w: viewDir.z
 				#else
-					half3 NormalWS					: TEXCOORD3;
+					half3 normalWS					: TEXCOORD3;
 				#endif
 				
 				#ifdef _ADDITIONAL_LIGHTS_VERTEX
@@ -190,11 +190,11 @@ Shader "Custom/URP PS1 Lit" {
 				inputData.positionWS = input.PositionWS;
 
 				#ifdef _NORMALMAP
-					half3 viewDirWS = half3(input.NormalWS.w, input.tangentWS.w, input.bitangentWS.w);
-					inputData.normalWS = TransformTangentToWorld(normalTS,half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.NormalWS.xyz));
+					half3 viewDirWS = half3(input.normalWS.w, input.tangentWS.w, input.bitangentWS.w);
+					inputData.normalWS = TransformTangentToWorld(normalTS,half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
 				#else
 					half3 viewDirWS = GetWorldSpaceNormalizeViewDir(inputData.positionWS);
-					inputData.normalWS = input.NormalWS;
+					inputData.normalWS = input.normalWS;
 				#endif
 
 				inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
@@ -246,16 +246,16 @@ Shader "Custom/URP PS1 Lit" {
 				half fogFactor = ComputeFogFactor(positionInputs.positionCS.z);
 				
 				#ifdef _NORMALMAP
-					OUT.NormalWS = half4(normalInputs.normalWS, viewDirWS.x);
+					OUT.normalWS = half4(normalInputs.normalWS, viewDirWS.x);
 					OUT.tangentWS = half4(normalInputs.tangentWS, viewDirWS.y);
 					OUT.bitangentWS = half4(normalInputs.bitangentWS, viewDirWS.z);
 				#else
-					OUT.NormalWS = NormalizeNormalPerVertex(normalInputs.normalWS);
+					OUT.normalWS = NormalizeNormalPerVertex(normalInputs.normalWS);
 					//OUT.viewDirWS = viewDirWS;
 				#endif
 
 				OUTPUT_LIGHTMAP_UV(IN.lightmapUV, unity_LightmapST, OUT.lightmapUV);
-				OUTPUT_SH(OUT.NormalWS.xyz, OUT.vertexSH);
+				OUTPUT_SH(OUT.normalWS.xyz, OUT.vertexSH);
 
 				#ifdef _ADDITIONAL_LIGHTS_VERTEX
 					OUT.fogFactorAndVertexLight = half4(fogFactor, vertexLight);

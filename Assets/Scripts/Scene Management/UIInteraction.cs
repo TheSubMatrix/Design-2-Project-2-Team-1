@@ -39,7 +39,6 @@ public class UIInteraction : MonoBehaviour
     // Quits the game upon clicking the "quit" button
     public void QuitGame()
     {
-        Application.Quit();
-        Debug.Log("Game successfully closed");
+        SceneTransitionHandler.Instance.QuitGame();
     }
 }
