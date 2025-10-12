@@ -6,6 +6,9 @@ public class ItemPickup : MonoBehaviour, IInteractable
     public void OnStartedInteraction(MonoBehaviour interactor)
     {
         Inventory inventory = interactor.transform.root.GetComponentInChildren<Inventory>();
-        inventory?.TryAddItem(Item, 1);
+        if(inventory?.TryAddItem(Item, 1) > 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

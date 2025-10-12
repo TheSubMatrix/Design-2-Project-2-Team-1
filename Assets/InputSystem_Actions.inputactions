@@ -1052,6 +1052,94 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Cheats",
+            "id": "e3b26e7b-0fa4-4572-8a20-5635194e73a8",
+            "actions": [
+                {
+                    "name": "To Main Menu",
+                    "type": "Button",
+                    "id": "8eba38f4-8330-446a-90d7-e9856795348c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "To Level One",
+                    "type": "Button",
+                    "id": "4482af72-7c89-4c20-8383-81f1ab0ae789",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "To Level Two",
+                    "type": "Button",
+                    "id": "724fe955-50ec-48b1-93bf-240b6bdbbcbf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "To Level Three",
+                    "type": "Button",
+                    "id": "e0fc68bc-9cfe-444c-b3d0-a3f9f20c68ba",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6368ea4b-34df-48f2-b956-1a293cf1ce73",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "To Main Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17854b30-c30f-4f66-a87e-c509c231e595",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "To Level One",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baf5eb16-a805-4e3d-a6e2-e1caba5870be",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "To Level Two",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd008e90-0c82-4375-9cc4-a8292cab4214",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "To Level Three",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -1,6 +1,9 @@
 
 using System.Collections;
+using System.Collections.Generic;
+using AudioSystem;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 
@@ -9,6 +12,10 @@ public class SceneTransitionHandler : PersistentSingleton<SceneTransitionHandler
     static readonly int Curvature = Shader.PropertyToID("_Curvature");
     public bool IsTransitioning { get; private set; } 
     [SerializeField] Material m_crtMaterial;
+    [SerializeField] SoundData m_transitionStartSound;
+    [SerializeField] SoundData m_transitionEndSound;
+    [SerializeField] AudioMixerSnapshot m_transitionStartSnapshot;
+    [SerializeField] AudioMixerSnapshot m_transitionEndSnapshot;
 
     public void TransitionScene(string sceneName, float transitionTime)
     {
@@ -30,13 +37,18 @@ public class SceneTransitionHandler : PersistentSingleton<SceneTransitionHandler
     {
         IsTransitioning = true;
         float startingCurvature = m_crtMaterial.GetFloat(Curvature);
-        yield return AnimateCRTAsync(transitionTime, 0.0f);
+
+        SoundManager.Instance.CreateSound().WithSoundData(m_transitionStartSound).WithPosition(transform.position).WithRandomPitch().Play();
+        m_transitionStartSnapshot.TransitionTo(transitionTime);
+        yield return FadeCRTTransitionAndSoundAsync(transitionTime, 0.0f);
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-        yield return AnimateCRTAsync(transitionTime, startingCurvature);
+        SoundManager.Instance.CreateSound().WithSoundData(m_transitionEndSound).WithPosition(transform.position).WithRandomPitch().Play();
+        m_transitionEndSnapshot.TransitionTo(transitionTime);
+        yield return FadeCRTTransitionAndSoundAsync(transitionTime, startingCurvature);
         IsTransitioning = false;
     }
 
-    IEnumerator AnimateCRTAsync(float transitionTime, float destinationCurvature)
+    IEnumerator FadeCRTTransitionAndSoundAsync(float transitionTime, float destinationCurvature)
     {
         float elapsedTime = 0.0f;
         float startingCurvature = m_crtMaterial.GetFloat(Curvature);

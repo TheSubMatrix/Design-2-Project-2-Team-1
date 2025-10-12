@@ -259,7 +259,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1530006323563027214}
+  - {fileID: 918671484197227388}
   - {fileID: 7465807000651982782}
   - {fileID: 7930482094832917415}
   - {fileID: 6479613197273117984}
@@ -307,8 +307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_inventorySlotData:
-  - m_slotDisplay: {fileID: 8478675707953172011}
-    m_slotCountText: {fileID: 5392803418522307509}
+  - m_slotDisplay: {fileID: 7795208547611991641}
+    m_slotCountText: {fileID: 6004279475347446727}
   - m_slotDisplay: {fileID: 507286001201672859}
     m_slotCountText: {fileID: 4068832317108909829}
   - m_slotDisplay: {fileID: 1053659200469044866}
@@ -1653,17 +1653,17 @@ MonoBehaviour:
     - rid: 2024132831431361273
       type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
       data:
-        Duration: 0
-        Cooldown: 0
-        m_useRightHand: 0
+        Duration: 0.25
+        Cooldown: 0.2
+        m_useRightHand: 1
         m_animatorRight: {fileID: 2407848204845515147}
-        m_rightHandOverrides: {fileID: 0}
-        m_useLeftHand: 0
-        m_animatorLeft: {fileID: 0}
-        m_leftHandOverrides: {fileID: 0}
+        m_rightHandOverrides: {fileID: 22100000, guid: 05c98c9c87154bb41a74fed45e91404f, type: 2}
+        m_useLeftHand: 1
+        m_animatorLeft: {fileID: 5048816280728721192}
+        m_leftHandOverrides: {fileID: 22100000, guid: 47959394a14f742499842dc635a668cd, type: 2}
         m_triggerEventCallbacks: {fileID: 1613351055885309448}
         m_attackTriggerName: Attack
-        m_damage: 0
+        m_damage: 50
         m_attackSound:
           Clip: {fileID: 0}
           MixerGroup: {fileID: 0}
@@ -1685,17 +1685,17 @@ MonoBehaviour:
     - rid: 2024132831431361274
       type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
       data:
-        Duration: 0
-        Cooldown: 0
-        m_useRightHand: 0
-        m_animatorRight: {fileID: 0}
-        m_rightHandOverrides: {fileID: 0}
+        Duration: 0.5
+        Cooldown: 0.2
+        m_useRightHand: 1
+        m_animatorRight: {fileID: 2407848204845515147}
+        m_rightHandOverrides: {fileID: 22100000, guid: 55c297694cda2244c9d5f3212ffb6cdb, type: 2}
         m_useLeftHand: 0
-        m_animatorLeft: {fileID: 0}
+        m_animatorLeft: {fileID: 5048816280728721192}
         m_leftHandOverrides: {fileID: 0}
         m_triggerEventCallbacks: {fileID: 1336916937410936708}
         m_attackTriggerName: Attack
-        m_damage: 0
+        m_damage: 100
         m_attackSound:
           Clip: {fileID: 0}
           MixerGroup: {fileID: 0}
@@ -1717,8 +1717,8 @@ MonoBehaviour:
     - rid: 2024132866991456398
       type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
       data:
-        Duration: 0.15
-        Cooldown: 0.1
+        Duration: 0.25
+        Cooldown: 0.2
         m_useRightHand: 1
         m_animatorRight: {fileID: 2407848204845515147}
         m_rightHandOverrides: {fileID: 22100000, guid: 05c98c9c87154bb41a74fed45e91404f, type: 2}
@@ -1749,8 +1749,8 @@ MonoBehaviour:
     - rid: 6176148345603489885
       type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
       data:
-        Duration: 0.2
-        Cooldown: 0.25
+        Duration: 0.5
+        Cooldown: 0.2
         m_useRightHand: 1
         m_animatorRight: {fileID: 2407848204845515147}
         m_rightHandOverrides: {fileID: 22100000, guid: 55c297694cda2244c9d5f3212ffb6cdb, type: 2}
@@ -2414,7 +2414,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
   m_PrefabInstance: {fileID: 4594680663881318059}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &8292266841770201221
+--- !u!1001 &7678750339398271223
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2457,6 +2457,18 @@ PrefabInstance:
     - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2511,15 +2523,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
---- !u!224 &1530006323563027214 stripped
+--- !u!224 &918671484197227388 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
-  m_PrefabInstance: {fileID: 8292266841770201221}
+  m_PrefabInstance: {fileID: 7678750339398271223}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5392803418522307509 stripped
+--- !u!114 &6004279475347446727 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4162200034676202288, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
-  m_PrefabInstance: {fileID: 8292266841770201221}
+  m_PrefabInstance: {fileID: 7678750339398271223}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -2527,10 +2539,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8478675707953172011 stripped
+--- !u!114 &7795208547611991641 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 485898791837163182, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
-  m_PrefabInstance: {fileID: 8292266841770201221}
+  m_PrefabInstance: {fileID: 7678750339398271223}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 0
