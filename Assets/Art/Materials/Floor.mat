@@ -25,6 +25,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _AFFINE_TEXTURE_MAPPING
   - _NORMALMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -54,6 +55,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DisplacementMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -96,6 +101,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
+    - _AffineMapping: 0
+    - _AffineTextureMapping: 1
+    - _AffineTextureMappingToggle: 1
     - _AlphaClip: 0
     - _AlphaTestToggle: 0
     - _AlphaToMask: 0
@@ -104,10 +112,14 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _ConstantTessellation: 0
     - _Cull: 2
+    - _CustomShadowBias: 1
+    - _CustomShadowNormalBias: 1
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Displacement: 0.5
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _Emission: 0
@@ -122,14 +134,20 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _ShadowBias: 1
+    - _ShadowNormalBias: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
+    - _SnapShadows: 0
     - _SpecGlossMapToggle: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _SurfaceType: 0
+    - _TessellationEdgeLength: 50
+    - _TessellationFactor: 4
+    - _TessellationMaxDistance: 50
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
