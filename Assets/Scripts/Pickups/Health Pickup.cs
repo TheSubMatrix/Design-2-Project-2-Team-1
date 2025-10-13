@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class HealthPickup : MonoBehaviour, IInteractable
+public class HealthPickup : FloatingPickup
 {
     [SerializeField] uint m_healAmount = 10;
-    public void OnStartedInteraction(MonoBehaviour interactor)
+    protected override void OnPickup(MonoBehaviour interactor)
     {
         IHealable healable = interactor.transform.root.GetComponentInChildren<IHealable>();
         healable?.Heal(m_healAmount);
         Destroy(gameObject);
     }
-    public void OnExitedInteraction()
-    {
-        
-    }
+
 }

@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class SanityPickup : MonoBehaviour, IInteractable
+public class SanityPickup : FloatingPickup
 {
     [SerializeField] int m_sanityChange = 10;
-    public void OnStartedInteraction(MonoBehaviour interactor)
+    protected override void OnPickup(MonoBehaviour interactor)
     {
         EventBus<RequestSanityChange>.Raise(new RequestSanityChange(m_sanityChange));
+        Destroy(gameObject);
     }
 }

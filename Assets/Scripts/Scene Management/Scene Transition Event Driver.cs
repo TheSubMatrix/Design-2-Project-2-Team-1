@@ -6,4 +6,9 @@ public class SceneTransitionEventDriver : MonoBehaviour
     {
         SceneTransitionHandler.Instance.TransitionScene(sceneName);
     }
+
+    public void ReloadScene()
+    {
+        SceneTransitionHandler.Instance.ReloadScene();
+    }
 }
