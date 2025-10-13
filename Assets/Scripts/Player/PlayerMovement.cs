@@ -53,15 +53,15 @@ public class PlayerMovement : MonoBehaviour, ISlowable
     float m_currentDeceleration;
     float m_playerHeight;
     float m_crouchedHeight;
+    float m_currentSpeedPercent = 1.0f;
     double m_stepsSinceGrounded;
     double m_stepsSinceJump;
     int m_groundContactCount;
     int m_steepContactCount;
     int m_ceilingContactCount;
-    
-    float m_currentSpeedPercent = 1.0f;
     Coroutine m_currentSlowRoutine;
-
+    AudioSource m_walkSoundSource;
+    
     bool IsGrounded => m_groundContactCount > 0;
     bool m_wantsToJump;
     bool m_shouldReadInput = true;
@@ -104,7 +104,6 @@ public class PlayerMovement : MonoBehaviour, ISlowable
         }
     
     }
-    
     void OnDisable()
     {
         EventBus<UpdatePlayerInputState>.Deregister(m_updateInputStateEvent);
@@ -134,6 +133,7 @@ public class PlayerMovement : MonoBehaviour, ISlowable
     }
     public void Start()
     {
+        m_walkSoundSource = GetComponent<AudioSource>();
         m_playerHeight = m_playerCollider.height;
         m_crouchedHeight = m_playerHeight - m_crouchDistance;
     }
@@ -303,8 +303,16 @@ public class PlayerMovement : MonoBehaviour, ISlowable
             m_newX = Mathf.MoveTowards(currentX, 0, m_maxSlideDeceleration);
             m_newZ = Mathf.MoveTowards(currentZ, 0, m_maxSlideDeceleration);
         }
-
         m_modifiedVelocity += xAxis * (m_newX - currentX) + zAxis * (m_newZ - currentZ);
+        switch (m_desiredSpeed)
+        {
+            case > 0 when (desiredX > 0 || desiredZ > 0) && !m_walkSoundSource.isPlaying:
+                m_walkSoundSource.Play();
+                break;
+            case <= 0 when (desiredX <= 0 || desiredZ <= 0) && m_walkSoundSource.isPlaying:
+                m_walkSoundSource.Stop();
+                break;
+        }
     }
     void ClearState()
     {
