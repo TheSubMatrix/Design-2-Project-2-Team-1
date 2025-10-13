@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _AFFINE_TEXTURE_MAPPING
   - _ALPHATEST_ON
   - _NORMALMAP
   m_InvalidKeywords:
@@ -86,6 +87,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
+    - _AffineTextureMappingToggle: 1
     - _AlphaClip: 0
     - _AlphaTestToggle: 1
     - _AlphaToMask: 0
@@ -119,6 +121,9 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _SurfaceType: 0
+    - _TessellationFactor: 4
+    - _TessellationMaxDistance: 50
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
