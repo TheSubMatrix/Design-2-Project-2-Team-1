@@ -3,7 +3,7 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 		[MainTexture] _BaseMap("Base Map (RGB) Smoothness / Alpha (A)", 2D) = "white" {}
 		[MainColor]   _BaseColor("Base Color", Color) = (1, 1, 1, 1)
 
-		[Toggle(_NORMALMAP)] _NormalMapToggle ("Normal Mapping", Float) = 0
+		[Toggle(_NORMALMAP)] _NormalMapToggle ("Normal Mapping", Float) = 1
 		[NoScaleOffset] _BumpMap("Normal Map", 2D) = "bump" {}
 
 		[HDR] _EmissionColor("Emission Color", Color) = (0,0,0)
@@ -14,16 +14,16 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 		_Cutoff ("Alpha Cutoff", Float) = 0.5
 
 		[Toggle(_SURFACE_TYPE_TRANSPARENT)] _SurfaceType ("Transparent", Float) = 0
-		[Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 5
-		[Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 10
+		[Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 1
+		[Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 2
 		[Enum(Off, 0, On, 1)] _ZWrite ("Z Write", Float) = 1
 
-		[Toggle(_SPECGLOSSMAP)] _SpecGlossMapToggle ("Use Specular Gloss Map", Float) = 0
-		_SpecColor("Specular Color", Color) = (0.5, 0.5, 0.5, 0.5)
-		_SpecGlossMap("Specular Map", 2D) = "white" {}
+		[Toggle(_SPECGLOSSMAP)] _SpecGlossMapToggle ("Use Specular Gloss Map", Float) = 1
+		_SpecColor("Specular Color", Color) = (1,1,1,1)
+		_SpecGlossMap("Specular Map", 2D) = "linearGrey" {}
 		_Smoothness("Smoothness", Range(0.0, 1.0)) = 0.5
 
-		_TessellationFactor("Tessellation Factor", Range(1, 64)) = 4
+		_TessellationFactor("Tessellation Factor", Range(1, 64)) = 2
 		_TessellationMaxDistance("Max Tessellation Distance", Float) = 50
 		[Toggle(_AFFINE_TEXTURE_MAPPING)] _AffineTextureMappingToggle ("Affine Texture Mapping", Float) = 1
 	}
@@ -124,14 +124,25 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 			#define _SPECULAR_COLOR
 			
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
-			#pragma multi_compile _ _SHADOWS_SOFT
+			#pragma multi_compile _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
+			#pragma multi_compile _ _FORWARD_PLUS
 			#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
 			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
+			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
 			#pragma multi_compile _ _MIXED_LIGHTING_SUBTRACTIVE
 			#pragma multi_compile _ SHADOWS_SHADOWMASK
 			#pragma multi_compile _ LIGHTMAP_ON
+			#pragma multi_compile _ DYNAMICLIGHTMAP_ON
 			#pragma multi_compile _ DIRLIGHTMAP_COMBINED
+			#pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+			#pragma multi_compile _ _LIGHT_LAYERS
+			#pragma multi_compile _ _LIGHT_COOKIES
+			#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
+			#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+			#pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
 			#pragma multi_compile_fog
+			#pragma multi_compile_fragment _ DEBUG_DISPLAY
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
@@ -356,12 +367,9 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 			Cull Back
 
 			HLSLPROGRAM
-			#pragma target 4.6
-			#pragma require tessellation
+			#pragma target 3.5
 			
-			#pragma vertex TessellationVertexShadow
-			#pragma hull HullShadow
-			#pragma domain DomainShadow
+			#pragma vertex ShadowPassVertex
 			#pragma fragment ShadowPassFragment
 
 			#pragma shader_feature_local_fragment _ALPHATEST_ON
@@ -379,35 +387,10 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 				float2 Texcoord : TEXCOORD0;
 			};
 
-			struct TessellationControlPointShadow {
-				float4 PositionOS : INTERNALTESSPOS;
-				float3 NormalOS : NORMAL;
-				float2 Texcoord : TEXCOORD0;
-			};
-
 			struct VaryingsShadow {
 				float2 UV : TEXCOORD0;
 				float4 PositionCS : SV_POSITION;
 			};
-
-			TessellationControlPointShadow TessellationVertexShadow(AttributesShadow v) {
-				TessellationControlPointShadow o;
-				o.PositionOS = v.PositionOS;
-				o.NormalOS = v.NormalOS;
-				o.Texcoord = v.Texcoord;
-				return o;
-			}
-
-			_PATCH_CONSTANT_FUNCTION(TessellationControlPointShadow)
-
-			[domain("tri")]
-			[outputcontrolpoints(3)]
-			[outputtopology("triangle_cw")]
-			[partitioning("integer")]
-			[patchconstantfunc("PatchConstant")]
-			TessellationControlPointShadow HullShadow(InputPatch<TessellationControlPointShadow, 3> patch, uint id : SV_OutputControlPointID) {
-				return patch[id];
-			}
 
 			float4 GetShadowPositionHClip(AttributesShadow input) {
 				float3 positionWS = TransformObjectToWorld(input.PositionOS.xyz);
@@ -440,15 +423,6 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 				return output;
 			}
 
-			[domain("tri")]
-			VaryingsShadow DomainShadow(TessellationFactors factors, OutputPatch<TessellationControlPointShadow, 3> patch, float3 barycentricCoordinates : SV_DomainLocation) {
-				AttributesShadow v;
-				_DOMAIN_INTERPOLATE(PositionOS)
-				_DOMAIN_INTERPOLATE(NormalOS)
-				_DOMAIN_INTERPOLATE(Texcoord)
-				return ShadowPassVertex(v);
-			}
-
 			half4 ShadowPassFragment(VaryingsShadow input) : SV_TARGET {
 				#ifdef _ALPHATEST_ON
 					half alpha = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.UV).a;
@@ -468,12 +442,9 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 			ZTest LEqual
 
 			HLSLPROGRAM
-			#pragma target 4.6
-			#pragma require tessellation
+			#pragma target 3.5
 			
-			#pragma vertex TessellationVertexDepth
-			#pragma hull HullDepth
-			#pragma domain DomainDepth
+			#pragma vertex DepthOnlyVertex
 			#pragma fragment DepthOnlyFragment
 
 			#pragma shader_feature_local_fragment _ALPHATEST_ON
@@ -486,47 +457,16 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 				float2 Texcoord : TEXCOORD0;
 			};
 
-			struct TessellationControlPointDepth {
-				float4 PositionOS : INTERNALTESSPOS;
-				float2 Texcoord : TEXCOORD0;
-			};
-
 			struct VaryingsDepth {
 				float2 UV : TEXCOORD0;
 				float4 PositionCS : SV_POSITION;
 			};
-
-			TessellationControlPointDepth TessellationVertexDepth(AttributesDepth v) {
-				TessellationControlPointDepth o;
-				o.PositionOS = v.PositionOS;
-				o.Texcoord = v.Texcoord;
-				return o;
-			}
-
-			_PATCH_CONSTANT_FUNCTION(TessellationControlPointDepth)
-
-			[domain("tri")]
-			[outputcontrolpoints(3)]
-			[outputtopology("triangle_cw")]
-			[partitioning("integer")]
-			[patchconstantfunc("PatchConstant")]
-			TessellationControlPointDepth HullDepth(InputPatch<TessellationControlPointDepth, 3> patch, uint id : SV_OutputControlPointID) {
-				return patch[id];
-			}
 
 			VaryingsDepth DepthOnlyVertex(AttributesDepth input) {
 				VaryingsDepth output;
 				output.UV = TRANSFORM_TEX(input.Texcoord, _BaseMap);
 				output.PositionCS = TransformObjectToHClip(input.PositionOS.xyz);
 				return output;
-			}
-
-			[domain("tri")]
-			VaryingsDepth DomainDepth(TessellationFactors factors, OutputPatch<TessellationControlPointDepth, 3> patch, float3 barycentricCoordinates : SV_DomainLocation) {
-				AttributesDepth v;
-				_DOMAIN_INTERPOLATE(PositionOS)
-				_DOMAIN_INTERPOLATE(Texcoord)
-				return DepthOnlyVertex(v);
 			}
 
 			half4 DepthOnlyFragment(VaryingsDepth input) : SV_TARGET {
@@ -547,12 +487,9 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 			ZTest LEqual
 
 			HLSLPROGRAM
-			#pragma target 4.6
-			#pragma require tessellation
+			#pragma target 3.5
 			
-			#pragma vertex TessellationVertexDepthNormals
-			#pragma hull HullDepthNormals
-			#pragma domain DomainDepthNormals
+			#pragma vertex DepthNormalsVertex
 			#pragma fragment DepthNormalsFragment
 
 			#pragma shader_feature_local _NORMALMAP
@@ -563,13 +500,6 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 
 			struct AttributesDepthNormals {
 				float4 PositionOS : POSITION;
-				float4 TangentOS : TANGENT;
-				float3 NormalOS : NORMAL;
-				float2 Texcoord : TEXCOORD0;
-			};
-
-			struct TessellationControlPointDepthNormals {
-				float4 PositionOS : INTERNALTESSPOS;
 				float4 TangentOS : TANGENT;
 				float3 NormalOS : NORMAL;
 				float2 Texcoord : TEXCOORD0;
@@ -586,26 +516,6 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 					half3 NormalWS : TEXCOORD2;
 				#endif
 			};
-
-			TessellationControlPointDepthNormals TessellationVertexDepthNormals(AttributesDepthNormals v) {
-				TessellationControlPointDepthNormals o;
-				o.PositionOS = v.PositionOS;
-				o.TangentOS = v.TangentOS;
-				o.NormalOS = v.NormalOS;
-				o.Texcoord = v.Texcoord;
-				return o;
-			}
-
-			_PATCH_CONSTANT_FUNCTION(TessellationControlPointDepthNormals)
-
-			[domain("tri")]
-			[outputcontrolpoints(3)]
-			[outputtopology("triangle_cw")]
-			[partitioning("integer")]
-			[patchconstantfunc("PatchConstant")]
-			TessellationControlPointDepthNormals HullDepthNormals(InputPatch<TessellationControlPointDepthNormals, 3> patch, uint id : SV_OutputControlPointID) {
-				return patch[id];
-			}
 
 			VaryingsDepthNormals DepthNormalsVertex(AttributesDepthNormals input) {
 				VaryingsDepthNormals output;
@@ -625,16 +535,6 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 				#endif
 
 				return output;
-			}
-
-			[domain("tri")]
-			VaryingsDepthNormals DomainDepthNormals(TessellationFactors factors, OutputPatch<TessellationControlPointDepthNormals, 3> patch, float3 barycentricCoordinates : SV_DomainLocation) {
-				AttributesDepthNormals v;
-				_DOMAIN_INTERPOLATE(PositionOS)
-				_DOMAIN_INTERPOLATE(TangentOS)
-				_DOMAIN_INTERPOLATE(NormalOS)
-				_DOMAIN_INTERPOLATE(Texcoord)
-				return DepthNormalsVertex(v);
 			}
 
 			half4 DepthNormalsFragment(VaryingsDepthNormals input) : SV_TARGET {
