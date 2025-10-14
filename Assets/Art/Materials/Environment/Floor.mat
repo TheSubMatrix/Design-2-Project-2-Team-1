@@ -107,6 +107,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaTestToggle: 0
     - _AlphaToMask: 0
+    - _BlackLevel: 0.043
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1

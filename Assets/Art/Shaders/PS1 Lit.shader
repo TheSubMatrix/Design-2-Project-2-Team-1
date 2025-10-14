@@ -1,8 +1,9 @@
-Shader "Custom/URP PS1 Lit Tessellation" {
+Shader "Custom/URP PS1 Lit" {
 	Properties {
 		[MainTexture] _BaseMap("Base Map (RGB) Smoothness / Alpha (A)", 2D) = "white" {}
 		[MainColor]   _BaseColor("Base Color", Color) = (1, 1, 1, 1)
-
+		[Toggle(_AFFINE_TEXTURE_MAPPING)] _AffineTextureMappingToggle ("Affine Texture Mapping", Float) = 1
+		
 		[Toggle(_NORMALMAP)] _NormalMapToggle ("Normal Mapping", Float) = 1
 		[NoScaleOffset] _BumpMap("Normal Map", 2D) = "bump" {}
 
@@ -17,15 +18,15 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 		[Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 1
 		[Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 2
 		[Enum(Off, 0, On, 1)] _ZWrite ("Z Write", Float) = 1
+		[Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull Mode", Float) = 2
 
 		[Toggle(_SPECGLOSSMAP)] _SpecGlossMapToggle ("Use Specular Gloss Map", Float) = 1
 		_SpecColor("Specular Color", Color) = (1,1,1,1)
-		_SpecGlossMap("Specular Map", 2D) = "linearGrey" {}
+		[NoScaleOffset]_SpecGlossMap("Specular Map", 2D) = "linearGrey" {}
 		_Smoothness("Smoothness", Range(0.0, 1.0)) = 0.5
 
 		_TessellationFactor("Tessellation Factor", Range(1, 64)) = 2
 		_TessellationMaxDistance("Max Tessellation Distance", Float) = 50
-		[Toggle(_AFFINE_TEXTURE_MAPPING)] _AffineTextureMappingToggle ("Affine Texture Mapping", Float) = 1
 	}
 	
 	SubShader {
@@ -103,6 +104,7 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 
 			Blend [_SrcBlend] [_DstBlend]
 			ZWrite [_ZWrite]
+			Cull [_Cull]
 
 			HLSLPROGRAM
 			#pragma target 4.6
@@ -299,10 +301,15 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 				surfaceData.normalTS = SampleNormal(IN.UV, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap));
 				surfaceData.emission = SampleEmission(IN.UV, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
 				surfaceData.occlusion = 1.0;
-
+				#ifdef _SPECGLOSSMAP
 				half4 specGlossMap = SAMPLE_TEXTURE2D(_SpecGlossMap, sampler_SpecGlossMap, IN.UV);
-				surfaceData.specular = specGlossMap.rgb * _SpecColor.rgb;
-				surfaceData.smoothness = specGlossMap.a * _Smoothness;
+				surfaceData.specular = specGlossMap.rgb;
+				surfaceData.smoothness = specGlossMap.a;
+				#else
+				surfaceData.specular = _SpecColor.rgb;
+				surfaceData.smoothness = _Smoothness;
+				#endif
+				
 			}
 
 			void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData) {
@@ -364,7 +371,7 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 			ZWrite On
 			ZTest LEqual
 			ColorMask 0
-			Cull Back
+			Cull [_Cull]
 
 			HLSLPROGRAM
 			#pragma target 3.5
@@ -440,6 +447,7 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 			ColorMask 0
 			ZWrite On
 			ZTest LEqual
+			Cull [_Cull]
 
 			HLSLPROGRAM
 			#pragma target 3.5
@@ -485,6 +493,7 @@ Shader "Custom/URP PS1 Lit Tessellation" {
 
 			ZWrite On
 			ZTest LEqual
+			Cull [_Cull]
 
 			HLSLPROGRAM
 			#pragma target 3.5
