@@ -413,8 +413,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f05e132c358c74cb5bd6a0108905dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_aimPoint: {fileID: 3147571195469807210}
   m_enemyVisionSensor: {fileID: 1139957988425209222}
   m_aimingSpeed: 100
+  m_aimPointSpeed: 150
+  m_maxVerticalAngle: 60
+  m_aimThreshold: 5
 --- !u!1 &4734002921363560858
 GameObject:
   m_ObjectHideFlags: 0

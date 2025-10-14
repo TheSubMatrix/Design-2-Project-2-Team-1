@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using AudioSystem;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -20,7 +21,16 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
     [SerializeField] SoundData m_interactSound;
     [SerializeField] SoundData m_exitSound;
     
+    [SerializeField] List<CanvasGroup> m_mailSubCanvasGroups;
+    int m_selectedMailSubCanvasGroupIndex = 0;
+    CanvasGroup m_activeCanvasGroup;
     bool m_isInteracting;
+
+    void Awake()
+    {
+        m_activeCanvasGroup = m_mainMenuCanvasGroup;
+    }
+
     void OnEnable()
     {
         m_exitAction.action.Enable();
@@ -63,7 +73,6 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
             EventSystem.current.SetSelectedGameObject(nextSelectable.gameObject);
         }
     }
-
     void OnSelectAction(InputAction.CallbackContext context)
     {
         if(!m_isInteracting) return;
@@ -77,6 +86,9 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
         m_mailMenuCanvasGroup.alpha = 1;
         m_mailMenuCanvasGroup.interactable = true;
         EventSystem.current.SetSelectedGameObject(m_mailMenuStartingSelectable.gameObject);
+        m_mainMenuCanvasGroup.interactable = false;
+        m_activeCanvasGroup = m_mailMenuCanvasGroup;
+        m_mailMenuCanvasGroup.interactable = true;
     }
     public void OnBackButtonPressed()
     {
@@ -85,8 +97,22 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
         m_mainMenuCanvasGroup.alpha = 1;
         m_mainMenuCanvasGroup.interactable = true;
         EventSystem.current.SetSelectedGameObject(m_startingSelectable.gameObject);
+        m_mailMenuCanvasGroup.interactable = false;
+        m_activeCanvasGroup = m_mainMenuCanvasGroup;
+        m_mainMenuCanvasGroup.interactable = true;
     }
-    
+    public void OnScrollUpButtonPressed()
+    {
+        m_mailSubCanvasGroups[m_selectedMailSubCanvasGroupIndex].alpha = 0;
+        m_selectedMailSubCanvasGroupIndex = (m_selectedMailSubCanvasGroupIndex + 1) % m_mailSubCanvasGroups.Count;
+        m_mailSubCanvasGroups[m_selectedMailSubCanvasGroupIndex].alpha = 1;
+    }
+    public void OnScrollDownButtonPressed()
+    {
+        m_mailSubCanvasGroups[m_selectedMailSubCanvasGroupIndex].alpha = 0;
+        m_selectedMailSubCanvasGroupIndex = (m_selectedMailSubCanvasGroupIndex - 1 + m_mailSubCanvasGroups.Count) % m_mailSubCanvasGroups.Count;
+        m_mailSubCanvasGroups[m_selectedMailSubCanvasGroupIndex].alpha = 1;
+    }
     
     public void OnStartedInteraction(MonoBehaviour interactor)
     {
@@ -98,6 +124,7 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
         SoundManager.Instance.CreateSound().WithSoundData(m_interactSound).WithPosition(transform.position).WithRandomPitch().Play();
         EventSystem.current.SetSelectedGameObject(m_startingSelectable.gameObject);
         m_isInteracting = true;
+        m_activeCanvasGroup.interactable = true;
     }
 
     public void OnExitedInteraction()
@@ -108,5 +135,7 @@ public class TerminalInteractable : MonoBehaviour, IInteractable
         SoundManager.Instance.CreateSound().WithSoundData(m_exitSound).WithPosition(transform.position).WithRandomPitch().Play();
         EventSystem.current.SetSelectedGameObject(null);
         m_isInteracting = false;
+        m_mailMenuCanvasGroup.interactable = false;
+        m_mainMenuCanvasGroup.interactable = false;
     }
 }

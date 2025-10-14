@@ -27,14 +27,16 @@ public class FireSlowProjectileCombatAction : BaseCombatAction
     void OnTakeFromPool(Projectile projectile)
     {
         projectile.transform.position = m_projectileSpawnPoint.position;
+        projectile.transform.rotation = m_projectileSpawnPoint.rotation * Quaternion.Euler(90, 0, 0);
         projectile.gameObject.SetActive(true);
     }
-    void OnReturnedToPool(Projectile projectile)
+
+    static void OnReturnedToPool(Projectile projectile)
     {
         projectile.gameObject.SetActive(false);
     }
 
-    void OnDestroyPooledObject(Projectile projectile)
+    static void OnDestroyPooledObject(Projectile projectile)
     {
         Object.Destroy(projectile.gameObject);
     }

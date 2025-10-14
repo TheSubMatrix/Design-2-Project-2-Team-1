@@ -304,14 +304,35 @@ public class PlayerMovement : MonoBehaviour, ISlowable
             m_newZ = Mathf.MoveTowards(currentZ, 0, m_maxSlideDeceleration);
         }
         m_modifiedVelocity += xAxis * (m_newX - currentX) + zAxis * (m_newZ - currentZ);
-        switch (m_desiredSpeed)
+        // Check if player is actually moving on the ground
+        Vector3 horizontalVelocity = new Vector3(m_modifiedVelocity.x, 0, m_modifiedVelocity.z);
+        float currentSpeed = horizontalVelocity.magnitude;
+        bool isMoving = currentSpeed > 0.1f && IsGrounded;
+
+        if (isMoving)
         {
-            case > 0 when (desiredX > 0 || desiredZ > 0) && !m_walkSoundSource.isPlaying:
+            if (!m_walkSoundSource.isPlaying)
+            {
                 m_walkSoundSource.Play();
-                break;
-            case <= 0 when (desiredX <= 0 || desiredZ <= 0) && m_walkSoundSource.isPlaying:
-                m_walkSoundSource.Stop();
-                break;
+            }
+    
+            // Modulate pitch based on speed (normalize between walk and sprint speeds)
+            float normalizedSpeed = Mathf.InverseLerp(0, m_sprintMoveSpeed, currentSpeed);
+            m_walkSoundSource.pitch = Mathf.Lerp(0.8f, 1.3f, normalizedSpeed);
+    
+            // Keep volume at full when moving
+            m_walkSoundSource.volume = Mathf.MoveTowards(m_walkSoundSource.volume, 1f, Time.deltaTime * 5f);
+        }
+        else
+        {
+            if (!m_walkSoundSource.isPlaying) return;
+            // Fade out the volume
+            m_walkSoundSource.volume = Mathf.MoveTowards(m_walkSoundSource.volume, 0f, Time.deltaTime * 3f);
+        
+            // Stop the sound once it's fully faded
+            if (!(m_walkSoundSource.volume <= 0.01f)) return;
+            m_walkSoundSource.Stop();
+            m_walkSoundSource.volume = 1f; // Reset volume for next play
         }
     }
     void ClearState()
