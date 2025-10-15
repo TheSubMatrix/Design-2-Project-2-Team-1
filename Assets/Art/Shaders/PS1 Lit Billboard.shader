@@ -3,6 +3,11 @@ Shader "Custom/URP PS1 Lit Billboard" {
 		[MainTexture] _BaseMap("Base Map (RGB) Smoothness / Alpha (A)", 2D) = "white" {}
 		[MainColor]   _BaseColor("Base Color", Color) = (1, 1, 1, 1)
 
+		// Billboard control properties
+		_VerticalOffset("Vertical Offset", Float) = 0.0
+		_HorizontalOffset("Horizontal Offset", Float) = 0.0
+		_VerticalRotation("Vertical Rotation (Degrees)", Range(-180, 180)) = 0.0
+
 		[Toggle(_NORMALMAP)] _NormalMapToggle ("Normal Mapping", Float) = 0
 		[NoScaleOffset] _BumpMap("Normal Map", 2D) = "bump" {}
 
@@ -16,7 +21,6 @@ Shader "Custom/URP PS1 Lit Billboard" {
 		[Toggle(_SPECGLOSSMAP)] _SpecGlossMapToggle ("Use Specular Gloss Map", Float) = 0
 		_SpecColor("Specular Color", Color) = (0.5, 0.5, 0.5, 0.5)
 		_SpecGlossMap("Specular Map", 2D) = "white" {}
-		[Toggle(_GLOSSINESS_FROM_BASE_ALPHA)] _GlossSource ("Glossiness Source, from Albedo Alpha (if on) vs from Specular (if off)", Float) = 0
 		_Smoothness("Smoothness", Range(0.0, 1.0)) = 0.5
 	}
 	SubShader {
@@ -36,6 +40,9 @@ Shader "Custom/URP PS1 Lit Billboard" {
 		float4 _SpecColor;
 		float _Cutoff;
 		float _Smoothness;
+		float _VerticalOffset;
+		float _HorizontalOffset;
+		float _VerticalRotation;
 		CBUFFER_END
 		ENDHLSL
 
@@ -51,33 +58,23 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			#pragma shader_feature_local _NORMALMAP
 			#pragma shader_feature_local_fragment _EMISSION
 			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
-			//#pragma shader_feature_local_fragment _SURFACE_TYPE_TRANSPARENT
 			#pragma shader_feature_local_fragment _ALPHATEST_ON
 			#pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
-			//#pragma shader_feature_local_fragment _ _SPECGLOSSMAP _SPECULAR_COLOR
 			#pragma shader_feature_local_fragment _ _SPECGLOSSMAP
-			#define _SPECULAR_COLOR // always on
-			#pragma shader_feature_local_fragment _GLOSSINESS_FROM_BASE_ALPHA
+			#define _SPECULAR_COLOR
 
 			// URP Keywords
-			//#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
-			//#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
-			// Note, v11 changes this to :
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
-
 			#pragma multi_compile _ _SHADOWS_SOFT
 			#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
 			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
-			#pragma multi_compile _ _MIXED_LIGHTING_SUBTRACTIVE // v10+ only, renamed from "_MIXED_LIGHTING_SUBTRACTIVE"
-			#pragma multi_compile _ SHADOWS_SHADOWMASK // v10+ only
+			#pragma multi_compile _ _MIXED_LIGHTING_SUBTRACTIVE
+			#pragma multi_compile _ SHADOWS_SHADOWMASK
 
 			// Unity Keywords
 			#pragma multi_compile _ LIGHTMAP_ON
 			#pragma multi_compile _ DIRLIGHTMAP_COMBINED
 			#pragma multi_compile_fog
-
-			// GPU Instancing (not supported)
-			//#pragma multi_compile_instancing
 
 			// Includes
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
@@ -93,7 +90,6 @@ Shader "Custom/URP PS1 Lit Billboard" {
 				float2 uv		    : TEXCOORD0;
 				float2 lightmapUV	: TEXCOORD1;
 				float4 color		: COLOR;
-				//UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct Varyings {
@@ -103,15 +99,15 @@ Shader "Custom/URP PS1 Lit Billboard" {
 				float3 positionWS					: TEXCOORD2;
 
 				#ifdef _NORMALMAP
-					half4 normalWS					: TEXCOORD3;    // xyz: normal, w: viewDir.x
-					half4 tangentWS					: TEXCOORD4;    // xyz: tangent, w: viewDir.y
-					half4 bitangentWS				: TEXCOORD5;    // xyz: bitangent, w: viewDir.z
+					half4 normalWS					: TEXCOORD3;
+					half4 tangentWS					: TEXCOORD4;
+					half4 bitangentWS				: TEXCOORD5;
 				#else
 					half3 normalWS					: TEXCOORD3;
 				#endif
 				
 				#ifdef _ADDITIONAL_LIGHTS_VERTEX
-					half4 fogFactorAndVertexLight	: TEXCOORD6; // x: fogFactor, yzw: vertex light
+					half4 fogFactorAndVertexLight	: TEXCOORD6;
 				#else
 					half  fogFactor					: TEXCOORD6;
 				#endif
@@ -121,36 +117,42 @@ Shader "Custom/URP PS1 Lit Billboard" {
 				#endif
 
 				float4 color						: COLOR;
-				//UNITY_VERTEX_INPUT_INSTANCE_ID
-				//UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			// Textures, Samplers & Global Properties
-			// (note, BaseMap, BumpMap and EmissionMap is being defined by the SurfaceInput.hlsl include)
 			TEXTURE2D(_SpecGlossMap); 	SAMPLER(sampler_SpecGlossMap);
 
-			float3 ClipToWorldPos(float4 clipPos)
-{
-			#ifdef UNITY_REVERSED_Z
-			    // unity_CameraInvProjection always in OpenGL matrix form
-			    // that doesn't match the current view matrix used to calculate the clip space
-
-			    // transform clip space into normalized device coordinates
-			    float3 ndc = clipPos.xyz / clipPos.w;
-
-			    // convert ndc's depth from 1.0 near to 0.0 far to OpenGL style -1.0 near to 1.0 far 
-			    ndc = float3(ndc.x, ndc.y * _ProjectionParams.x, (1.0 - ndc.z) * 2.0 - 1.0);
-
-			    // transform back into clip space and apply inverse projection matrix
-			    float3 viewPos =  mul(unity_CameraInvProjection, float4(ndc * clipPos.w, clipPos.w));
-			#else
-			    // using OpenGL, unity_CameraInvProjection matches view matrix
-			    float3 viewPos = mul(unity_CameraInvProjection, clipPos);
-			#endif
-
-			    // transform from view to world space
-			    return mul(unity_MatrixInvV, float4(viewPos, 1.0)).xyz;
+			// Helper function to create Y-axis rotation matrix
+			float3x3 GetYRotationMatrix(float angleDegrees) {
+				float angleRad = radians(angleDegrees);
+				float c = cos(angleRad);
+				float s = sin(angleRad);
+				return float3x3(
+					c, 0, s,
+					0, 1, 0,
+					-s, 0, c
+				);
 			}
+
+			// Helper function to create billboard transformation
+			float3x3 GetBillboardMatrix(float verticalRotation) {
+				float3 originWS = TransformObjectToWorld(float3(0,0,0));
+				originWS -= _WorldSpaceCameraPos;
+				originWS.y = 0;
+				float3 direction = normalize(TransformWorldToObjectDir(originWS));
+				float3 topRow = normalize(cross(direction, float3(0,1,0)));
+				float3 middleRow = normalize(cross(direction, topRow));
+				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
+				
+				// Apply vertical rotation
+				if (abs(verticalRotation) > 0.001) {
+					float3x3 rotationMatrix = GetYRotationMatrix(verticalRotation);
+					billboardMatrix = mul(rotationMatrix, billboardMatrix);
+				}
+				
+				return billboardMatrix;
+			}
+
 			// Functions
 			half4 SampleSpecularSmoothness(float2 uv, half alpha, half4 specColor, TEXTURE2D_PARAM(specMap, sampler_specMap)) {
 				half4 specularSmoothness = half4(0.0h, 0.0h, 0.0h, 1.0h);
@@ -164,12 +166,11 @@ Shader "Custom/URP PS1 Lit Billboard" {
 
 			//  SurfaceData & InputData
 			void InitalizeSurfaceData(Varyings IN, out SurfaceData surfaceData){
-				surfaceData = (SurfaceData)0; // avoids "not completely initalized" errors
+				surfaceData = (SurfaceData)0;
 
 				half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv);
 
 				#ifdef _ALPHATEST_ON
-					// Alpha Clipping
 					clip(baseMap.a - _Cutoff);
 				#endif
 
@@ -177,15 +178,21 @@ Shader "Custom/URP PS1 Lit Billboard" {
 				surfaceData.albedo = diffuse.rgb;
 				surfaceData.normalTS = SampleNormal(IN.uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap));
 				surfaceData.emission = SampleEmission(IN.uv, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
-				surfaceData.occlusion = 1.0; // unused
+				surfaceData.occlusion = 1.0;
 
 				half4 specular = SampleSpecularSmoothness(IN.uv, diffuse.a, _SpecColor, TEXTURE2D_ARGS(_SpecGlossMap, sampler_SpecGlossMap));
+				#ifdef _SPECGLOSSMAP
 				surfaceData.specular = specular.rgb;
-				surfaceData.smoothness = specular.a * _Smoothness;
+				surfaceData.smoothness = specular.a;
+				#else
+				surfaceData.specular = _SpecColor;
+				surfaceData.smoothness = _Smoothness;
+				#endif
+				
 			}
 
 			void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData) {
-				inputData = (InputData)0; // avoids "not completely initalized" errors
+				inputData = (InputData)0;
 
 				inputData.positionWS = input.positionWS;
 
@@ -228,15 +235,14 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			{
 				Varyings OUT;
 
-				// Apply billboard transformation
-				float3 originWS = TransformObjectToWorld(float3(0,0,0));
-				originWS -= _WorldSpaceCameraPos;
-				originWS.y = 0;
-				float3 direction = normalize(TransformWorldToObjectDir(originWS));
-				float3 topRow = normalize(cross(direction, float3(0,1,0)));
-				float3 middleRow = normalize(cross(direction, topRow));
-				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
-				float3 positionOS = mul(billboardMatrix, IN.positionOS.xyz);
+				// Apply offsets first (in local space before billboard transformation)
+				float3 offsetPosition = IN.positionOS.xyz;
+				offsetPosition.x += _HorizontalOffset;
+				offsetPosition.y += _VerticalOffset;
+				
+				// Get billboard transformation matrix and apply to offset position
+				float3x3 billboardMatrix = GetBillboardMatrix(_VerticalRotation);
+				float3 positionOS = mul(billboardMatrix, offsetPosition);
 				
 				#ifdef _NORMALMAP
 					VertexNormalInputs normalInputs = GetVertexNormalInputs(mul(billboardMatrix, IN.normalOS.xyz), IN.tangentOS);
@@ -288,33 +294,21 @@ Shader "Custom/URP PS1 Lit Billboard" {
 
 			// Fragment Shader
 			half4 LitPassFragment(Varyings IN) : SV_Target {
-
-				// Setup SurfaceData
 				SurfaceData surfaceData;
 				InitalizeSurfaceData(IN, surfaceData);
 
-				// Setup InputData
 				InputData inputData;
 				InitializeInputData(IN, surfaceData.normalTS, inputData);
 
-				// Simple Lighting (Lambert & BlinnPhong)
 				half4 color = UniversalFragmentBlinnPhong(inputData, surfaceData.albedo, half4(surfaceData.specular, 1), surfaceData.smoothness, surfaceData.emission, surfaceData.alpha, surfaceData.normalTS);
-				// See Lighting.hlsl to see how this is implemented.
-				// https://github.com/Unity-Technologies/Graphics/blob/master/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl
 
 				color.rgb = MixFog(color.rgb, inputData.fogCoord);
-				//color.a = OutputAlpha(color.a, _Surface);
 				return color;
 			}
 			ENDHLSL
 		}
 
-		// UsePass "Universal Render Pipeline/Lit/ShadowCaster"
-		// UsePass "Universal Render Pipeline/Lit/DepthOnly"
-		// Would be nice if we could just use the passes from existing shaders,
-		// However this breaks SRP Batcher compatibility. Instead, we should define them :
-
-		// ShadowCaster, for casting shadows
+		// ShadowCaster Pass
 		Pass {
 			Name "ShadowCaster"
 			Tags { "LightMode"="ShadowCaster" }
@@ -329,22 +323,16 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			#pragma vertex ShadowPassVertex 
 			#pragma fragment ShadowPassFragment
 
-			// Material Keywords
 			#pragma shader_feature_local_fragment _ALPHATEST_ON
-
-			// GPU Instancing
 			#pragma multi_compile_instancing
-
-			// Universal Pipeline Keywords
 			#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 
-			// Shadow-related globals that URP provides during shadow pass
 			float3 _LightDirection;
 			float3 _LightPosition;
-			float4 _ShadowBias; // x: depth bias, y: normal bias
+			float4 _ShadowBias;
 
 			struct Attributes
 			{
@@ -357,28 +345,56 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			struct Varyings
 			{
 				float4 positionCS   : SV_POSITION;
-				float2 uv       : TEXCOORD0;  // ALWAYS include UV, not conditional
+				float2 uv       : TEXCOORD0;
 			};
 
-			// Declare texture and sampler
 			TEXTURE2D(_BaseMap);
 			SAMPLER(sampler_BaseMap);
+
+			float3x3 GetYRotationMatrix(float angleDegrees) {
+				float angleRad = radians(angleDegrees);
+				float c = cos(angleRad);
+				float s = sin(angleRad);
+				return float3x3(c, 0, s, 0, 1, 0, -s, 0, c);
+			}
+
+			float3x3 GetBillboardMatrix(float verticalRotation) {
+				float3 originWS = TransformObjectToWorld(float3(0,0,0));
+				originWS -= _WorldSpaceCameraPos;
+				originWS.y = 0;
+				float3 direction = normalize(TransformWorldToObjectDir(originWS));
+				float3 topRow = normalize(cross(direction, float3(0,1,0)));
+				float3 middleRow = normalize(cross(direction, topRow));
+				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
+				
+				if (abs(verticalRotation) > 0.001) {
+					float3x3 rotationMatrix = GetYRotationMatrix(verticalRotation);
+					billboardMatrix = mul(rotationMatrix, billboardMatrix);
+				}
+				
+				return billboardMatrix;
+			}
 
 			float3 ApplyShadowBias(float3 positionWS, float3 normalWS, float3 lightDirection)
 			{
 				float invNdotL = 1.0 - saturate(dot(lightDirection, normalWS));
 				float scale = invNdotL * _ShadowBias.y;
-
-				// normal bias is negative since we want to apply an inset normal offset
 				positionWS = lightDirection * _ShadowBias.xxx + positionWS;
 				positionWS = normalWS * scale.xxx + positionWS;
 				return positionWS;
 			}
 
-			float4 GetShadowPositionHClip(Attributes input)
+			float4 GetShadowPositionHClip(Attributes input, float3x3 billboardMatrix)
 			{
-				float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
-				float3 normalWS = TransformObjectToWorldNormal(input.normalOS);
+				// Apply offsets first (in local space before billboard transformation)
+				float3 offsetPosition = input.positionOS.xyz;
+				offsetPosition.x += _HorizontalOffset;
+				offsetPosition.y += _VerticalOffset;
+				
+				float3 positionOS = mul(billboardMatrix, offsetPosition);
+				
+				float3 positionWS = TransformObjectToWorld(positionOS);
+				float3 normalWS = TransformObjectToWorldNormal(mul(billboardMatrix, input.normalOS));
 
 				#if _CASTING_PUNCTUAL_LIGHT_SHADOW
 					float3 lightDirectionWS = normalize(_LightPosition - positionWS);
@@ -402,44 +418,25 @@ Shader "Custom/URP PS1 Lit Billboard" {
 				Varyings output;
 				UNITY_SETUP_INSTANCE_ID(input);
 
-				// Apply billboard transformation
-				float3 originWS = TransformObjectToWorld(float3(0,0,0));
-				originWS -= _WorldSpaceCameraPos;
-				originWS.y = 0;
-				float3 direction = normalize(TransformWorldToObjectDir(originWS));
-				float3 topRow = normalize(cross(direction, float3(0,1,0)));
-				float3 middleRow = normalize(cross(direction, topRow));
-				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
-				
-				input.positionOS.xyz = mul(billboardMatrix, input.positionOS.xyz);
-				input.normalOS = mul(billboardMatrix, input.normalOS);
-				
-				// ALWAYS set UV for testing
+				float3x3 billboardMatrix = GetBillboardMatrix(_VerticalRotation);
 				output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
-				output.uv = 1 - output.uv; // Try with inversion
-				
-				output.positionCS = GetShadowPositionHClip(input);
+				output.uv = 1 - output.uv;
+				output.positionCS = GetShadowPositionHClip(input, billboardMatrix);
 				return output;
 			}
 
 			half4 ShadowPassFragment(Varyings input) : SV_TARGET
 			{
-				// ALWAYS sample and clip, ignoring keywords for testing
 				half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
 				half alpha = baseMap.a * _BaseColor.a;
-				
-				// For debugging: return the alpha value to see what we're getting
-				// return half4(alpha, alpha, alpha, 1);
-				
 				clip(alpha - _Cutoff);
-				
 				return 0;
 			}
 			
 			ENDHLSL
 		}
 
-		// DepthOnly, used for Camera Depth Texture (if cannot copy depth buffer instead, and the DepthNormals below isn't used)
+		// DepthOnly Pass
 		Pass {
 			Name "DepthOnly"
 			Tags { "LightMode"="DepthOnly" }
@@ -452,22 +449,22 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			#pragma vertex DisplacedDepthOnlyVertex
 			#pragma fragment DepthOnlyFragment
 
-			// Material Keywords
 			#pragma shader_feature_local_fragment _ALPHATEST_ON
 			#pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-
-			// GPU Instancing
 			#pragma multi_compile_instancing
-			//#pragma multi_compile _ DOTS_INSTANCING_ON
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
 			
-			
-			Varyings DisplacedDepthOnlyVertex(Attributes input) {
-				Varyings OUT;
+			float3x3 GetYRotationMatrix(float angleDegrees) {
+				float angleRad = radians(angleDegrees);
+				float c = cos(angleRad);
+				float s = sin(angleRad);
+				return float3x3(c, 0, s, 0, 1, 0, -s, 0, c);
+			}
 
+			float3x3 GetBillboardMatrix(float verticalRotation) {
 				float3 originWS = TransformObjectToWorld(float3(0,0,0));
 				originWS -= _WorldSpaceCameraPos;
 				originWS.y = 0;
@@ -475,7 +472,25 @@ Shader "Custom/URP PS1 Lit Billboard" {
 				float3 topRow = normalize(cross(direction, float3(0,1,0)));
 				float3 middleRow = normalize(cross(direction, topRow));
 				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
-				float3 positionOS = mul(billboardMatrix, input.position.xyz);
+				
+				if (abs(verticalRotation) > 0.001) {
+					float3x3 rotationMatrix = GetYRotationMatrix(verticalRotation);
+					billboardMatrix = mul(rotationMatrix, billboardMatrix);
+				}
+				
+				return billboardMatrix;
+			}
+			
+			Varyings DisplacedDepthOnlyVertex(Attributes input) {
+				Varyings OUT;
+
+				// Apply offsets first (in local space before billboard transformation)
+				float3 offsetPosition = input.position.xyz;
+				offsetPosition.x += _HorizontalOffset;
+				offsetPosition.y += _VerticalOffset;
+				
+				float3x3 billboardMatrix = GetBillboardMatrix(_VerticalRotation);
+				float3 positionOS = mul(billboardMatrix, offsetPosition);
 
 				#if defined(_ALPHATEST_ON)
 				OUT.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
@@ -489,7 +504,7 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			ENDHLSL
 		}
 
-		// DepthNormals, used for SSAO & other custom renderer features that request it
+		// DepthNormals Pass
 		Pass {
 			Name "DepthNormals"
 			Tags { "LightMode"="DepthNormals" }
@@ -501,24 +516,23 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			#pragma vertex DisplacedDepthNormalsVertex
 			#pragma fragment DepthNormalsFragment
 
-			// Material Keywords
 			#pragma shader_feature_local _NORMALMAP
 			#pragma shader_feature_local_fragment _ALPHATEST_ON
 			#pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-
-			// GPU Instancing
 			#pragma multi_compile_instancing
-			//#pragma multi_compile _ DOTS_INSTANCING_ON
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
 
-			// Note if we do any vertex displacement, we'll need to change the vertex function. e.g. :
+			float3x3 GetYRotationMatrix(float angleDegrees) {
+				float angleRad = radians(angleDegrees);
+				float c = cos(angleRad);
+				float s = sin(angleRad);
+				return float3x3(c, 0, s, 0, 1, 0, -s, 0, c);
+			}
 
-			Varyings DisplacedDepthNormalsVertex(Attributes input) {
-				Varyings OUT;
-
+			float3x3 GetBillboardMatrix(float verticalRotation) {
 				float3 originWS = TransformObjectToWorld(float3(0,0,0));
 				originWS -= _WorldSpaceCameraPos;
 				originWS.y = 0;
@@ -526,7 +540,25 @@ Shader "Custom/URP PS1 Lit Billboard" {
 				float3 topRow = normalize(cross(direction, float3(0,1,0)));
 				float3 middleRow = normalize(cross(direction, topRow));
 				float3x3 billboardMatrix = float3x3(topRow, middleRow, direction);
-				float3 positionOS = mul(billboardMatrix, input.positionOS.xyz);
+				
+				if (abs(verticalRotation) > 0.001) {
+					float3x3 rotationMatrix = GetYRotationMatrix(verticalRotation);
+					billboardMatrix = mul(rotationMatrix, billboardMatrix);
+				}
+				
+				return billboardMatrix;
+			}
+
+			Varyings DisplacedDepthNormalsVertex(Attributes input) {
+				Varyings OUT;
+
+				// Apply offsets first (in local space before billboard transformation)
+				float3 offsetPosition = input.positionOS.xyz;
+				offsetPosition.x += _HorizontalOffset;
+				offsetPosition.y += _VerticalOffset;
+				
+				float3x3 billboardMatrix = GetBillboardMatrix(_VerticalRotation);
+				float3 positionOS = mul(billboardMatrix, offsetPosition);
 
 				#if defined(_ALPHATEST_ON)
 				OUT.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
@@ -537,7 +569,6 @@ Shader "Custom/URP PS1 Lit Billboard" {
 				OUT.normalWS = TransformObjectToWorldNormal(mul(billboardMatrix, input.normal));
 				return OUT;
 			}
-			
 			
 			ENDHLSL
 		}
