@@ -1661,6 +1661,8 @@ MonoBehaviour:
     RolloffMode: 0
   m_sanityLostPerSecond: 5
   m_toggleBerserkAction: {fileID: 2746175205276839210, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_normalVolumeProfile: {fileID: 11400000, guid: 4dfa48714c732ac44bbe9a00e9c3f615, type: 2}
+  m_berserkVolumeProfile: {fileID: 11400000, guid: 5f2eeb041a27d0b4aae98fb63eb31a3c, type: 2}
   references:
     version: 2
     RefIds:

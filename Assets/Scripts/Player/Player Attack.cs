@@ -2,6 +2,7 @@ using System.Collections;
 using AudioSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 
 public class PlayerAttack : MonoBehaviour
@@ -22,6 +23,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] SoundData m_berserkStopSound;
     [SerializeField] uint m_sanityLostPerSecond;
     [SerializeField] InputActionReference m_toggleBerserkAction;
+    [SerializeField] VolumeProfile m_normalVolumeProfile;
+    [SerializeField] VolumeProfile m_berserkVolumeProfile;
     
     EventBinding<SanityUpdateEvent> m_sanityUpdateEvent;
     Coroutine m_berserkCoroutine;
@@ -102,6 +105,8 @@ public class PlayerAttack : MonoBehaviour
         if (m_berserkCoroutine is not null)
         {
             StopCoroutine(m_berserkCoroutine);
+            m_berserkCoroutine = null;
+            EventBus<UpdatePostProcessingEvent>.Raise(new UpdatePostProcessingEvent(m_normalVolumeProfile, 0.5f));
             SoundManager.Instance.CreateSound().WithSoundData(m_berserkStopSound).WithPosition(transform.position).WithRandomPitch().Play();
         }
         else
@@ -114,6 +119,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(m_trackedSanity <= 0) yield break;
         m_berserk = true;
+        EventBus<UpdatePostProcessingEvent>.Raise(new UpdatePostProcessingEvent(m_berserkVolumeProfile, 0.5f));
         SoundManager.Instance.CreateSound().WithSoundData(m_berserkSound).WithPosition(transform.position).WithRandomPitch().Play();
         while (m_trackedSanity > 0)
         {
@@ -121,6 +127,8 @@ public class PlayerAttack : MonoBehaviour
             yield return new WaitForSeconds(1.0f / m_sanityLostPerSecond);
         }
         m_berserk = false;
+        EventBus<UpdatePostProcessingEvent>.Raise(new UpdatePostProcessingEvent(m_normalVolumeProfile, 0.5f));
         SoundManager.Instance.CreateSound().WithSoundData(m_berserkStopSound).WithPosition(transform.position).WithRandomPitch().Play();
+        m_berserkCoroutine = null;
     }
 }

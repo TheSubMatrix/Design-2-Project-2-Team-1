@@ -1,10 +1,9 @@
 {
-    "name": "EventData",
+    "name": "PostProcessing",
     "rootNamespace": "",
     "references": [
         "GUID:1e8b965862d0631489816768b0c8f383",
-        "GUID:4307f53044263cf4b835bd812fc161a4",
-        "GUID:89b28e4923b08be42b8afa899c2a0f0e",
+        "GUID:b00589312063ae44db96bb15bc7c24ba",
         "GUID:15fc0a57446b3144c949da3e2b9737a9",
         "GUID:df380645f10b7bc4b97d4f5eb6303d95"
     ],

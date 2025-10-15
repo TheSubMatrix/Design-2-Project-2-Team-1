@@ -147,7 +147,7 @@ Material:
     - _Surface: 0
     - _SurfaceType: 0
     - _TessellationEdgeLength: 50
-    - _TessellationFactor: 4
+    - _TessellationFactor: 2
     - _TessellationMaxDistance: 50
     - _WorkflowMode: 1
     - _ZWrite: 1
