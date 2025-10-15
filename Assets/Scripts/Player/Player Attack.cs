@@ -30,7 +30,6 @@ public class PlayerAttack : MonoBehaviour
     Coroutine m_berserkCoroutine;
     bool m_berserk;
     uint m_trackedSanity;
-    uint m_trackedMaxSanity;
     
     
     bool IsAttacking => (m_attackCombatAction is not null && m_attackCombatAction.IsExecuting) ||
@@ -71,7 +70,6 @@ public class PlayerAttack : MonoBehaviour
     void OnSanityUpdate(SanityUpdateEvent e)
     {
         m_trackedSanity = e.Sanity;
-        m_trackedMaxSanity = e.SanityMax;
     }
     
     void LightAttack(InputAction.CallbackContext context)
