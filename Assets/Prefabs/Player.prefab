@@ -1472,7 +1472,7 @@ MonoBehaviour:
   m_rb: {fileID: 1341933627491963327}
   m_walkMoveSpeed: 4
   m_sprintMoveSpeed: 8
-  m_crouchMoveSpeed: 1.5
+  m_crouchMoveSpeed: 2
   m_maxGroundAcceleration: 10
   m_maxGroundDeceleration: 20
   m_maxAirAcceleration: 5
