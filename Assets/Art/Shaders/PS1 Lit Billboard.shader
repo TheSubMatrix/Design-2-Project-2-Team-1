@@ -4,8 +4,9 @@ Shader "Custom/URP PS1 Lit Billboard" {
 		[MainColor]   _BaseColor("Base Color", Color) = (1, 1, 1, 1)
 
 		// Billboard control properties
-		_VerticalOffset("Vertical Offset", Float) = 0.0
-		_HorizontalOffset("Horizontal Offset", Float) = 0.0
+		_OffsetX("Offset X", Float) = 0.0
+		_OffsetY("Offset Y", Float) = 0.0
+		_OffsetZ("Offset Z", Float) = 0.0
 		_VerticalRotation("Vertical Rotation (Degrees)", Range(-180, 180)) = 0.0
 
 		[Toggle(_NORMALMAP)] _NormalMapToggle ("Normal Mapping", Float) = 0
@@ -40,8 +41,9 @@ Shader "Custom/URP PS1 Lit Billboard" {
 		float4 _SpecColor;
 		float _Cutoff;
 		float _Smoothness;
-		float _VerticalOffset;
-		float _HorizontalOffset;
+		float _OffsetX;
+		float _OffsetY;
+		float _OffsetZ;
 		float _VerticalRotation;
 		CBUFFER_END
 		ENDHLSL
@@ -235,30 +237,41 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			{
 				Varyings OUT;
 
-				// Apply offsets first (in local space before billboard transformation)
-				float3 offsetPosition = IN.positionOS.xyz;
-				offsetPosition.x += _HorizontalOffset;
-				offsetPosition.y += _VerticalOffset;
-				
-				// Get billboard transformation matrix and apply to offset position
+				// Get billboard transformation matrix
 				float3x3 billboardMatrix = GetBillboardMatrix(_VerticalRotation);
-				float3 positionOS = mul(billboardMatrix, offsetPosition);
+				
+				// Apply billboard transformation to vertex
+				float3 positionOS = mul(billboardMatrix, IN.positionOS.xyz);
+				
+				// Create offset vector in local space (X, Y, Z)
+				float3 offsetLocal = float3(_OffsetX, _OffsetY, _OffsetZ);
+				
+				// Rotate the offset by the billboard matrix
+				float3 offsetRotated = mul(billboardMatrix, offsetLocal);
+				
+				// Add rotated offset to position in local space
+				positionOS += offsetRotated;
+				
+				// Convert to world space
+				float3 positionWS = TransformObjectToWorld(positionOS);
+				
+				// Store world position
+				OUT.positionWS = positionWS;
 				
 				#ifdef _NORMALMAP
 					VertexNormalInputs normalInputs = GetVertexNormalInputs(mul(billboardMatrix, IN.normalOS.xyz), IN.tangentOS);
 				#else
 					VertexNormalInputs normalInputs = GetVertexNormalInputs(mul(billboardMatrix, IN.normalOS.xyz));
 				#endif
-				VertexPositionInputs positionInputs = GetVertexPositionInputs(positionOS);
 				
-				// Store the correct world position BEFORE quantization
-				OUT.positionWS = positionInputs.positionWS;
+				// Convert to clip space
+				float4 positionCS = TransformWorldToHClip(positionWS);
 				
 				// Apply PS1-style vertex quantization to clip space position
 				OUT.positionCS = float4(
-					(round(positionInputs.positionCS.xy / positionInputs.positionCS.w * float2(480, 640)) / float2(480, 640) * positionInputs.positionCS.w),
-					positionInputs.positionCS.z,
-					positionInputs.positionCS.w
+					(round(positionCS.xy / positionCS.w * float2(480, 640)) / float2(480, 640) * positionCS.w),
+					positionCS.z,
+					positionCS.w
 				);
 				
 				half3 viewDirWS = GetWorldSpaceViewDir(OUT.positionWS);
@@ -283,7 +296,7 @@ Shader "Custom/URP PS1 Lit Billboard" {
 				#endif
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-					OUT.shadowCoord = GetShadowCoord(positionInputs);
+					OUT.shadowCoord = TransformWorldToShadowCoord(OUT.positionWS);
 				#endif
 
 				OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
@@ -386,14 +399,19 @@ Shader "Custom/URP PS1 Lit Billboard" {
 
 			float4 GetShadowPositionHClip(Attributes input, float3x3 billboardMatrix)
 			{
-				// Apply offsets first (in local space before billboard transformation)
-				float3 offsetPosition = input.positionOS.xyz;
-				offsetPosition.x += _HorizontalOffset;
-				offsetPosition.y += _VerticalOffset;
+				// Apply billboard transformation to vertex
+				float3 positionOS = mul(billboardMatrix, input.positionOS.xyz);
 				
-				float3 positionOS = mul(billboardMatrix, offsetPosition);
+				// Create offset vector and rotate it
+				float3 offsetLocal = float3(_OffsetX, _OffsetY, _OffsetZ);
+				float3 offsetRotated = mul(billboardMatrix, offsetLocal);
 				
+				// Add rotated offset
+				positionOS += offsetRotated;
+				
+				// Convert to world space
 				float3 positionWS = TransformObjectToWorld(positionOS);
+				
 				float3 normalWS = TransformObjectToWorldNormal(mul(billboardMatrix, input.normalOS));
 
 				#if _CASTING_PUNCTUAL_LIGHT_SHADOW
@@ -484,20 +502,28 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			Varyings DisplacedDepthOnlyVertex(Attributes input) {
 				Varyings OUT;
 
-				// Apply offsets first (in local space before billboard transformation)
-				float3 offsetPosition = input.position.xyz;
-				offsetPosition.x += _HorizontalOffset;
-				offsetPosition.y += _VerticalOffset;
-				
+				// Get billboard transformation matrix
 				float3x3 billboardMatrix = GetBillboardMatrix(_VerticalRotation);
-				float3 positionOS = mul(billboardMatrix, offsetPosition);
+				
+				// Apply billboard transformation to vertex
+				float3 positionOS = mul(billboardMatrix, input.position.xyz);
+				
+				// Create offset vector and rotate it
+				float3 offsetLocal = float3(_OffsetX, _OffsetY, _OffsetZ);
+				float3 offsetRotated = mul(billboardMatrix, offsetLocal);
+				
+				// Add rotated offset
+				positionOS += offsetRotated;
+				
+				// Convert to world space
+				float3 positionWS = TransformObjectToWorld(positionOS);
 
 				#if defined(_ALPHATEST_ON)
 				OUT.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
 				OUT.uv = 1 - OUT.uv;
 				#endif
 				
-				OUT.positionCS = TransformObjectToHClip(positionOS.xyz);
+				OUT.positionCS = TransformWorldToHClip(positionWS);
 				return OUT;
 			}
 			
@@ -552,20 +578,28 @@ Shader "Custom/URP PS1 Lit Billboard" {
 			Varyings DisplacedDepthNormalsVertex(Attributes input) {
 				Varyings OUT;
 
-				// Apply offsets first (in local space before billboard transformation)
-				float3 offsetPosition = input.positionOS.xyz;
-				offsetPosition.x += _HorizontalOffset;
-				offsetPosition.y += _VerticalOffset;
-				
+				// Get billboard transformation matrix
 				float3x3 billboardMatrix = GetBillboardMatrix(_VerticalRotation);
-				float3 positionOS = mul(billboardMatrix, offsetPosition);
+				
+				// Apply billboard transformation to vertex
+				float3 positionOS = mul(billboardMatrix, input.positionOS.xyz);
+				
+				// Create offset vector and rotate it
+				float3 offsetLocal = float3(_OffsetX, _OffsetY, _OffsetZ);
+				float3 offsetRotated = mul(billboardMatrix, offsetLocal);
+				
+				// Add rotated offset
+				positionOS += offsetRotated;
+				
+				// Convert to world space
+				float3 positionWS = TransformObjectToWorld(positionOS);
 
 				#if defined(_ALPHATEST_ON)
 				OUT.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
 				OUT.uv = 1 - OUT.uv;
 				#endif
 				
-				OUT.positionCS = TransformObjectToHClip(positionOS.xyz);
+				OUT.positionCS = TransformWorldToHClip(positionWS);
 				OUT.normalWS = TransformObjectToWorldNormal(mul(billboardMatrix, input.normal));
 				return OUT;
 			}

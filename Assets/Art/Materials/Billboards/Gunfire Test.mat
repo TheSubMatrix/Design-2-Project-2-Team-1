@@ -7,12 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Soldier Billboard
+  m_Name: Gunfire Test
   m_Shader: {fileID: 4800000, guid: 0d51f342b3835824ba09a845449ab161, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _EMISSION
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
@@ -26,7 +27,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 981fe2bb7fbc9814499993991166963e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4f626fbea5055c049ac2260e2ecea8ba, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -38,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 4f626fbea5055c049ac2260e2ecea8ba, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -61,24 +62,24 @@ Material:
     m_Floats:
     - _AlphaTestToggle: 1
     - _Cutoff: 0.5
-    - _Emission: 0
+    - _Emission: 1
     - _GlossSource: 0
-    - _HorizontalOffset: 0
+    - _HorizontalOffset: -0.35
     - _NormalMapToggle: 0
-    - _OffsetX: 0
+    - _OffsetX: -0.33
     - _OffsetY: 0
-    - _OffsetZ: 0
+    - _OffsetZ: 0.03
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScaleX: 5.26
     - _ScaleY: -4.62
     - _Smoothness: 0
     - _SpecGlossMapToggle: 0
-    - _VerticalOffset: 0
-    - _VerticalRotation: 0
+    - _VerticalOffset: -0.51
+    - _VerticalRotation: 50
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 0.5}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -9,7 +9,7 @@ Shader "Hidden/Custom/Pixel Effect"
     HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
-        SamplerState sampler_BlitTexture_point_clamp;
+        SamplerState _Sampler_BlitTexture_Point_Clamp;
         int _SampleAmount;
         float4 _QuantizationAmounts;
         float _DitherSpread;
@@ -37,7 +37,7 @@ Shader "Hidden/Custom/Pixel Effect"
             float q = floor(v / 8.0);        // 256/32 = 8 -> 0..31
             return saturate(q / 31.0);
         }
-        float4 frag (Varyings i) : SV_Target
+        float4 Frag (Varyings i) : SV_Target
         {
             float2 pixelRatio = float2(_SampleAmount, _SampleAmount * (_ScreenParams.y / _ScreenParams.x));
             float2 newTexUVs = i.texcoord * pixelRatio;
@@ -46,7 +46,7 @@ Shader "Hidden/Custom/Pixel Effect"
 
             float2 ps1DitherCoords = newTexUVs * pixelRatio;
             // sample the texture
-            float4 col = _BlitTexture.Sample(sampler_BlitTexture_point_clamp, newTexUVs);
+            float4 col = _BlitTexture.Sample(_Sampler_BlitTexture_Point_Clamp, newTexUVs);
             col = float4(
                 CalculateQuatization(col.r, ps1DitherCoords),
                 CalculateQuatization(col.g, ps1DitherCoords),
@@ -66,7 +66,7 @@ Shader "Hidden/Custom/Pixel Effect"
         {
             HLSLPROGRAM
             #pragma vertex Vert
-            #pragma fragment frag
+            #pragma fragment Frag
             ENDHLSL
         }
     }

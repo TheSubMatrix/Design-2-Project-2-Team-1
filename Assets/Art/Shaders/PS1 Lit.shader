@@ -27,6 +27,12 @@ Shader "Custom/URP PS1 Lit" {
 
 		_TessellationFactor("Tessellation Factor", Range(1, 64)) = 2
 		_TessellationMaxDistance("Max Tessellation Distance", Float) = 50
+
+		[Header(Fresnel)]
+		[Toggle(_FRESNEL)] _FresnelToggle ("Enable Fresnel", Float) = 0
+		_FresnelPower("Fresnel Power", Range(0.1, 10.0)) = 3.0
+		_FresnelIntensity("Fresnel Intensity", Range(0.0, 2.0)) = 1.0
+		_FresnelBias("Fresnel Bias", Range(0.0, 1.0)) = 0.0
 	}
 	
 	SubShader {
@@ -50,6 +56,9 @@ Shader "Custom/URP PS1 Lit" {
 		float _TessellationMaxDistance;
 		float _CustomShadowBias;
 		float _CustomShadowNormalBias;
+		float _FresnelPower;
+		float _FresnelIntensity;
+		float _FresnelBias;
 		CBUFFER_END
 
 		// Shared vertex snapping function
@@ -123,6 +132,7 @@ Shader "Custom/URP PS1 Lit" {
 			#pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
 			#pragma shader_feature_local_fragment _ _SPECGLOSSMAP
 			#pragma shader_feature_local _AFFINE_TEXTURE_MAPPING
+			#pragma shader_feature_local_fragment _FRESNEL
 			#define _SPECULAR_COLOR
 			
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
@@ -301,6 +311,7 @@ Shader "Custom/URP PS1 Lit" {
 				surfaceData.normalTS = SampleNormal(IN.UV, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap));
 				surfaceData.emission = SampleEmission(IN.UV, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
 				surfaceData.occlusion = 1.0;
+				
 				#ifdef _SPECGLOSSMAP
 				half4 specGlossMap = SAMPLE_TEXTURE2D(_SpecGlossMap, sampler_SpecGlossMap, IN.UV);
 				surfaceData.specular = specGlossMap.rgb;
@@ -358,6 +369,21 @@ Shader "Custom/URP PS1 Lit" {
 				ApplyDecalToSurfaceData(IN.PositionCS, surfaceData, inputData);
 				
 				half4 color = UniversalFragmentBlinnPhong(inputData, surfaceData.albedo, half4(surfaceData.specular, 1), surfaceData.smoothness, surfaceData.emission, surfaceData.alpha, surfaceData.normalTS);
+				
+				#ifdef _FRESNEL
+					// PS1-style simple rim darkening/lightening based on view angle
+					// This mimics vertex lighting interpolation artifacts at edges
+					half3 normalWS = inputData.normalWS;
+					half3 viewDirWS = inputData.viewDirectionWS;
+					half NdotV = saturate(dot(normalWS, viewDirWS));
+					half rimFactor = _FresnelBias + (1.0 - _FresnelBias) * pow(1.0 - NdotV, _FresnelPower);
+					
+					// Simple additive brightening - PS1 games often brightened edges
+					// due to vertex color interpolation and limited precision
+					half3 rimLight = color.rgb * rimFactor * _FresnelIntensity;
+					color.rgb += rimLight;
+				#endif
+				
 				color.rgb = MixFog(color.rgb, inputData.fogCoord);
 				return color;
 			}
