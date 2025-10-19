@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b354ceafcae01e644a6fb83f92aae6a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ddc6a4f3b9709d944a40722bda99039f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 8bb6fc6ecf76fc747b8e2c3fa33c1bdb, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 8bb6fc6ecf76fc747b8e2c3fa33c1bdb, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2179,6 +2179,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory Slot 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6052917569045798821, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052917569045798821, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 92
+      objectReference: {fileID: 0}
     - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2257,6 +2265,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2303,6 +2323,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory Slot 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6052917569045798821, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052917569045798821, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 92
+      objectReference: {fileID: 0}
     - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2381,6 +2409,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2427,6 +2467,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory Slot 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6052917569045798821, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052917569045798821, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 92
+      objectReference: {fileID: 0}
     - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2507,6 +2555,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2550,6 +2610,14 @@ PrefabInstance:
     - target: {fileID: 5388000685363268612, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_Name
       value: Inventory Slot 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052917569045798821, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052917569045798821, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_Pivot.x
@@ -2641,6 +2709,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7363280280056351627, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752217871555550846, guid: 26e3bf2abd629cc4f9ff6943e6a68565, type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
