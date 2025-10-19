@@ -37268,6 +37268,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4924790760830304339, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399216129533388640, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e77071ac6d355147b4eab148718b2f9, type: 3}
     - target: {fileID: 6479613197273117984, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
