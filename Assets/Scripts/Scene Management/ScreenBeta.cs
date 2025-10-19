@@ -16,6 +16,11 @@ public class ScreenBeta : MonoBehaviour
             {
                 SceneTransitionHandler.Instance.TransitionScene("Level Three");
             }
+
+            if (SceneManager.GetActiveScene().buildIndex == 4)
+            {
+                SceneTransitionHandler.Instance.TransitionScene("Main Menu");
+            }
         }
     }
 }
