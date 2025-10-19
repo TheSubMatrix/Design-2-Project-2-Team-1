@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
+  m_Name: New Material 1
   m_Shader: {fileID: 4800000, guid: 1f3f4286c323b624091848c1536732f0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -16,12 +16,11 @@ Material:
   - _FRESNEL
   - _NORMALMAP
   - _SPECGLOSSMAP
-  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -30,7 +29,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: ee10fc785cf50fe4fbd86d7e2fd2dda4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 69e3e4b4e5b19094fb0d0e1bd0f29c15, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -70,7 +69,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: b52e075330548f14bbe3573dd3ed9715, type: 3}
+        m_Texture: {fileID: 2800000, guid: db5b5b0114b9fc747a7100a584f391bd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -106,8 +105,8 @@ Material:
     - _Emission: 0
     - _EnvironmentReflections: 1
     - _FresnelBias: 0.178
-    - _FresnelIntensity: 0.77
-    - _FresnelPower: 1.86
+    - _FresnelIntensity: 0.88
+    - _FresnelPower: 0.3
     - _FresnelToggle: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -125,11 +124,11 @@ Material:
     - _SrcBlend: 5
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _SurfaceType: 1
+    - _SurfaceType: 0
     - _TessellationFactor: 2
     - _TessellationMaxDistance: 50
     - _WorkflowMode: 1
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
