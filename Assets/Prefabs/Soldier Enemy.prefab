@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 6426680115228749879}
   - component: {fileID: 7868269070383496707}
   - component: {fileID: 2569784235057370223}
-  - component: {fileID: 6976311405708789004}
   - component: {fileID: 532490152508765812}
   m_Layer: 0
   m_Name: Capsule
@@ -108,6 +107,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SanityEventDriver, Player.Sanity
         m_MethodName: ChangeSanity
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SpawnVFX, Enemies
+        m_MethodName: OnSpawnVFX
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -322,19 +333,6 @@ MonoBehaviour:
   - {fileID: 4461823435490271299, guid: 27076d24a333d8c40804f8e7a5b8e01d, type: 3}
   - {fileID: 6387264856486642052, guid: 14c666830554e7f4e96abfce77c60a6a, type: 3}
   m_pickupChance: 0.5
---- !u!114 &6976311405708789004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489683504147093610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82d28971e0f953f4287b710653798c8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_asset: {fileID: 8926484042661614526, guid: e224eb7b289deb349b76fc7ebb57dd2f, type: 3}
 --- !u!114 &532490152508765812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,6 +551,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3147571195469807210}
+  - {fileID: 40448367484633207}
   m_Father: {fileID: 5122228433276061471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7226872718795082816
@@ -815,6 +814,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7507657686065108757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7218492521305535203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 40448367484633207}
+  - component: {fileID: 7093135969404562129}
+  m_Layer: 0
+  m_Name: Blood Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &40448367484633207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218492521305535203}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.65}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 7507657686065108757}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7093135969404562129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218492521305535203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d28971e0f953f4287b710653798c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_asset: {fileID: 8926484042661614526, guid: e224eb7b289deb349b76fc7ebb57dd2f, type: 3}
 --- !u!1 &8286309152851741663
 GameObject:
   m_ObjectHideFlags: 0
