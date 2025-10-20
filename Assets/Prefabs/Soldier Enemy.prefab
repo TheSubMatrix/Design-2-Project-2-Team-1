@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 6426680115228749879}
   - component: {fileID: 7868269070383496707}
   - component: {fileID: 2569784235057370223}
+  - component: {fileID: 6976311405708789004}
+  - component: {fileID: 532490152508765812}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -205,6 +207,21 @@ MonoBehaviour:
           IgnoreListenerPause: 0
           RolloffMode: 0
         m_spread: {x: 1, y: 1}
+        m_onShotFired:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 532490152508765812}
+              m_TargetAssemblyTypeName: EnemyMuzzleFlash, Enemies
+              m_MethodName: OnMuzzleFlash
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
 --- !u!195 &3404486847860128488
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -305,6 +322,33 @@ MonoBehaviour:
   - {fileID: 4461823435490271299, guid: 27076d24a333d8c40804f8e7a5b8e01d, type: 3}
   - {fileID: 6387264856486642052, guid: 14c666830554e7f4e96abfce77c60a6a, type: 3}
   m_pickupChance: 0.5
+--- !u!114 &6976311405708789004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489683504147093610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d28971e0f953f4287b710653798c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_asset: {fileID: 8926484042661614526, guid: e224eb7b289deb349b76fc7ebb57dd2f, type: 3}
+--- !u!114 &532490152508765812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489683504147093610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02785d16c2445804e89fcaa2e11a70e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_muzzleFlashDuration: 0.1
+  m_muzzleFlash: {fileID: 1481001036456960168}
 --- !u!1 &692101425550875303
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6762966753242011901
 Transform:
   m_ObjectHideFlags: 0
