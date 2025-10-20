@@ -4,38 +4,26 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 {
     private Animator doorAnimation;
     private bool isOpen = false;
-
-    [SerializeField] private float interactDistance = 3f; // Maximum distance to interact
-    [SerializeField] private Transform doorCenter; // Optional custom door position reference
-
+    [SerializeField] private bool requiresKeycard;
+    [SerializeField] private ItemSO keycard;
 
     private void Awake()
     {
         doorAnimation = GetComponent<Animator>(); // Reference to the Animator component on the door
-
-        // If no custom reference is set, use this object's position
-        if (doorCenter == null)
-        {
-            doorCenter = transform;
-        }
     }
 
     public void OnStartedInteraction(MonoBehaviour interactor)
     {
-        // Check if player presses E to interact
-        if (Input.GetKeyDown(KeyCode.E))
+        if (requiresKeycard)
         {
-            // Ensure player is close enough
-            float distance = Vector3.Distance(interactor.transform.position, doorCenter.position);
-
-            if (distance <= interactDistance)
+            if (interactor.transform.root.GetComponentInChildren<Inventory>().HasItem(keycard))
             {
                 ToggleDoor();
             }
-            else
-            {
-                Debug.Log("Player is too far to interact with the door.");
-            }
+        }
+        else
+        {
+            ToggleDoor();
         }
     }
 
