@@ -8,16 +8,16 @@ using UnityEngine.Rendering;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Attacks")]
-    [SerializeReference, SubclassList(typeof(BaseCombatAction))]
+    [SerializeReference, ClassSelector]
     BaseCombatAction m_attackCombatAction;
-    [SerializeReference, SubclassList(typeof(BaseCombatAction))]
+    [SerializeReference, ClassSelector]
     BaseCombatAction m_heavyAttackCombatAction;
     [SerializeField] InputActionReference m_lightAttack;
     [SerializeField] InputActionReference m_heavyAttack;
     [Header("Berserk")]
-    [SerializeReference, SubclassList(typeof(BaseCombatAction))]
+    [SerializeReference, ClassSelector]
     BaseCombatAction m_attackCombatActionBerserk;
-    [SerializeReference, SubclassList(typeof(BaseCombatAction))]
+    [SerializeReference, ClassSelector]
     BaseCombatAction m_heavyAttackCombatActionBerserk;    
     [SerializeField] SoundData m_berserkSound;
     [SerializeField] SoundData m_berserkStopSound;

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyCombatActionHandler : MonoBehaviour
 {
-    [SerializeReference, SubclassList(typeof(BaseCombatAction))]
+    [SerializeReference, ClassSelector]
     BaseCombatAction m_attackCombatAction;
-    [SerializeReference, SubclassList(typeof(BaseCombatAction))]
+    [SerializeReference, ClassSelector]
     BaseCombatAction m_secondaryAttackCombatAction;
 
     public bool IsAttacking => (m_attackCombatAction is not null && m_attackCombatAction.IsExecuting) ||
