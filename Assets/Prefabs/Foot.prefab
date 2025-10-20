@@ -113,7 +113,7 @@ MonoBehaviour:
     IgnoreListenerVolume: 0
     IgnoreListenerPause: 0
     RolloffMode: 0
-  m_healAmount: 10
+  m_healAmount: 30
 --- !u!65 &91184808935169997
 BoxCollider:
   m_ObjectHideFlags: 0
