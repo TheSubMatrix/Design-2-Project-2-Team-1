@@ -19,6 +19,7 @@ public class SimpleAttackCombatAction : BaseCombatAction
     [SerializeField] string m_attackTriggerName = "Attack";
     [SerializeField] uint m_damage;
     [SerializeField] SoundData m_attackSound;
+    bool m_isAttacking;
     public override void InitializeCombatAction()
     {
         if (m_triggerEventCallbacks is null)
@@ -36,6 +37,7 @@ public class SimpleAttackCombatAction : BaseCombatAction
 
     protected override IEnumerator ExecuteCombatActionAsyncImplementation()
     {
+        m_isAttacking = true;
         if (m_useRightHand && m_animatorRight is not null)
         {
             if (m_rightHandOverrides is not null)
@@ -56,6 +58,7 @@ public class SimpleAttackCombatAction : BaseCombatAction
         m_triggerEventCallbacks.ReferencedCollider.enabled = true;
         yield return new WaitForSeconds(Duration);
         m_triggerEventCallbacks.ReferencedCollider.enabled = false;
+        m_isAttacking = false;
     }
 
     public override void CancelCombatActionImplementation()
@@ -65,6 +68,7 @@ public class SimpleAttackCombatAction : BaseCombatAction
 
     void TriggerEnter(Collider other)
     {
+        if (!m_isAttacking) return;
         IDamageable damageable = other.GetComponent<IDamageable>();
         damageable?.Damage(m_damage);
     }
