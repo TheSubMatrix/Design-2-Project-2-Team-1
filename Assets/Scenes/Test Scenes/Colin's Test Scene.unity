@@ -417,6 +417,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59865d6993fe09c49a2f8f3b34f0e22c, type: 3}
+--- !u!114 &327918987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7093135969404562129, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
+  m_PrefabInstance: {fileID: 1789130615}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d28971e0f953f4287b710653798c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &379023295
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,24 +554,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &798913523 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3203523819343035136, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
-  m_PrefabInstance: {fileID: 1789130615}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &798913526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 798913523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82d28971e0f953f4287b710653798c8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_asset: {fileID: 8926484042661614526, guid: e224eb7b289deb349b76fc7ebb57dd2f, type: 3}
 --- !u!1 &814162535
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,37 +979,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4228157152072772978, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
-      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4228157152072772978, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
-      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4228157152072772978, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
       propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 798913526}
-    - target: {fileID: 4228157152072772978, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
-      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4228157152072772978, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
-      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: OnSpawnVFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 4228157152072772978, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
-      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: SpawnVFX, Enemies
-      objectReference: {fileID: 0}
-    - target: {fileID: 4228157152072772978, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
-      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4228157152072772978, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
-      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 327918987}
     - target: {fileID: 5093167540280847980, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.273
@@ -1061,14 +1026,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soldier Enemy
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6976311405708789004, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3203523819343035136, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 798913526}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc6053eef5091604485a8a024c915ea6, type: 3}
 --- !u!1 &1947422474
 GameObject:
