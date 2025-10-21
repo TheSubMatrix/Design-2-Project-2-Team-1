@@ -104,6 +104,7 @@ public class PlayerAttack : MonoBehaviour
         {
             StopCoroutine(m_berserkCoroutine);
             m_berserkCoroutine = null;
+            m_berserk = false;
             EventBus<UpdatePostProcessingEvent>.Raise(new UpdatePostProcessingEvent(m_normalVolumeProfile, 0.5f));
             SoundManager.Instance.CreateSound().WithSoundData(m_berserkStopSound).WithPosition(transform.position).WithRandomPitch().Play();
         }
