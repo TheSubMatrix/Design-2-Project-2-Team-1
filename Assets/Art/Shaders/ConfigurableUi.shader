@@ -3,7 +3,7 @@
 	Properties
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
-		_Color ("Tint", Color) = (1,1,1,1)
+		[HDR] _Color ("Tint", Color) = (1,1,1,1)
 		[SimpleToggle] _UseVertexColor("Vertex color", Float) = 1.0
 		[SimpleToggle] _AlphaBrightnessControl("Alpha controls Brightness", Float) = 0.0
 		
@@ -71,7 +71,7 @@
 
 	half4 frag(v2f IN) : SV_Target
 	{
-		half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
+		half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color * _Color;
 	 
 		color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
 	 
