@@ -1642,9 +1642,9 @@ MonoBehaviour:
   m_heavyAttackCombatActionBerserk:
     rid: 2024132831431361274
   m_berserkSound:
-    Clip: {fileID: 0}
-    MixerGroup: {fileID: 0}
-    Loop: 0
+    Clip: {fileID: 8300000, guid: 6e580d8006e91624e9d3b8f9cd33b573, type: 3}
+    MixerGroup: {fileID: -7245304972095319532, guid: 778da360bf7beae40b5a03c0e088a921, type: 2}
+    Loop: 1
     PlayOnAwake: 0
     PlayedFrequently: 0
     Volume: 1
@@ -1697,7 +1697,7 @@ MonoBehaviour:
         m_leftHandOverrides: {fileID: 22100000, guid: 47959394a14f742499842dc635a668cd, type: 2}
         m_triggerEventCallbacks: {fileID: 1613351055885309448}
         m_attackTriggerName: Attack
-        m_damage: 50
+        m_damage: 20
         m_attackSound:
           Clip: {fileID: 0}
           MixerGroup: {fileID: 0}
@@ -1729,7 +1729,7 @@ MonoBehaviour:
         m_leftHandOverrides: {fileID: 0}
         m_triggerEventCallbacks: {fileID: 1336916937410936708}
         m_attackTriggerName: Attack
-        m_damage: 100
+        m_damage: 60
         m_attackSound:
           Clip: {fileID: 0}
           MixerGroup: {fileID: 0}
@@ -1763,8 +1763,8 @@ MonoBehaviour:
         m_attackTriggerName: Attack
         m_damage: 10
         m_attackSound:
-          Clip: {fileID: 0}
-          MixerGroup: {fileID: 0}
+          Clip: {fileID: 8300000, guid: 00854ed8d5ee6f540bb88cd0c043b06a, type: 3}
+          MixerGroup: {fileID: -7245304972095319532, guid: 778da360bf7beae40b5a03c0e088a921, type: 2}
           Loop: 0
           PlayOnAwake: 0
           PlayedFrequently: 0
@@ -1793,7 +1793,7 @@ MonoBehaviour:
         m_leftHandOverrides: {fileID: 0}
         m_triggerEventCallbacks: {fileID: 1336916937410936708}
         m_attackTriggerName: Attack
-        m_damage: 50
+        m_damage: 30
         m_attackSound:
           Clip: {fileID: 0}
           MixerGroup: {fileID: 0}
