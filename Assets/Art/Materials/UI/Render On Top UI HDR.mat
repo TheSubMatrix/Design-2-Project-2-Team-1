@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Render On Top UI
+  m_Name: Render On Top UI HDR
   m_Shader: {fileID: 4800000, guid: 85d3e02f9888db346bcbfebbebd1c447, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
