@@ -208,7 +208,7 @@ MonoBehaviour:
           Volume: 1
           Pitch: 1
           PanStereo: 0
-          SpatialBlend: 0
+          SpatialBlend: 1
           ReverbZoneMix: 1
           DopplerLevel: 1
           Spread: 0
@@ -233,6 +233,7 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
+        m_damage: 10
 --- !u!195 &3404486847860128488
 NavMeshAgent:
   m_ObjectHideFlags: 0
