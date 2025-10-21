@@ -3,7 +3,17 @@ guid: 11d34850f4203ff4db12ad20d8b93e5e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Male_Arm1
+    second: {fileID: 2100000, guid: 7e343b443b22b1344ac2fc323d559b46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface1
+    second: {fileID: 2100000, guid: 307ab1a6f6195b24d902605a6c45d9e6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
