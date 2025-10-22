@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CurrentHealth>k__BackingField: 0
-  <MaxHealth>k__BackingField: 200
+  <MaxHealth>k__BackingField: 100
   OnHealthInitializedEvent:
     m_PersistentCalls:
       m_Calls: []
