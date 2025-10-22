@@ -37,8 +37,6 @@ public class ClassSelectorPropertyDrawer : PropertyDrawer
             Debug.LogError($"Could not determine base type for property {property.propertyPath}");
             return new Label("Error: Could not determine base type");
         }
-        
-        // Create UI programmatically
         VisualElement root = new()
         {
             style =
@@ -61,8 +59,6 @@ public class ClassSelectorPropertyDrawer : PropertyDrawer
             property.isExpanded = evt.newValue;
             property.serializedObject.ApplyModifiedProperties();
         });
-
-        // Create a dropdown for type selection WITHOUT a label
         DropdownField dropdown = new()
         {
             name = "TypeSelectionDropdown",
@@ -92,7 +88,6 @@ public class ClassSelectorPropertyDrawer : PropertyDrawer
         List<Type> derivedTypes = SelectableClassTypeCache.GetDerivedTypes(baseType, includeBaseType: true);
         Dictionary<string, Type> typesByName = derivedTypes.ToDictionary(t => t.Name, t => t);
         
-        // Add a "None" option at the beginning
         List<string> choices = new() { "None" };
         choices.AddRange(typesByName.Keys.OrderBy(name => name));
         dropdown.choices = choices;
