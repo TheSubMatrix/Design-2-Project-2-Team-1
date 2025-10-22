@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 104258373855331854}
   - component: {fileID: 1127006872025659881}
   - component: {fileID: 8669661484670110621}
-  - component: {fileID: 5458131135676342680}
   m_Layer: 0
   m_Name: ReinforcedDoorTrigger
   m_TagString: Untagged
@@ -91,22 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66420f4f3a32b68408509c0dde13398a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!208 &5458131135676342680
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5610539493854173256}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1001 &1165866623497725818
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -166,6 +149,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8954748337077439244, guid: 1b9e0b0466131cc48996c2ed15f9c4e1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8584076526040327903}
+    - targetCorrespondingSourceObject: {fileID: 8954748337077439244, guid: 1b9e0b0466131cc48996c2ed15f9c4e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 504810695429192191}
   m_SourcePrefab: {fileID: 100100000, guid: 1b9e0b0466131cc48996c2ed15f9c4e1, type: 3}
 --- !u!4 &7431930061565327052 stripped
 Transform:
@@ -226,3 +212,19 @@ MonoBehaviour:
       m_Calls: []
   m_invulnerabilityAfterDamage: 0
   m_invulnerabilityTime: 1
+--- !u!208 &504810695429192191
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811587765016308854}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.080000006, y: 1.8000001, z: 3.5000002}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.8000001, z: 0}
+  m_TimeToStationary: 0.5
