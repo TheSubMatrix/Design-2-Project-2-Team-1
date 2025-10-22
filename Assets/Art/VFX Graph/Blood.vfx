@@ -1331,7 +1331,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614569}
       inputSlot: {fileID: 8926484042661614573}
-    position: {x: 260, y: 259}
+    position: {x: 449, y: 176}
     expandedSlots:
     - {fileID: 8926484042661614569}
     expanded: 1
@@ -11312,7 +11312,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661615104}
       inputSlot: {fileID: 8926484042661614578}
-    position: {x: 278.16635, y: 389.07373}
+    position: {x: 467, y: 306}
     expandedSlots:
     - {fileID: 8926484042661615104}
     expanded: 1
