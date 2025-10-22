@@ -61,13 +61,16 @@ Shader "Custom/URP PS1 Lit" {
 		float _FresnelBias;
 		CBUFFER_END
 
-		// Shared vertex snapping function
 		float4 SnapToPixelGrid(float4 positionCS) {
-			float4 snappedPos = positionCS;
-			snappedPos.xy = positionCS.xy / positionCS.w;
-			snappedPos.xy = floor(snappedPos.xy * float2(480, 640) + 0.5) / float2(480, 640);
-			snappedPos.xy *= positionCS.w;
-			return snappedPos;
+		    #if defined(UNITY_PASS_REFLECTIONPROBE) || defined(UNITY_PASS_CUBE)
+		        return positionCS; // Skip snapping for reflection probes
+		    #endif
+		    
+		    float4 snappedPos = positionCS;
+		    snappedPos.xy = positionCS.xy / positionCS.w;
+		    snappedPos.xy = floor(snappedPos.xy * float2(480, 640) + 0.5) / float2(480, 640);
+		    snappedPos.xy *= positionCS.w;
+		    return snappedPos;
 		}
 
 		// Shared tessellation factor calculation
@@ -264,7 +267,7 @@ Shader "Custom/URP PS1 Lit" {
 					OUT.NormalWS = NormalizeNormalPerVertex(normalInputs.normalWS);
 				#endif
 
-				OUTPUT_LIGHTMAP_UV(IN.lightmapUV, unity_LightmapST, OUT.lightmapUV);
+				OUTPUT_LIGHTMAP_UV(IN.LightmapUV, unity_LightmapST, OUT.lightmapUV);
 				OUTPUT_SH(OUT.NormalWS.xyz, OUT.vertexSH);
 
 				#ifdef _ADDITIONAL_LIGHTS_VERTEX

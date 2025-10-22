@@ -9,7 +9,7 @@ public abstract class FloatingPickup : MonoBehaviour, IInteractable
     [SerializeField] protected SoundData PickupSound;
     protected virtual void Update()
     {
-        transform.Rotate(Vector3.up, RotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up, RotationSpeed * Time.deltaTime, Space.World);
         transform.position = new Vector3(transform.position.x, transform.position.y + (Mathf.Sin(Time.time * BobbingSpeed) * Time.deltaTime * BobbingAmount), transform.position.z);
     }
 
