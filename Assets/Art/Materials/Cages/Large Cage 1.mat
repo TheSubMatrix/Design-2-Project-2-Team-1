@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords:
   - _AFFINE_TEXTURE_MAPPING
   - _ALPHAPREMULTIPLY_ON
+  - _FRESNEL
   - _NORMALMAP
   - _SPECGLOSSMAP
   m_InvalidKeywords: []
@@ -44,6 +45,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _FresnelPower: 0.1
+    - _FresnelToggle: 1
     - _Smoothness: 0
     - _SpecGlossMapToggle: 1
     m_Colors:

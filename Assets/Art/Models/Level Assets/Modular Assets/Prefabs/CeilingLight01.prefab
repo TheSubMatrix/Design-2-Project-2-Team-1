@@ -45,7 +45,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 10
-  m_Range: 10
+  m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -131,7 +131,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d54030c1d5a99dd4084c6e3925c677ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10
+      value: -54
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d54030c1d5a99dd4084c6e3925c677ba, type: 3}
       propertyPath: m_LocalPosition.y
@@ -139,7 +139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d54030c1d5a99dd4084c6e3925c677ba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d54030c1d5a99dd4084c6e3925c677ba, type: 3}
       propertyPath: m_LocalRotation.w

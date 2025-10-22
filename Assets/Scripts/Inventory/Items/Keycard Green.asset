@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4042dd87039b740b0cb38112122887, type: 3}
   m_Name: Keycard Green
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: Keycard
-  <ItemIcon>k__BackingField: {fileID: 21300000, guid: 3f1e59a182782054ea6229973ac8042c, type: 3}
+  <ItemName>k__BackingField: Green Keycard
+  <ItemIcon>k__BackingField: {fileID: 21300000, guid: d129ce29bc7d6474eaefc88c8c1fdf5f, type: 3}
