@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tall_Cage_Open
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0790ed7dd4999274396736282e6e34ab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

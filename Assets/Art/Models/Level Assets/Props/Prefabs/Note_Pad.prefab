@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Note_Pad
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 075ee589bb9c7ae44bc3c91df495de87, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
