@@ -12986,6 +12986,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 619969168}
     m_Modifications:
+    - target: {fileID: 1264548868535467385, guid: c281b86aeec911a4fa318eea1edc3d25, type: 3}
+      propertyPath: m_text
+      value: I now know where I left it! It was at room 106. It is not that far from
+        here.
+      objectReference: {fileID: 0}
     - target: {fileID: 1601349662286776431, guid: c281b86aeec911a4fa318eea1edc3d25, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.75
@@ -43420,6 +43425,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 619969168}
     m_Modifications:
+    - target: {fileID: 1264548868535467385, guid: c281b86aeec911a4fa318eea1edc3d25, type: 3}
+      propertyPath: m_text
+      value: The blue keycard is not here too. Perhaps it is in the other side of
+        this floor instead
+      objectReference: {fileID: 0}
     - target: {fileID: 1601349662286776431, guid: c281b86aeec911a4fa318eea1edc3d25, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.75
@@ -50477,38 +50487,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1265942616}
     m_Modifications:
-    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.0000004768371
-      objectReference: {fileID: 0}
-    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1778464153386629298, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
-      propertyPath: m_Name
-      value: Wall01Type02
-      objectReference: {fileID: 0}
-    - target: {fileID: 1778464153386629298, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 347156308567182066, guid: 4b5dc152043f0524bae74fe42341847e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -50548,6 +50526,38 @@ PrefabInstance:
     - target: {fileID: 347156308567182066, guid: 4b5dc152043f0524bae74fe42341847e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0000004768371
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433709377127211528, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778464153386629298, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
+      propertyPath: m_Name
+      value: Wall01Type02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778464153386629298, guid: 9a999c878f98c684ca5500b9e5a2c3d1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -58130,6 +58140,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 619969168}
     m_Modifications:
+    - target: {fileID: 1264548868535467385, guid: c281b86aeec911a4fa318eea1edc3d25, type: 3}
+      propertyPath: m_text
+      value: 'I remember having two keys in this floor: one in this room, but I do
+        not know where the other is. Maybe at the other side of this hallway. I am
+        guessing that is where the blue keycard is at too.'
+      objectReference: {fileID: 0}
     - target: {fileID: 1601349662286776431, guid: c281b86aeec911a4fa318eea1edc3d25, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.75
