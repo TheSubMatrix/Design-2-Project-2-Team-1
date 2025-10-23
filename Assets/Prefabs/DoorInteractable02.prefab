@@ -40,6 +40,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4171787389000117571}
     m_Modifications:
+    - target: {fileID: 5250543512935579577, guid: c7592ba8c76ccc34cbce4dcc86127e36, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6043076372961566316, guid: c7592ba8c76ccc34cbce4dcc86127e36, type: 3}
       propertyPath: m_Name
       value: Door02

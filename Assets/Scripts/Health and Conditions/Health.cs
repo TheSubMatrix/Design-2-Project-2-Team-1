@@ -52,7 +52,9 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     {
         uint oldHealth = CurrentHealth;
         bool currentAliveState = IsAlive;
-        CurrentHealth += CurrentHealth < MaxHealth ? healAmount : MaxHealth;
+        uint newHealth = CurrentHealth + healAmount;
+        CurrentHealth = newHealth > MaxHealth ? MaxHealth : newHealth;
+    
         OnHealedEvent.Invoke(oldHealth, CurrentHealth);
         if (currentAliveState != IsAlive)
         {

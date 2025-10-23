@@ -40,6 +40,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3024503985095846963}
     m_Modifications:
+    - target: {fileID: 1123507421086361636, guid: ceda1ff7ab3abea4b96f141b99912250, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1483791475181455857, guid: ceda1ff7ab3abea4b96f141b99912250, type: 3}
       propertyPath: m_Name
       value: Door03
@@ -138,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiresKeycard: 1
-  keycard: {fileID: 0}
+  keycard: {fileID: 11400000, guid: ac88c8f9e6374f443b643154981625b7, type: 2}
 --- !u!208 &4386483337003002970
 NavMeshObstacle:
   m_ObjectHideFlags: 0

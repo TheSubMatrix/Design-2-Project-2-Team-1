@@ -154,6 +154,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReinforcedDoor01
       objectReference: {fileID: 0}
+    - target: {fileID: 8135398434953288570, guid: b4b554bd4f84c72489e183abded75d51, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

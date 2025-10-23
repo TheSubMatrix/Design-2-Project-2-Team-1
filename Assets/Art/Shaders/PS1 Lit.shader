@@ -158,6 +158,13 @@ Shader "Custom/URP PS1 Lit" {
 			#pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
 			#pragma multi_compile_fog
 			#pragma multi_compile_fragment _ DEBUG_DISPLAY
+			// Add realtime GI support
+			#pragma multi_compile _ LIGHTMAP_ON
+			#pragma multi_compile _ DYNAMICLIGHTMAP_ON
+			#pragma multi_compile _ _LIGHT_PROBES_PROXY_VOLUME
+			#pragma multi_compile _ PROBE_VOLUMES_L1 PROBE_VOLUMES_L2
+			#pragma multi_compile_fragment _ LIGHT_COOKIES
+			#pragma multi_compile _ USE_LEGACY_LIGHTMAPS
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
@@ -170,6 +177,7 @@ Shader "Custom/URP PS1 Lit" {
 				#endif
 				float2 UV		    : TEXCOORD0;
 				float2 LightmapUV	: TEXCOORD1;
+				float2 DynamicLightmapUV : TEXCOORD2;
 				float4 Color		: COLOR;
 			};
 
@@ -181,6 +189,7 @@ Shader "Custom/URP PS1 Lit" {
 				#endif
 				float2 UV		    : TEXCOORD0;
 				float2 LightmapUV	: TEXCOORD1;
+				float2 DynamicLightmapUV : TEXCOORD2;
 				float4 Color		: COLOR;
 			};
 
@@ -193,24 +202,27 @@ Shader "Custom/URP PS1 Lit" {
 				#endif
 				
 				DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 1);
-				float3 PositionWS : TEXCOORD2;
+				#ifdef DYNAMICLIGHTMAP_ON
+				float2 dynamicLightmapUV : TEXCOORD2;
+				#endif
+				float3 PositionWS : TEXCOORD3;
 
 				#ifdef _NORMALMAP
-					half4 NormalWS : TEXCOORD3;
-					half4 TangentWS : TEXCOORD4;
-					half4 BitangentWS : TEXCOORD5;
+					half4 NormalWS : TEXCOORD4;
+					half4 TangentWS : TEXCOORD5;
+					half4 BitangentWS : TEXCOORD6;
 				#else
-					half3 NormalWS : TEXCOORD3;
+					half3 NormalWS : TEXCOORD4;
 				#endif
 				
 				#ifdef _ADDITIONAL_LIGHTS_VERTEX
-					half4 FogFactorAndVertexLight : TEXCOORD6;
+					half4 FogFactorAndVertexLight : TEXCOORD7;
 				#else
-					half FogFactor : TEXCOORD6;
+					half FogFactor : TEXCOORD7;
 				#endif
 
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-					float4 shadowCoord : TEXCOORD7;
+					float4 shadowCoord : TEXCOORD8;
 				#endif
 
 				float4 Color : COLOR;
@@ -227,6 +239,7 @@ Shader "Custom/URP PS1 Lit" {
 				#endif
 				o.UV = v.UV;
 				o.LightmapUV = v.LightmapUV;
+				o.DynamicLightmapUV = v.DynamicLightmapUV;
 				o.Color = v.Color;
 				return o;
 			}
@@ -267,7 +280,14 @@ Shader "Custom/URP PS1 Lit" {
 					OUT.NormalWS = NormalizeNormalPerVertex(normalInputs.normalWS);
 				#endif
 
+				// Handle static lightmap
 				OUTPUT_LIGHTMAP_UV(IN.LightmapUV, unity_LightmapST, OUT.lightmapUV);
+				
+				// Handle dynamic lightmap (realtime GI)
+				#ifdef DYNAMICLIGHTMAP_ON
+					OUT.dynamicLightmapUV = IN.DynamicLightmapUV.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
+				#endif
+				
 				OUTPUT_SH(OUT.NormalWS.xyz, OUT.vertexSH);
 
 				#ifdef _ADDITIONAL_LIGHTS_VERTEX
@@ -295,6 +315,7 @@ Shader "Custom/URP PS1 Lit" {
 				#endif
 				_DOMAIN_INTERPOLATE(UV)
 				_DOMAIN_INTERPOLATE(LightmapUV)
+				_DOMAIN_INTERPOLATE(DynamicLightmapUV)
 				_DOMAIN_INTERPOLATE(Color)
 				return LitPassVertex(v);
 			}
@@ -357,7 +378,17 @@ Shader "Custom/URP PS1 Lit" {
 					inputData.vertexLighting = half3(0, 0, 0);
 				#endif
 
-				inputData.bakedGI = SAMPLE_GI(input.lightmapUV, input.vertexSH, inputData.normalWS);
+				// Sample GI - handles Adaptive Probe Volumes, Light Probes, and Lightmaps
+				inputData.bakedGI = SampleSH(inputData.normalWS);
+				
+				#ifdef LIGHTMAP_ON
+					inputData.bakedGI = SampleLightmap(input.lightmapUV, inputData.normalWS);
+				#endif
+				
+				#ifdef DYNAMICLIGHTMAP_ON
+					inputData.bakedGI += SampleLightmap(input.dynamicLightmapUV, inputData.normalWS);
+				#endif
+				
 				inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.PositionCS);
 				inputData.shadowMask = SAMPLE_SHADOWMASK(input.lightmapUV);
 			}
@@ -589,6 +620,90 @@ Shader "Custom/URP PS1 Lit" {
 				#endif
 
 				return half4(NormalizeNormalPerPixel(normalWS), 0.0);
+			}
+			ENDHLSL
+		}
+
+		// META PASS - Required for realtime GI light baking
+		Pass {
+			Name "Meta"
+			Tags { "LightMode"="Meta" }
+
+			Cull Off
+
+			HLSLPROGRAM
+			#pragma target 3.5
+			
+			#pragma vertex UniversalVertexMeta
+			#pragma fragment UniversalFragmentMetaLit
+
+			#pragma shader_feature_local_fragment _EMISSION
+			#pragma shader_feature_local_fragment _SPECGLOSSMAP
+			#pragma shader_feature_local_fragment _ALPHATEST_ON
+			#pragma shader_feature EDITOR_VISUALIZATION
+
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/MetaInput.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
+
+			struct AttributesMeta {
+				float4 positionOS : POSITION;
+				float3 normalOS : NORMAL;
+				float2 uv0 : TEXCOORD0;
+				float2 uv1 : TEXCOORD1;
+				float2 uv2 : TEXCOORD2;
+				#ifdef EDITOR_VISUALIZATION
+				float2 VizUV : TEXCOORD3;
+				float4 LightCoord : TEXCOORD4;
+				#endif
+			};
+
+			struct VaryingsMeta {
+				float4 positionCS : SV_POSITION;
+				float2 uv : TEXCOORD0;
+				#ifdef EDITOR_VISUALIZATION
+				float2 VizUV : TEXCOORD1;
+				float4 LightCoord : TEXCOORD2;
+				#endif
+			};
+
+			TEXTURE2D(_SpecGlossMap); SAMPLER(sampler_SpecGlossMap);
+
+			VaryingsMeta UniversalVertexMeta(AttributesMeta input) {
+				VaryingsMeta output;
+				output.positionCS = UnityMetaVertexPosition(input.positionOS.xyz, input.uv1, input.uv2);
+				output.uv = TRANSFORM_TEX(input.uv0, _BaseMap);
+				
+				#ifdef EDITOR_VISUALIZATION
+				UnityEditorVizData(input.positionOS.xyz, input.uv0, input.uv1, input.uv2, output.VizUV, output.LightCoord);
+				#endif
+				
+				return output;
+			}
+
+			half4 UniversalFragmentMetaLit(VaryingsMeta input) : SV_Target {
+				half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
+				
+				#ifdef _ALPHATEST_ON
+					clip(baseMap.a - _Cutoff);
+				#endif
+
+				// Albedo for GI
+				half3 albedo = baseMap.rgb * _BaseColor.rgb;
+				
+				// Emission for GI
+				half3 emission = SampleEmission(input.uv, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
+
+				MetaInput metaInput;
+				metaInput.Albedo = albedo;
+				metaInput.Emission = emission;
+				
+				#ifdef EDITOR_VISUALIZATION
+				metaInput.VizUV = input.VizUV;
+				metaInput.LightCoord = input.LightCoord;
+				#endif
+
+				return UnityMetaFragment(metaInput);
 			}
 			ENDHLSL
 		}

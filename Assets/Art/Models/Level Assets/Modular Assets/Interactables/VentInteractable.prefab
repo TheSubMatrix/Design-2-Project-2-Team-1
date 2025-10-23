@@ -40,6 +40,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5979404536430739557}
     m_Modifications:
+    - target: {fileID: 7543868073491756713, guid: 38fdeef33fe91754f8040672296ad373, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8336664815951763324, guid: 38fdeef33fe91754f8040672296ad373, type: 3}
       propertyPath: m_Name
       value: AirVentDoor01

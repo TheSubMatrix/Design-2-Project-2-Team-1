@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4896593082255556779}
-  - component: {fileID: 7596447675666060177}
   m_Layer: 0
   m_Name: DoorInteractable01
   m_TagString: Untagged
@@ -33,22 +32,6 @@ Transform:
   - {fileID: 6547618483513042356}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!208 &7596447675666060177
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5549285349852804740}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.06, y: 1.6, z: 1}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0.06, y: 1.6, z: 1}
-  m_TimeToStationary: 0.5
 --- !u!1001 &7304103251982329661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57,6 +40,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4896593082255556779}
     m_Modifications:
+    - target: {fileID: 3444021953745320422, guid: 7868aa92a3b046146a42ae12f94b9200, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3804244021040994355, guid: 7868aa92a3b046146a42ae12f94b9200, type: 3}
       propertyPath: m_Name
       value: Door01
@@ -111,6 +98,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3804244021040994355, guid: 7868aa92a3b046146a42ae12f94b9200, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4934855209561972041}
+    - targetCorrespondingSourceObject: {fileID: 3804244021040994355, guid: 7868aa92a3b046146a42ae12f94b9200, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3856171074502164874}
   m_SourcePrefab: {fileID: 100100000, guid: 7868aa92a3b046146a42ae12f94b9200, type: 3}
 --- !u!1 &5878887452086894350 stripped
 GameObject:
@@ -153,6 +143,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiresKeycard: 0
   keycard: {fileID: 0}
+--- !u!208 &3856171074502164874
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5878887452086894350}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.287, y: 1.6, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.05, y: 1.6, z: 1}
+  m_TimeToStationary: 0.5
 --- !u!4 &6547618483513042356 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4575854465965163145, guid: 7868aa92a3b046146a42ae12f94b9200, type: 3}

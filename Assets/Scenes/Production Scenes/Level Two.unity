@@ -1805,9 +1805,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1350067778}
     m_Modifications:
+    - target: {fileID: 3381058460650776401, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7196180719516588282, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
       propertyPath: m_Name
       value: CeilingLight03 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196180719516588282, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7536255626951606848, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4017,6 +4025,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AirVent02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 851341c401fc88543aad77bf014dc9b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4621,9 +4633,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1350067778}
     m_Modifications:
+    - target: {fileID: 3381058460650776401, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7196180719516588282, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
       propertyPath: m_Name
       value: CeilingLight03 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196180719516588282, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7536255626951606848, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14474,6 +14494,10 @@ PrefabInstance:
     - target: {fileID: 1620174911572030529, guid: 1558db44cd3143e4da70135a98a8f335, type: 3}
       propertyPath: m_Name
       value: ElevatorDoorTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529078562938566282, guid: 1558db44cd3143e4da70135a98a8f335, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8713785380245233693, guid: 1558db44cd3143e4da70135a98a8f335, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24794,10 +24818,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 4376777266046572312, guid: 6cc47e9d65f16fa4a8f42d2e63e54ae5, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: b2e39bba6a37ce645a3befe9a1bd8f86, type: 2}
     - target: {fileID: 7589780925516359022, guid: 6cc47e9d65f16fa4a8f42d2e63e54ae5, type: 3}
       propertyPath: m_Name
       value: VentInteractable
@@ -27549,6 +27569,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7511850700509489525, guid: 7af21b3f35fd8e247821f18b10a1efca, type: 3}
   m_PrefabInstance: {fileID: 1244739233}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1246019735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1246019737}
+  - component: {fileID: 1246019736}
+  m_Layer: 0
+  m_Name: Adaptive Probe Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1246019736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246019735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cded085d155cde949b60f67a11dbc3bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 1
+  size: {x: 107.20001, y: 11.400002, z: 83.20001}
+  overrideRendererFilters: 0
+  minRendererVolumeSize: 0.1
+  objectLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  lowestSubdivLevelOverride: 0
+  highestSubdivLevelOverride: 7
+  overridesSubdivLevels: 0
+  mightNeedRebaking: 0
+  cachedTransform:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: -48.000004
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: -4.0000005
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: -0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  cachedHashCode: -483358168
+  fillEmptySpaces: 0
+  version: 2
+  globalVolume: 0
+--- !u!4 &1246019737
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246019735}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 48.000004, y: 4.0000005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1246473398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30545,6 +30641,10 @@ PrefabInstance:
     - target: {fileID: 1620174911572030529, guid: 1558db44cd3143e4da70135a98a8f335, type: 3}
       propertyPath: m_Name
       value: ElevatorDoorTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529078562938566282, guid: 1558db44cd3143e4da70135a98a8f335, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8713785380245233693, guid: 1558db44cd3143e4da70135a98a8f335, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33699,6 +33799,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AirVent02 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 851341c401fc88543aad77bf014dc9b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33841,9 +33945,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1350067778}
     m_Modifications:
+    - target: {fileID: 3381058460650776401, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7196180719516588282, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
       propertyPath: m_Name
       value: CeilingLight03 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196180719516588282, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7536255626951606848, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40598,6 +40710,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 347156308567182066, guid: 4b5dc152043f0524bae74fe42341847e, type: 3}
   m_PrefabInstance: {fileID: 1874975571}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1877750267
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1877750269}
+  - component: {fileID: 1877750268}
+  m_Layer: 0
+  m_Name: ProbeVolumePerSceneData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1877750268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877750267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83d2f7ae04ab6f4f99b0d85377be998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedBakingSet: {fileID: 11400000, guid: 38d3bfaa127440d478af0dd98a030594, type: 2}
+  sceneGUID: dd0547f5ee2f64742900effb2546390f
+  obsoleteAsset: {fileID: 0}
+  obsoleteCellSharedDataAsset: {fileID: 0}
+  obsoleteCellSupportDataAsset: {fileID: 0}
+  obsoleteSerializedScenarios: []
+--- !u!4 &1877750269
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877750267}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1881199448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41715,6 +41877,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1512307140895063897, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 19016279}
     - target: {fileID: 6479613197273117984, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -43710,9 +43876,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1350067778}
     m_Modifications:
+    - target: {fileID: 3381058460650776401, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7196180719516588282, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
       propertyPath: m_Name
       value: CeilingLight03 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196180719516588282, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7536255626951606848, guid: fd3d176058fe53c4b836ca9d6d1acccc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -47207,3 +47381,5 @@ SceneRoots:
   - {fileID: 1197445391}
   - {fileID: 2074080764}
   - {fileID: 857297389}
+  - {fileID: 1246019737}
+  - {fileID: 1877750269}
