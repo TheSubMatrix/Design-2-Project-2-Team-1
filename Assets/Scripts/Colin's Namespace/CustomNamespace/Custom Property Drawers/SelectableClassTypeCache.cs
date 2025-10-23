@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CustomNamespace.Extensions;
@@ -144,3 +145,4 @@ public static class SelectableClassTypeCache
         return null;
     }
 }
+#endif
