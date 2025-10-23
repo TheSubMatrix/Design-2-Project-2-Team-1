@@ -5,13 +5,11 @@ using UnityEngine.Serialization;
 public class UIInteraction : MonoBehaviour
 {
     [FormerlySerializedAs("mainMenuScreen")] public GameObject m_mainMenuScreen;
-    [FormerlySerializedAs("helpMenuScreen")] public GameObject m_helpMenuScreen;
     [FormerlySerializedAs("creditsMenuScreen")] public GameObject m_creditsMenuScreen;
     
     // Enables the main menu screen when the player clicks on the "return" button on the help menu screen or credits menu screen
     public void EnableMainMenuScreen()
     {
-        m_helpMenuScreen.SetActive(false);
         m_creditsMenuScreen.SetActive(false);
         m_mainMenuScreen.SetActive(true);
     }
@@ -19,8 +17,7 @@ public class UIInteraction : MonoBehaviour
     // Enables the help menu screen when the player clicking the "help" button on the main menu screen
     public void EnableHelpMenuScreen()
     {
-        m_helpMenuScreen.SetActive(true);
-        m_mainMenuScreen.SetActive(false);
+        SceneTransitionHandler.Instance.TransitionScene("Help");
     }
 
     // Enables the main menu screen upon clicking the "credits" button on the help menu screen or credits menu screen
