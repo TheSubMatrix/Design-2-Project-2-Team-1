@@ -10,17 +10,24 @@ using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 #endif
 
-// Serializable key-value pair
-[Serializable]
-public struct SerializableKeyValuePair<TKey, TValue>
+internal interface IKeyValuePair
 {
+    SerializableType KeyType { get; }
+    SerializableType ValueType { get; }
+}
+[Serializable]
+public struct SerializableKeyValuePair<TKey, TValue>: IKeyValuePair
+{
+    public SerializableType KeyType { get; }
+    public SerializableType ValueType { get; }
     public TKey Key;
     public TValue Value;
-
     public SerializableKeyValuePair(TKey key, TValue value)
     {
         Key = key;
         Value = value;
+        KeyType = typeof(TKey);
+        ValueType = typeof(TValue);
     }
 }
 
@@ -74,6 +81,7 @@ public class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiv
 [CustomPropertyDrawer(typeof(SerializableDictionary<,>), true)]
 public class SerializableDictionaryDrawer : PropertyDrawer
 {
+    public 
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
         VisualElement container = new VisualElement();
