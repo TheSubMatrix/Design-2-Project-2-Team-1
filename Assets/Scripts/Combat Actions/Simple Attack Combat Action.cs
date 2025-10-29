@@ -8,12 +8,13 @@ public class SimpleAttackCombatAction : BaseCombatAction
 {
     [Header("Right Hand")]
     [SerializeField] bool m_useRightHand;
-    [FormerlySerializedAs("m_animator"),SerializeField] Animator m_animatorRight;
-    [SerializeField] AnimatorOverrideController m_rightHandOverrides;
+    [FormerlySerializedAs("m_animator"), SerializeField, ConditionalVisibility(nameof(m_useRightHand), true)]  
+    Animator m_animatorRight;
+    [SerializeField, ConditionalVisibility(nameof(m_useRightHand), true)] AnimatorOverrideController m_rightHandOverrides;
     [Header("Left Hand")]
     [SerializeField] bool m_useLeftHand;
-    [SerializeField] Animator m_animatorLeft;
-    [SerializeField] AnimatorOverrideController m_leftHandOverrides;
+    [SerializeField, ConditionalVisibility(nameof(m_useLeftHand), true)] Animator m_animatorLeft;
+    [SerializeField, ConditionalVisibility(nameof(m_useLeftHand), true)] AnimatorOverrideController m_leftHandOverrides;
     [Header("Other")]
     [SerializeField] TriggerEventCallbacks m_triggerEventCallbacks;
     [SerializeField] string m_attackTriggerName = "Attack";

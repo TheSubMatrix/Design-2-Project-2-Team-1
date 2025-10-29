@@ -7,6 +7,11 @@ using Object = UnityEngine.Object;
 [Serializable]
 internal class VFXPool
 {
+    VFXPool()
+    {
+    }
+
+    public static VFXPool Instance { get; } = new();
     public IObjectPool<VisualEffect> Pool;
     public bool CollectionCheck = true;
     public int MaxPoolSize = 100;

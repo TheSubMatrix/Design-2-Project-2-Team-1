@@ -106,6 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8346448375860447945}
+  - component: {fileID: 2920029861968641660}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -131,6 +132,23 @@ Transform:
   - {fileID: 4242846332801170038}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2920029861968641660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358835181336229186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c16e9a805647dca0ad59a750dd3eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_sprintAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_crouchAction: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_lookAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &1387691926036718671
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +444,7 @@ MonoBehaviour:
   m_yMouseSensitivity: 0.05
   m_cam: {fileID: 2176622534070265441}
   m_orientation: {fileID: 5716844055075525475}
-  m_mouseMovementAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_inputManager: {fileID: 2920029861968641660}
 --- !u!114 &7354144489478468009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1488,40 +1506,27 @@ MonoBehaviour:
   m_playerCollider: {fileID: 1664266898085570758}
   m_orientation: {fileID: 5716844055075525475}
   m_rb: {fileID: 1341933627491963327}
-  m_walkMoveSpeed: 4
-  m_sprintMoveSpeed: 8
-  m_crouchMoveSpeed: 2
-  m_maxGroundAcceleration: 10
-  m_maxGroundDeceleration: 20
-  m_maxAirAcceleration: 5
-  m_maxAirDeceleration: 10
-  m_maxSlideDeceleration: 0.1
-  m_jumpHeight: 2
+  m_inputManager: {fileID: 2920029861968641660}
+  <WalkMoveSpeed>k__BackingField: 3
+  <SprintMoveSpeed>k__BackingField: 6
+  <CrouchMoveSpeed>k__BackingField: 1.5
+  <MaxGroundAcceleration>k__BackingField: 15
+  <MaxGroundDeceleration>k__BackingField: 20
+  <MaxAirAcceleration>k__BackingField: 5
+  <MaxAirDeceleration>k__BackingField: 10
+  <MaxSlideDeceleration>k__BackingField: 1
+  <JumpHeight>k__BackingField: 2
   m_crouchDistance: 1
   m_crouchSpeed: 3
-  m_maxGroundAngle: 45
-  m_steepDetectionTolerance: 0.9
-  m_enableGroundSnapping: 1
+  <MaxGroundAngle>k__BackingField: 45
+  <SteepDetectionTolerance>k__BackingField: 0.9
+  <EnableGroundSnapping>k__BackingField: 1
   m_snapProbeDistance: 0.001
-  m_moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_sprintAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_crouchAction: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  OnSlow:
+  m_onSlow:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3973966113173846608}
-        m_TargetAssemblyTypeName: SanityEventDriver, Health and Conditions.Sanity
-        m_MethodName: ChangeSanity
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -10
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  <PlayerHeight>k__BackingField: 0
+  <CrouchedHeight>k__BackingField: 0
 --- !u!114 &8619488622920634950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1751,32 +1756,32 @@ MonoBehaviour:
     - rid: 2024132866991456398
       type: {class: SimpleAttackCombatAction, ns: , asm: CombatActions}
       data:
-        Duration: 0.25
-        Cooldown: 0.2
+        Duration: 0
+        Cooldown: 0
         m_useRightHand: 1
         m_animatorRight: {fileID: 2407848204845515147}
-        m_rightHandOverrides: {fileID: 22100000, guid: 05c98c9c87154bb41a74fed45e91404f, type: 2}
+        m_rightHandOverrides: {fileID: 0}
         m_useLeftHand: 1
         m_animatorLeft: {fileID: 5048816280728721192}
-        m_leftHandOverrides: {fileID: 22100000, guid: 47959394a14f742499842dc635a668cd, type: 2}
-        m_triggerEventCallbacks: {fileID: 1613351055885309448}
-        m_attackTriggerName: Attack
-        m_damage: 10
+        m_leftHandOverrides: {fileID: 0}
+        m_triggerEventCallbacks: {fileID: 0}
+        m_attackTriggerName: 
+        m_damage: 0
         m_attackSound:
-          Clip: {fileID: 8300000, guid: 00854ed8d5ee6f540bb88cd0c043b06a, type: 3}
-          MixerGroup: {fileID: -7245304972095319532, guid: 778da360bf7beae40b5a03c0e088a921, type: 2}
+          Clip: {fileID: 0}
+          MixerGroup: {fileID: 0}
           Loop: 0
           PlayOnAwake: 0
           PlayedFrequently: 0
-          Volume: 1
-          Pitch: 1
+          Volume: 0
+          Pitch: 0
           PanStereo: 0
           SpatialBlend: 0
-          ReverbZoneMix: 1
-          DopplerLevel: 1
+          ReverbZoneMix: 0
+          DopplerLevel: 0
           Spread: 0
-          MinDistance: 1
-          MaxDistance: 500
+          MinDistance: 0
+          MaxDistance: 0
           IgnoreListenerVolume: 0
           IgnoreListenerPause: 0
           RolloffMode: 0

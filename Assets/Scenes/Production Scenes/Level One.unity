@@ -5172,7 +5172,7 @@ Transform:
   m_GameObject: {fileID: 173601637}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.900002, y: 4, z: 36.000004}
+  m_LocalPosition: {x: -11.900002, y: 4.0000005, z: 36.000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24201,6 +24201,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 347156308567182066, guid: 4b5dc152043f0524bae74fe42341847e, type: 3}
   m_PrefabInstance: {fileID: 902140136}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &905083731 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5927623383958160485, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+  m_PrefabInstance: {fileID: 1935347514}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &906709011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31031,6 +31036,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5512821450925504813, guid: 8bbf3aa3f530cb94aad9e0aee9f79466, type: 3}
   m_PrefabInstance: {fileID: 1141824545}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1147693271 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1613351055885309448, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+  m_PrefabInstance: {fileID: 1935347514}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47fc335ecfab23e4497dd33af6cc5020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1149950329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52789,6 +52805,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 613983135893182236, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: managedReferences[2024132866991456398].Cooldown
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 613983135893182236, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: managedReferences[2024132866991456398].Duration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 613983135893182236, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: managedReferences[2024132866991456398].m_damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 613983135893182236, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: managedReferences[2024132866991456398].m_attackTriggerName
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 613983135893182236, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: managedReferences[2024132866991456398].m_leftHandOverrides
+      value: 
+      objectReference: {fileID: 22100000, guid: 47959394a14f742499842dc635a668cd, type: 2}
+    - target: {fileID: 613983135893182236, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: managedReferences[2024132866991456398].m_rightHandOverrides
+      value: 
+      objectReference: {fileID: 22100000, guid: 05c98c9c87154bb41a74fed45e91404f, type: 2}
+    - target: {fileID: 613983135893182236, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: managedReferences[2024132866991456398].m_triggerEventCallbacks
+      value: 
+      objectReference: {fileID: 1147693271}
     - target: {fileID: 918671484197227388, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -52821,6 +52865,198 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 788796586}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_baseSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_jumpHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkMoveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_maxGroundAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_heightChangeSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_maxAirAcceleration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_maxAirDeceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_enableGroundSnapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_maxGroundAcceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_maxGroundDeceleration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkState.m_jumpHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_slideState.m_jumpHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_steepDetectionTolerance
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkState.m_stateHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_crouchState.m_jumpHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_slideState.m_stateHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_sprintState.m_jumpHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_crouchState.m_stateHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_sprintState.m_stateHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: <MaxGroundAngle>k__BackingField
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkState.m_snapProbeDistance
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkState.m_maxAirAcceleration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkState.m_maxAirDeceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkState.m_stateHeightPercent
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_crouchState.m_snapProbeDistance
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_slideState.m_maxAirAcceleration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_slideState.m_maxAirDeceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_slideState.m_stateHeightPercent
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_sprintState.m_snapProbeDistance
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: <HeightChangeSpeed>k__BackingField
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_crouchState.m_maxAirAcceleration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_crouchState.m_maxAirDeceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_crouchState.m_stateHeightPercent
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_sprintState.m_maxAirAcceleration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_sprintState.m_maxAirDeceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_sprintState.m_stateHeightPercent
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkState.m_enableGroundSnapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_audioController.m_walkSoundSource
+      value: 
+      objectReference: {fileID: 905083731}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_slideState.m_enableGroundSnapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkState.m_maxGroundAcceleration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_walkState.m_maxGroundDeceleration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_crouchState.m_enableGroundSnapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_sprintState.m_enableGroundSnapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: <EnableGroundSnapping>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_crouchState.m_maxGroundAcceleration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_crouchState.m_maxGroundDeceleration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_sprintState.m_maxGroundAcceleration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036715645316528935, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
+      propertyPath: m_sprintState.m_maxGroundDeceleration
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6479613197273117984, guid: 7b55ff48f7040994e809cd40aa6baf65, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

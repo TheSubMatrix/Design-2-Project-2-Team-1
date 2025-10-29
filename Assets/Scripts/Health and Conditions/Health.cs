@@ -18,7 +18,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     public UnityEvent OnBecameVulnerableEvent = new();
     Coroutine m_invulnerabilityCoroutine;
     [SerializeField] bool m_invulnerabilityAfterDamage;
-    [SerializeField] float m_invulnerabilityTime = 1;
+    [SerializeField, ConditionalVisibility(nameof(m_invulnerabilityAfterDamage), true)] float m_invulnerabilityTime = 1;
     
     public bool IsAlive => CurrentHealth > 0;
     public bool IsInvulnerable { get; private set; }

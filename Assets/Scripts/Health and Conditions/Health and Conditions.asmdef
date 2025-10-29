@@ -2,7 +2,8 @@
     "name": "Health and Conditions",
     "rootNamespace": "",
     "references": [
-        "GUID:b00589312063ae44db96bb15bc7c24ba"
+        "GUID:b00589312063ae44db96bb15bc7c24ba",
+        "GUID:feed37f66159d4147ba92c09dde5e08a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

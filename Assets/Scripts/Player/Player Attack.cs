@@ -12,8 +12,8 @@ public class PlayerAttack : MonoBehaviour
     BaseCombatAction m_attackCombatAction;
     [SerializeReference, ClassSelector]
     BaseCombatAction m_heavyAttackCombatAction;
-    [SerializeField] InputActionReference m_lightAttack;
-    [SerializeField] InputActionReference m_heavyAttack;
+    [SerializeField, RequiredField] InputActionReference m_lightAttack;
+    [SerializeField, RequiredField] InputActionReference m_heavyAttack;
     [Header("Berserk")]
     [SerializeReference, ClassSelector]
     BaseCombatAction m_attackCombatActionBerserk;
