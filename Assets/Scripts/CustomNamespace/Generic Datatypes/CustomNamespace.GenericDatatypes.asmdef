@@ -1,7 +1,9 @@
 {
     "name": "CustomNamespace.GenericDatatypes",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:ecd059b573046fe409f5d0e442af6dc3"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

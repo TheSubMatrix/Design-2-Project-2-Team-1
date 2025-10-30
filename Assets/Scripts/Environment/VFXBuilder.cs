@@ -93,7 +93,7 @@ public class VFXBuilder
             return null;
         }
 
-        if (!vfxSpawner.ParticlePools.TryGetValue(m_asset, out VFXPool pool))
+        if (!vfxSpawner.ParticlePools.Dictionary.TryGetValue(m_asset, out VFXPool pool))
         {
             Debug.LogError($"VFXBuilder: No pool found for asset {m_asset.name}");
             return null;

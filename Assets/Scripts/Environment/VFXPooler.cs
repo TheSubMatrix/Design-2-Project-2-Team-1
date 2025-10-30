@@ -9,7 +9,7 @@ public class VFXPooler : PersistentSingleton<VFXPooler>
     protected override void InitializeSingleton()
     {
         base.InitializeSingleton();
-        foreach (KeyValuePair<VisualEffectAsset, VFXPool> kvp in ParticlePools)
+        foreach (KeyValuePair<VisualEffectAsset, VFXPool> kvp in ParticlePools.Dictionary)
         {
             kvp.Value.InitializePool(kvp.Key);
         }
@@ -40,7 +40,7 @@ public class VFXPooler : PersistentSingleton<VFXPooler>
         }
 
         // Return to pool
-        if (ParticlePools.TryGetValue(asset, out VFXPool pool))
+        if (ParticlePools.Dictionary.TryGetValue(asset, out VFXPool pool))
         {
             pool.Pool.Release(vfx);
         }
@@ -58,7 +58,7 @@ public class VFXPooler : PersistentSingleton<VFXPooler>
             follower.ClearTarget();
         }
 
-        if (ParticlePools.TryGetValue(asset, out VFXPool pool))
+        if (ParticlePools.Dictionary.TryGetValue(asset, out VFXPool pool))
         {
             pool.Pool.Release(vfx);
         }

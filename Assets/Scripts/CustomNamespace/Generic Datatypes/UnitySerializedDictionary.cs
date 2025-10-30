@@ -10,52 +10,40 @@ using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 #endif
 
-internal interface IKeyValuePair
-{
-    SerializableType KeyType { get; }
-    SerializableType ValueType { get; }
-}
 [Serializable]
-public struct SerializableKeyValuePair<TKey, TValue>: IKeyValuePair
+public struct SerializableKeyValuePair<TKey, TValue>
 {
-    public SerializableType KeyType { get; }
-    public SerializableType ValueType { get; }
     public TKey Key;
     public TValue Value;
     public SerializableKeyValuePair(TKey key, TValue value)
     {
         Key = key;
         Value = value;
-        KeyType = typeof(TKey);
-        ValueType = typeof(TValue);
     }
 }
 
-// Base class for serializable dictionary
 [Serializable]
-public class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiver, IEnumerable
+public class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiver
 {
-    [FormerlySerializedAs("list")] [SerializeField]
-    private List<SerializableKeyValuePair<TKey, TValue>> m_list = new List<SerializableKeyValuePair<TKey, TValue>>();
-
-    public Dictionary<TKey, TValue> Dictionary { get; } = new Dictionary<TKey, TValue>();
-
-    public TValue this[TKey key]
+    [SerializeReference, HideInInspector] SerializableType m_keyType= typeof(TKey);
+    [SerializeReference, HideInInspector] SerializableType m_valueType = typeof(TValue);
+    
+    [SerializeField]
+    List<SerializableKeyValuePair<TKey, TValue>> m_list = new();
+    public Dictionary<TKey, TValue> Dictionary = new();
+    public static implicit operator Dictionary<TKey, TValue>(SerializableDictionary<TKey, TValue> dictionary)
     {
-        get => Dictionary[key];
-        set => Dictionary[key] = value;
+        return dictionary.Dictionary;
     }
-
-    public void Add(TKey key, TValue value) => Dictionary.Add(key, value);
-    public bool Remove(TKey key) => Dictionary.Remove(key);
-    public bool ContainsKey(TKey key) => Dictionary.ContainsKey(key);
-    public bool TryGetValue(TKey key, out TValue value) => Dictionary.TryGetValue(key, out value);
-    public void Clear() => Dictionary.Clear();
-    public int Count => Dictionary.Count;
-
-    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => Dictionary.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => Dictionary.GetEnumerator();
-
+    public static implicit operator SerializableDictionary<TKey, TValue>(Dictionary<TKey, TValue> dictionary)
+    {
+        return new SerializableDictionary<TKey, TValue>(dictionary); 
+    }
+    public SerializableDictionary() { }
+    public SerializableDictionary(Dictionary<TKey, TValue> dictionary)
+    {
+        Dictionary = new Dictionary<TKey, TValue>(dictionary);
+    }
     public void OnBeforeSerialize()
     {
         m_list.Clear();
@@ -73,124 +61,40 @@ public class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiv
             Dictionary.Add(kvp.Key, kvp.Value);
         }
     }
+    
+    internal void UpdateList(List<SerializableKeyValuePair<TKey, TValue>> list)
+    {
+        m_list = list;
+    }
 }
 
 
 #if UNITY_EDITOR
-// Custom PropertyDrawer using UIElements
 [CustomPropertyDrawer(typeof(SerializableDictionary<,>), true)]
 public class SerializableDictionaryDrawer : PropertyDrawer
 {
-    public 
+    object m_keyToAdd;
+    object m_valueToAdd;
+    List<object> m_keyValuePairsInDictionary;
+    Type m_genericKeyValuePairType;
+    Type m_genericListKeyValuePairType;
+    
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
-        VisualElement container = new VisualElement();
-        SerializedProperty listProperty = property.FindPropertyRelative("m_list");
-
-        // Create foldout
-        Foldout foldout = new Foldout
+        if (m_keyValuePairsInDictionary is null)
         {
-            text = $"{property.displayName} (Count: {listProperty.arraySize})",
-            value = property.isExpanded
-        };
-        
-        foldout.RegisterValueChangedCallback(evt => property.isExpanded = evt.newValue);
-
-        // Content container
-        VisualElement contentContainer = new()
-        {
-            style =
-            {
-                paddingLeft = 15
-            }
-        };
-
-        // Create the list view
-        VisualElement listContainer = new VisualElement();
-
-        // Add button
-        Button addButton = new Button(() =>
-        {
-            listProperty.arraySize++;
-            property.serializedObject.ApplyModifiedProperties();
-            RebuildList();
-        })
-        {
-            text = "Add New Entry",
-            style =
-            {
-                marginTop = 5
-            }
-        };
-
-        // Build initial list
-        RebuildList();
-
-        // Assemble UI
-        contentContainer.Add(listContainer);
-        contentContainer.Add(addButton);
-        foldout.Add(contentContainer);
-        container.Add(foldout);
-
-        // Track property changes to update count
-        container.TrackPropertyValue(listProperty, prop =>
-        {
-            foldout.text = $"{property.displayName} (Count: {prop.arraySize})";
-        });
-
-        return container;
-
-        void RebuildList()
-        {
-            listContainer.Clear();
-            foldout.text = $"{property.displayName} (Count: {listProperty.arraySize})";
-
-            for (int i = 0; i < listProperty.arraySize; i++)
-            {
-                int index = i; // Capture for closure
-                SerializedProperty elementProperty = listProperty.GetArrayElementAtIndex(index);
-                
-                // Container for each entry
-                VisualElement entryContainer = new VisualElement
-                {
-                    style =
-                    {
-                        flexDirection = FlexDirection.Row,
-                        marginBottom = 2
-                    }
-                };
-
-                // Property field for the key-value pair
-                PropertyField propertyField = new PropertyField(elementProperty, $"Element {index}")
-                {
-                    style =
-                    {
-                        flexGrow = 1
-                    }
-                };
-                propertyField.BindProperty(elementProperty);
-                
-                // Remove button
-                Button removeButton = new Button(() =>
-                {
-                    listProperty.DeleteArrayElementAtIndex(index);
-                    property.serializedObject.ApplyModifiedProperties();
-                    RebuildList();
-                })
-                {
-                    text = "Remove",
-                    style =
-                    {
-                        width = 60,
-                        marginLeft = 5
-                    }
-                };
-
-                entryContainer.Add(propertyField);
-                entryContainer.Add(removeButton);
-                listContainer.Add(entryContainer);
-            }
+            m_genericKeyValuePairType = typeof(SerializableKeyValuePair<,>).MakeGenericType((property.FindPropertyRelative("m_keyType").managedReferenceValue as SerializableType)?.Type, (property.FindPropertyRelative("m_valueType").managedReferenceValue as SerializableType)?.Type);
+            m_genericListKeyValuePairType = typeof(List<>).MakeGenericType(m_genericKeyValuePairType);
+            m_keyValuePairsInDictionary = Activator.CreateInstance(m_genericListKeyValuePairType, ((Convert.ChangeType(property.FindPropertyRelative("m_list"), m_genericKeyValuePairType))as List<object>)?.ToArray()) as List<object>;
         }
+        
+        VisualElement container = new();
+        return container;
+    }
+
+    void AddToDictionary()
+    {
+        
     }
 }
 #endif
