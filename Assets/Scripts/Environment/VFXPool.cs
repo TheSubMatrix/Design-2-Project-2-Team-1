@@ -5,7 +5,7 @@ using UnityEngine.VFX;
 using Object = UnityEngine.Object;
 
 [Serializable]
-internal class VFXPool
+public class VFXPool
 {
     VFXPool()
     {
